@@ -1,0 +1,436 @@
+Shores of Hazeron
+-----------------
+	The multiplayer sandbox universe.
+
+	Shores of Hazeron is a system of programs that manages a model of a
+	Universe for multiplayer play.
+
+	The Universe is a hierarchical data structure containing DaAtom derived 
+	objects, referred to simply as 'atoms'. Atoms store a position and a 
+	rotation relative to their parent atom.
+
+	At the root of the atom tree is the one and only DaUniverse atom.
+
+	Twentyone DaGalaxy atoms exist subordinate to the DaUniverse atom. No other
+	kinds of atoms are subordinated to a DaUniverse.
+
+	DaSector atoms exist subordinate to each DaGalaxy atom. No other kinds of
+	atoms are subordinated to a DaGalaxy.
+
+	DaSolarSystem atoms exist subordinate to DaSector atoms. No other kinds of
+	atoms are subordinated to a DaSector.
+
+	All remaining atom classes exist subordinate to a DaSolarSystem or an atom
+	contained within a DaSolarSystem. For example, a DaSc spacecraft atom can
+	exist subordinate to the DaSolarSystem, a DaStar, a DaWorld, or even
+	another DaSpaceShip.
+
+	Multiple worker servers manage separate parts of the universe so the
+	entire universe can be spread across many servers.
+
+	Client programs never receive the entire universe because it is expected to
+	be too big for their computer's limited resources. Instead a scene is
+	developed at an avatar's location. Only the atoms that are needed to create
+	the scene are sent to the client.
+
+	Client program presents the scene that it has been given.
+
+	Servers create solar system contents only when needed. Solar systems are
+	allowed to return to an empty state when not needed. All of this is to keep
+	server load to a minimum.
+
+	Sectors are created only when needed. They are allowed to go away when no
+	longer needed.
+
+System Requirements
+-------------------
+	Here is what is currently required if you want to build and run the source
+	code "as is". Of course, this is not cast in concrete; determined
+	programmers can change anything, given access to the source code. "As is"
+	probably gets you up and running faster.
+
+	The server farm is a hierarchy of servers. There is one single scene master
+	server. There is one or more scene manager servers, one at each geographic
+	location where one or more scene worker servers are located.
+
+	The scene manager creates new solar systems and it delegates solar systems
+	to scene worker servers to process. Scene workers report load information
+	to their manager. The manager balances the load that is distributed across
+	its workers, revoking solar systems from heavily loaded workers and
+	assigning them to lightly loaded servers.
+
+	Clients connect to the scene master. From there they are routed to the
+	scene worker server hosting their avatar. This hand off happens via the
+	scene manager of that particular scene worker server; the scene master
+	never speaks directly with a scene worker. The scene worker serves the
+	current scene visible to the avatar.
+
+	The server farm requires a minimum of two Linux boxes to host the scene
+	master and scene manager servers. They cannot be at the same IP address; I
+	don't really remember why. Each server box can run as many scene worker
+	servers as they can support. Additional boxes can host more scene worker
+	servers, as many as they can support. Memory and CPU threads are the
+	limiting factors.
+
+	A PostgreSQL server is also needed. It can be on one of the server boxes
+	but it will add to the CPU load considerably. I always used a separate
+	Linux box for the SQL server and it stayed pretty busy with eight CPU cores.
+
+	Login and mail servers can coexist on any of the server boxes. They are
+	pretty trivial and run as either a master or a worker. The master decides
+	which worker to send someone to and hands them off. The worker does the SQL
+	queries and responds to the client.
+
+	Each SoH server box requires a static IP address, unless you are setting the
+	whole thing up on a LAN. The SQL server does not require a static IP address
+	unless any of the SoH servers is remotely located; no client program
+	accesses it.
+
+	In the original server farm, the SQL server was on a LAN with the SoH
+	servers. The SoH servers had a second network port through which they
+	connected directly to the Internet. The SQL server did not have access to
+	the Internet for security reasons. As a build machine it had source code
+	that I didn't want to risk getting hacked.
+
+	A minimal server farm might look like this:
+		u1 - Unit 1
+			PostgreSQL database server.
+			On my server farm, this box was also the build machine for the
+			servers. They had shell scripts to get their updates from here.
+		u2 - Unit 2
+			login master server
+			mail master server
+			scene master server
+			scene worker server
+		u3 - Unit 3
+			login worker server
+			mail worker server
+			scene manager server
+			scene worker server
+
+	Additional servers might look like any or all of these:
+		u4 - Unit 4
+			login worker server
+			mail worker server
+			scene worker server
+		u5 - Unit 5
+			scene worker server
+		u6 - Unit 6
+			scene worker server 1
+			scene worker server 2
+		u7 - Unit 7
+			scene worker server 1
+			scene worker server 2
+			scene worker server 3
+			scene worker server 4
+
+	The servers have never been built for Windows.
+
+	The client can be built for Linux or Windows. I always used Linux because I
+	prefer the development environment; 'vi' and 'gdb', what more do you need.
+	The software would certainly benefit a lot if the client-side development
+	was done using Windows.
+
+	The Windows build is currently performed at the command line with a bat
+	file. I don't use Visual Studio so there are no up-to-date project files.
+	A programmer familiar with Visual Studio could recreate them. It was done
+	once, long ago.
+
+	The code base was started in 1999. It has undergone many significant
+	evolutionary changes along the way. That's my way of apologizing for the
+	parts of the code that are particularly ugly or difficult to understand.
+
+Makefiles
+---------
+	Most Makefiles are automatically generated by qmake so they are not stored
+	in source control. Their generation is controlled using reqt.opt files.
+	Look at the reqt script for more information.
+
+	There were a large number of build warnings. Something must have been
+	updated or deprecated because there weren't so many of them a few
+	years ago when I last built this project.
+
+	I normally clean up all build warnings except those reminding me of
+	unfinished bits of code. Unfinished loose ends are often marked with a DHH
+	tag.
+
+	Compilers on different platforms generate warnings that do not appear on all
+	platforms. It pays to look at every single warning with a hairy eyeball. The
+	compiler is not always right.
+
+Developing on Linux
+-------------------
+	Prerequisites
+		qtbase5-dev
+		qt5-qmake
+		libopenal-dev
+		libsdl2-dev
+		cmake      			I'm not sure if this one is needed.
+	
+	Source code in my development folder.
+		~/dev/au
+	
+	Platform file should be copied to the parent folder of my development
+	folder and configured accordingly. This way getting fresh source won't
+	break it.
+		cp linuxPlatform.h ~/dev
+
+	Debug build
+		cd ~/dev/au
+		make reqt				Updates/recreates makefiles for debug build.
+		make					Builds all projects
+	
+	Release build
+		cd ~/dev/au
+		make -f Makefile.rel reqt	Updates/recreates makefiles for release
+		make -f Makefile.rel        build.
+
+Developing on Windows
+---------------------
+	Prerequisites
+		Environment variables can be configured in your user settings.
+			SEiDEV=c:\dev			The folder that contains the project.
+			AUARCH=soh-win64		Can be soh-win64 or soh-win32.
+		Packages
+			OpenAL11CoreSDK.exe installed to c:\dev\OpenAL 1.1 SDK
+			Copied folder SDL2-2.0.3 from archive SDL2-2.0.3.zip to c:\dev\
+			Qt 5.7.0 installed with default settings.
+
+	Source code in my development folder.
+		C:\dev\au
+
+	Build all projects in release configuration that are needed to run the
+	client programs. Servers are not built on Windows. A command prompt is used.
+		c:
+		cd \dev\au
+		Build-Au-Source.bat
+
+Files and Folders
+-----------------
+	GD - Game data file. Contains the a_Item table for the client program 
+		because the client cannot talk to the SQL server.
+	GS - Solo game data. Contains designs of buildings, ships, and items. Also 
+		contains initial empire data.
+	linuxPlatform.h - Indicates Linux build platform. See notes in the file.
+	motds - Messages of the day delivered by the scene master server. Must be 
+		copied to the folder from which the scene master server is run.
+
+	Makefile - gdb makefile for Linux debug build.
+	Makefile.rel - gdb makefile for Linux release build.
+
+	auenv.bat - Called by nmakeall.bat to configure environment variables.
+	nmakeall.bat - Windows script to build at the command line. Should use 
+		command line configured for your development environment.
+	nmakeallclean.bat - Cleans all subprojects of build files.
+
+	Blueprints - Folder contains subfolders of .SoH files that are used in the
+		game.
+
+	auacctemail - CGI program to change the email address of a login account.
+	auacctexpire - Command line program run daily to expire login accounts 
+		whose subscription has expired.
+	auacctnew - CGI program to create a new login account.
+	auacctpassword - CGI program to change the password of a login account.
+	auacctsendpassword - CGI program to email a new randomly generated password 
+		to a login account's email address.
+
+	auatom - Atom classes and classes used by atoms.
+	    auether.h - This is the container class for "live" atoms.
+		auatommanager.h - Manages tick and tock threads to animate the atoms 
+			of the universe.
+		augame - Base class for games played at a game table.
+		austory - Manages/compiles stories and story instances for avatars.
+		dttick.h - This thread provides high frequence CPU access to atoms, 
+			mostly for time critical things like physics movement.
+		dttock.h - This thread provides low frequency CPU access to atoms. 
+			Cities create their reports in this thread.
+		da* - Atom classes derived from DaAtom.
+		dp* - Classes used by atoms but not atoms themselves. Particles(?)
+
+	auatomres - Resources needed by atoms. These are broken into multiple 
+		projects because the Windows compiler chokes when they get too big.
+		When building on Windows, a project that gets too big causes a stack 
+		overflow error or out of memory error. To fix the problem, move
+		resources into smaller projects and they will build ok. Add more 
+		projects if needed.
+	auatomr1
+	auatomr2   
+	auatomr3
+	auatomr4
+	auatomr5
+	auatomr6
+
+	aubodypartsres - Resources for the bodies of old style "alien" DNA.
+	aubodyparts0
+	aubodyparts1
+	aubodyparts2
+	aubodyparts3
+	aubodyparts4
+	aubodyparts5
+	aubodyparts6
+	aubodyparts7
+	aupowerarmor - Power armor body parts for old style "alien" DNA.
+
+	auchatclient - Client GUI program for chatting and doing whatever you can 
+		without creating an OpenGL scene. OpenGL is not initialized at all.
+
+	auclient - Library of classes that are used by the client but not by the 
+		servers.
+
+	auclientmailres - Resources that must be accessible by the mail client 
+		program in addition to the scene client program. These include the 
+		little icons that appear in the mail messages such as city reports and 
+		diplomatic messages.
+
+	auclientres - Resources needed by the scene client program but not needed 
+		by the mail client program.
+	auclientres1
+
+	audata - Library of classes that do not depend on DaAtom.
+
+	audesigner - Library of classes used by the building/spacecraft/item 
+		designer.
+
+	auempirereport - Command line program that started life as the tool for 
+		creating the empire report web pages for the web site empire standings 
+		and avatar pages. It evolved into a general purpose utility for 
+		interacting with the databases at the command line.
+
+	augl - Library of classes for rendering in OpenGL and loading 3D models.
+		glsl - Folder contains GL Shader Language source code. This is
+			compressed into glsl.har, which is stored in source control so
+			Windows doesn't need hashpack.
+
+			GLSL source code is compressed into an archive so it is not
+			bound to the executable as clear text. This was to prevent a
+			simple 'strings' command from extracting it.
+
+			If changes are made to any shaders, the glsl.har file must be
+			recreated as follows.
+
+				cd augl/glsl
+				hashpack -c ../glsl.har *.glsl
+
+	auglobal - Library of classes with few dependencies.
+		sfx - Folder contains sound effects WAV files. These are normally
+			stored in a file called sfx.har. That file is too big for GitHub
+			but it is easy to recreate using hashpack.
+
+				cd auglobal/sfx
+				hashpack -c sfx.har *.wav
+
+			WAV files are compressed into an archive so they can be distributed
+			without the end user having direct access to the files, most of
+			which were purchased from SoundDogs.com.
+
+		auatomticktock - Atom manager classes for managing DtTick and DtTock
+			threads. 
+		ausound - Class for loading and playing sound effects.
+		ps* - Files contain classes derived from AuParticleSystem for rendering
+			various visual effects.
+
+	aulauncher - Client GUI program that downloads and runs the release client.
+
+	auloginclient - Library of classes for interacting with the login server.
+
+	auloginserver - Server program for processing login requests from clients, 
+		servers, and the web site. Runs as master or worker.
+		Launch options:
+		-nNetNameOrIPAddr - DNS resolvable name or ip address of this computer.
+		-master - Says this computer is the login master.
+
+	aumail - Library of classes for handling Hazeron mail.
+
+	aumailclient - Client GUI program for getting and sending Hazeron mail.
+
+	aumailserver - Server program for processing Hazeron mail. Runs as master 
+		or worker.
+		Launch options:
+			-nNetNameOrIPAddr - DNS resolvable name or ip address of this computer.
+			-master - Says this computer is the mail master.
+
+	aumath - Library of classes for math and geometry.
+
+	aumodelres - Resource library of 3D model data.
+	aumodel1
+	aumodel2
+	aumodel3
+	aumodel4
+	aumodel5
+	aumodel6
+	aumodel7
+	aumodel8
+	aumodel9
+	aumodel10
+
+	ausceneclient - Client GUI program for playing Shores of Hazeron.
+
+	ausceneserver - Server program for hosting the Hazeron universe online. 
+		Runs as master, manager, or worker, depending on settings.
+			master.ini - Sample config file for the scene master server.
+			manager.ini - Sample config file for a scene manager server.
+			worker.ini - Sample config file for a scene worker server.
+
+		Settings file is indicated on the command line when launching a
+		scene server.
+
+		In server folder on server computer.
+			./godebug =master &		Launches server using master.ini config.
+			./godebug =manager &	Launches server using manager.ini config.
+			./godebug =worker &		Launches server using worker.ini config.
+
+		Using multiple settings files enables multiple workers to run on
+		the same computer, as long as their ports don't overlap. This is
+		useful to limit each worker to a specific number of cores, rather than
+		running one single monolithic server controlling all CPU cores. Fewer
+		threads per process makes it a little easier to backtrace lockups using
+		gdb.
+			./godebug =worker1 &	Launches server using worker1.ini config.
+			./godebug =worker2 &	Launches server using worker2.ini config.
+			./godebug =worker3 &	Launches server using worker3.ini config.
+			./godebug =worker4 &	Launches server using worker4.ini config.
+
+	auscript - Command line program to compile story scripts.
+
+	autexture - Resource library of texture images.
+	ausctex1
+	ausctex2
+	ausctex3
+	ausctex4
+	ausctex5
+	aushiptex0
+
+	auservermon - Client GUI program for monitoring and managing online 
+		servers. Slowly replacing the utility functions of auempirereport.
+
+	auserverstatus - Command line program that is run on the web server to 
+		query the scene master server for status.
+
+	austoryres - Library containing all storyline scripts and associated 
+		resources.
+
+	auutil - Library of classes with no(?) outside dependencies.
+		auversion.h - Contains current version of the software. See comments 
+			in the file.
+		aufilever.h - Contains version number and magic number for every kind 
+			of file that gets serialized.
+
+	auviewer - Stand alone GUI program for viewing DNA and other things?
+
+	hashpack - Utility for creating a compressed archive. This has never been
+		built on Windows but there is no reason it could not be. The code is
+		trivial.
+
+		This project is not mentioned in the makefiles because it was never
+		part of Shores of Hazeron. It was also never needed in Windows because
+		the sfx.har and glsl.har files were already built and in source control.
+
+		To build it on Linux...
+
+			cd hashpack
+			reqt
+			make
+
+	shell.scripts - Helpful scripts that could be out of date but their 
+		contents might show how some things are done, in general.
+

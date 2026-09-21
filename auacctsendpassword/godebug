@@ -1,0 +1,7 @@
+#!/bin/sh
+appname=AuAcctSendPassword
+dirname=`dirname $0`
+LD_LIBRARY_PATH=$dirname:/usr/local/lib:/home/build/dev/au.cgi/debug
+export LD_LIBRARY_PATH
+$dirname/$appname $*
+

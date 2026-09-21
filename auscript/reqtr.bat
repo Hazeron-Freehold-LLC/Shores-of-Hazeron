@@ -1,0 +1,3 @@
+@echo off
+qmake -project "TARGET = AuScript" "VERSION = 7.0" "TEMPLATE = app" "CONFIG += qt thread console" "QT += network opengl sql" "INCLUDEPATH = ../auutil ../auglobal ../audata ../aumath ../auatom ../augl %SEIDEV%\OPENAL~1.1SD\include %SEIDEV%\SDL2-2.0.3\include ../ausceneserver" "DESTDIR = ../Release" "RC_FILE = AuScript.rc"
+qmake "LIBS += ../release/auatom.lib ../release/audata.lib ../release/auglobal.lib ../release/auutil.lib ../release/augl.lib ../release/aumath.lib ../release/austoryres7.lib %SEIDEV%\OPENAL~1.1SD\libs\%AUDEVOPENAL%\OpenAL32.lib %SEIDEV%\SDL2-2.0.3\VisualC\SDL\%AUDEVSDL%\Release\SDL2.lib"

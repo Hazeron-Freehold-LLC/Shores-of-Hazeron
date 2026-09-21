@@ -1,0 +1,23 @@
+TARGET = AuScript
+VERSION = 7.0
+TEMPLATE = app
+RC_FILE = $$TARGET.rc
+CONFIG += qt thread console
+QT += opengl network sql
+INCLUDEPATH = ../auutil ../auglobal ../audata ../aumath ../auatom ../augl /usr/local/inc
+macx:CONFIG += c++11
+!macx:QMAKE_CXXFLAGS += -std=c++11
+ 
+CONFIG(debug, debug|release) {
+	message($$TARGET Debug build configuration.)
+	TARGET = $$member(TARGET, 0)_debug
+	LIBS += -L../debug -lAuAtom_debug -lAuData_debug -lAuGlobal_debug -lAuUtil_debug -lAuGL_debug -lAuMath_debug -lGLU -lAuStoryRes_debug
+}
+ 
+CONFIG(release, debug|release) {
+	message($$TARGET Release build configuration.)
+	LIBS += -L../release -lAuAtom -lAuData -lAuGlobal -lAuUtil -lAuGL -lAuMath -lGLU -lAuStoryRes
+}
+
+LIBS += -lopenal -lSDL2
+macx:LIBS += -L/opt/local/lib

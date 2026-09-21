@@ -1,0 +1,23 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+	<file>data/AlabasterTile1.png</file>
+	<file>data/AlabasterTile2.png</file>
+	<file>data/BlackRoundDots.png</file>
+	<file>data/BlackRoundDotsBig.png</file>
+	<file>data/BlackTechnoGothicTile.png</file>
+	<file>data/BlueWhiteWallPanel.png</file>
+	<file>data/BrickWall.png</file>
+	<file>data/BronzeMetal.png</file>
+	<file>data/CeilingMetal.png</file>
+	<file>data/Concrete.png</file>
+	<file>data/ConcretePrestressed.png</file>
+	<file>data/CopperTubes.png</file>
+	<file>data/DryWall.png</file>
+	<file>data/FloorMetal.png</file>
+	<file>data/GrillBlackOblongHoles.png</file>
+	<file>data/Logs.png</file>
+	<file>data/LogsRough.png</file>
+	<file>data/Marble.png</file>
+	<file>data/MarbleGreenGold.png</file>
+</qresource>
+</RCC>

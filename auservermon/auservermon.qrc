@@ -1,0 +1,15 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+	<file>data/LinkActive0.png</file>
+	<file>data/LinkActive1.png</file>
+	<file>data/LinkActive2.png</file>
+	<file>data/LinkActive3.png</file>
+	<file>data/LinkActive4.png</file>
+	<file>data/LinkActive5.png</file>
+	<file>data/LinkActive6.png</file>
+	<file>data/LinkActive7.png</file>
+	<file>data/NoReply.png</file>
+	<file>data/ServerMon.png</file>
+	<file>data/SlowReply.png</file>
+</qresource>
+</RCC>

@@ -1,0 +1,21 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+	<file>data/RedWhiteWallPanel.png</file>
+	<file>data/ShakeShingles.png</file>
+	<file>data/ShinglesAsphalt.png</file>
+	<file>data/StainedGlassAbstract.png</file>
+	<file>data/StainedGlassAngels.png</file>
+	<file>data/StainedGlassAnimals.png</file>
+	<file>data/StainedGlassDeity.png</file>
+	<file>data/StainedGlassLaborers.png</file>
+	<file>data/StainedGlassSunMoon.png</file>
+	<file>data/StoneFloorTileSquares.png</file>
+	<file>data/StoneTileGreenTanTriangles.png</file>
+	<file>data/StuccoPaintPlaster.png</file>
+	<file>data/StuccoWallPlaster.png</file>
+	<file>data/TanMarble.png</file>
+	<file>data/WoodBare.png</file>
+	<file>data/WoodFloorTile.png</file>
+	<file>data/WoodLattice.png</file>
+</qresource>
+</RCC>

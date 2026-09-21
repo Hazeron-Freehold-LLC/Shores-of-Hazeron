@@ -1,0 +1,20 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+	<file>data/AndromedaRising.png</file>
+	<file>data/BlackHole.png</file>
+	<file>data/Grass.png</file>
+	<file>data/Obelisk.png</file>
+	<file>data/PlayingCards.png</file>
+	<file>data/RockTan.png</file>
+	<file>data/SandSmooth.png</file>
+	<file>data/SeaDark.png</file>
+	<file>data/SeaLight.png</file>
+	<file>data/SeaMedium.png</file>
+	<file>data/ShoresOfHazeron.png</file>
+	<file>data/SnowModerate.png</file>
+	<file>data/SupercooledLiquid.png</file>
+	<file>data/SupercooledLiquidMedium.png</file>
+	<file>data/Tarmac.png</file>
+	<file>data/TerNoise.png</file>
+</qresource>
+</RCC>

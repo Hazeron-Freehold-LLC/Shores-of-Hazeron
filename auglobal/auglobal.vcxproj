@@ -1,0 +1,618 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Template|Win32">
+      <Configuration>Template</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Template|x64">
+      <Configuration>Template</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{CCC78DD2-0D12-3BCB-8481-1DBD816E1653}</ProjectGuid>
+    <RootNamespace>auglobal</RootNamespace>
+    <Keyword>Qt4VSv1.0</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Template|Win32'">
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Template|x64'">
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">release\</IntDir>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Template|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Template|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Template|Win32'" />
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Template|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Template|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Template|x64'" />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Midl>
+      <WarningLevel>0</WarningLevel>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>-Zm200 -w34100 -w34189 /MP %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(QTDIR)\include\QtCore;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtOpenGL;$(QTDIR)\include\QtSql;$(QTDIR)\include;$(QTDIR)\include\ActiveQt;$(QTDIR)\mkspecs\win32-msvc2005;$(AUDIR)\auatom;$(AUDIR)\audata;$(AUDIR)\auloginserver;$(AUDIR)\aumailserver;$(AUDIR)\ausceneserver;$(AUDIR)\augl;$(AUDIR)\aumath;$(AUDEV)\glew-1.8.0\include\GL;$(AUDEV)\NVIDIA Corporation\Cg\include;$(AUDEV)\freealut-1.1.0-bin\include;$(AUDEV)\OpenAL 1.1 SDK\include;.;debug;$(AUDIR)\auglobal\generatedfiles;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>UNICODE;WIN32;QT_LARGEFILE_SUPPORT;QT_THREAD_SUPPORT;QT_DLL;QT_SQL_LIB;QT_OPENGL_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB;AUGLOBAL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <AssemblerListingLocation>debug\</AssemblerListingLocation>
+      <ObjectFileName>debug\</ObjectFileName>
+      <ProgramDataBaseFileName>.\</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>UNICODE;WIN32;QT_LARGEFILE_SUPPORT;QT_THREAD_SUPPORT;QT_DLL;QT_SQL_LIB;QT_OPENGL_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>AuMath.lib;AuGL.lib;QtCored4.lib;QtGuid4.lib;QtNetworkd4.lib;QtSqld4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(AUDIR)\Debug;$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Midl>
+      <WarningLevel>0</WarningLevel>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>-Zm200 -w34100 -w34189 /MP %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtOpenGL;$(QTDIR)\include\QtSql;$(QTDIR)\include;$(QTDIR)\include\ActiveQt;$(QTDIR)\mkspecs\win32-msvc2005;$(AUDIR)\auatom;$(AUDIR)\audata;$(AUDIR)\auloginserver;$(AUDIR)\aumailserver;$(AUDIR)\ausceneserver;$(AUDIR)\augl;$(AUDIR)\aumath;$(AUDEV)\glew-1.8.0\include\GL;$(AUDEV)\NVIDIA Corporation\Cg\include;$(AUDEV)\freealut-1.1.0-src\include;$(AUDEV)\OpenAL 1.1 SDK\include;.;debug;$(AUDIR)\auglobal\generatedfiles;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>UNICODE;WIN32;QT_LARGEFILE_SUPPORT;QT_THREAD_SUPPORT;QT_DLL;QT_SQL_LIB;QT_OPENGL_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB;AUGLOBAL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <AssemblerListingLocation>debug\</AssemblerListingLocation>
+      <ObjectFileName>debug\</ObjectFileName>
+      <ProgramDataBaseFileName>.\</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>UNICODE;WIN32;QT_LARGEFILE_SUPPORT;QT_THREAD_SUPPORT;QT_DLL;QT_SQL_LIB;QT_OPENGL_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>AuMath.lib;AuGL.lib;Qt5Widgetsd.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Networkd.lib;Qt5Sqld.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(AUDIR)\Debug;$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Midl>
+      <WarningLevel>0</WarningLevel>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>-Zm200 -w34100 -w34189 -Zm200 -w34100 -w34189 -w34100 -w34189 /MP %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <AdditionalIncludeDirectories>$(QTDIR)\include\QtCore;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtOpenGL;$(QTDIR)\include\QtSql;$(QTDIR)\include;$(QTDIR)\include\ActiveQt;$(QTDIR)\mkspecs\win32-msvc2005;$(AUDIR)\auatom;$(AUDIR)\audata;$(AUDIR)\auloginserver;$(AUDIR)\aumailserver;$(AUDIR)\ausceneserver;$(SKDIR)\sgl;$(SKDIR)\smath;$(3PDIR)\include\GL;C:\Program Files (x86)\NVIDIA Corporation\Cg\include;C:\Program Files (x86)\freealut-1.1.0-bin\include;C:\Program Files (x86)\OpenAL 1.1 SDK\include;.;release;.\GeneratedFiles;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>QT_NO_DEBUG;NDEBUG;UNICODE;WIN32;QT_LARGEFILE_SUPPORT;QT_THREAD_SUPPORT;QT_DLL;QT_NO_DEBUG;QT_SQL_LIB;QT_OPENGL_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <AssemblerOutput>All</AssemblerOutput>
+      <AssemblerListingLocation>release\</AssemblerListingLocation>
+      <ObjectFileName>release\</ObjectFileName>
+      <ProgramDataBaseFileName>.\</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>QT_NO_DEBUG;NDEBUG;UNICODE;WIN32;QT_LARGEFILE_SUPPORT;QT_THREAD_SUPPORT;QT_DLL;QT_NO_DEBUG;QT_SQL_LIB;QT_OPENGL_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Lib>
+      <OutputFile>..\Release\auglobal.lib</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Midl>
+      <WarningLevel>0</WarningLevel>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>-Zm200 -w34100 -w34189 -Zm200 -w34100 -w34189 -w34100 -w34189 /MP %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <AdditionalIncludeDirectories>$(QTDIR)\include\QtCore;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtOpenGL;$(QTDIR)\include\QtSql;$(QTDIR)\include;$(QTDIR)\include\ActiveQt;$(QTDIR)\mkspecs\win32-msvc2005;$(AUDIR)\auatom;$(AUDIR)\audata;$(AUDIR)\auloginserver;$(AUDIR)\aumailserver;$(AUDIR)\ausceneserver;$(SKDIR)\sgl;$(SKDIR)\smath;$(3PDIR)\include\GL;C:\Program Files (x86)\NVIDIA Corporation\Cg\include;C:\Program Files (x86)\freealut-1.1.0-bin\include;C:\Program Files (x86)\OpenAL 1.1 SDK\include;.;release;.\GeneratedFiles;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>QT_NO_DEBUG;NDEBUG;UNICODE;WIN32;QT_LARGEFILE_SUPPORT;QT_THREAD_SUPPORT;QT_DLL;QT_NO_DEBUG;QT_SQL_LIB;QT_OPENGL_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <AssemblerOutput>All</AssemblerOutput>
+      <AssemblerListingLocation>release\</AssemblerListingLocation>
+      <ObjectFileName>release\</ObjectFileName>
+      <ProgramDataBaseFileName>.\</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>QT_NO_DEBUG;NDEBUG;UNICODE;WIN32;QT_LARGEFILE_SUPPORT;QT_THREAD_SUPPORT;QT_DLL;QT_NO_DEBUG;QT_SQL_LIB;QT_OPENGL_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Lib>
+      <OutputFile>..\Release\auglobal.lib</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="auarenaready.cpp" />
+    <ClCompile Include="aucommstdchannel.cpp" />
+    <ClCompile Include="aucontact.cpp" />
+    <ClCompile Include="aucrypt.cpp" />
+    <ClCompile Include="audialog.cpp" />
+    <ClCompile Include="audice.cpp" />
+    <ClCompile Include="audlgtitle.cpp" />
+    <ClCompile Include="audocktitle.cpp" />
+    <ClCompile Include="audockwidget.cpp" />
+    <ClCompile Include="aufindtext.cpp" />
+    <ClCompile Include="auglobal.cpp" />
+    <ClCompile Include="augotoline.cpp" />
+    <ClCompile Include="auid.cpp" />
+    <ClCompile Include="aumailmsg.cpp" />
+    <ClCompile Include="aumission.cpp" />
+    <ClCompile Include="aunoise.cpp" />
+    <ClCompile Include="ausettings.cpp" />
+    <ClCompile Include="austarmapdata.cpp" />
+    <ClCompile Include="austyle.cpp" />
+    <ClCompile Include="autabcolumn.cpp" />
+    <ClCompile Include="auwidgets.cpp" />
+    <ClCompile Include="dbcommodity.cpp" />
+    <ClCompile Include="dhdna.cpp" />
+    <ClCompile Include="dqterrain.cpp" />
+    <ClCompile Include="debug\moc_audocktitle.cpp" />
+    <ClCompile Include="debug\moc_audockwidget.cpp" />
+    <ClCompile Include="generatedfiles\qrc_AuGlobal.cpp" />
+    <ClCompile Include="debug\moc_audialog.cpp" />
+    <ClCompile Include="debug\moc_audlgtitle.cpp" />
+    <ClCompile Include="debug\moc_aufindtext.cpp" />
+    <ClCompile Include="debug\moc_auglobal.cpp" />
+    <ClCompile Include="debug\moc_augotoline.cpp" />
+    <ClCompile Include="debug\moc_austyle.cpp" />
+    <ClCompile Include="debug\moc_autabcolumn.cpp" />
+    <ClCompile Include="debug\moc_auwidgets.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="auarenaready.h" />
+    <ClInclude Include="aucommstdchannel.h" />
+    <ClInclude Include="aucontact.h" />
+    <ClInclude Include="aucrypt.h" />
+    <CustomBuild Include="audialog.h">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing %(Filename)%(Extension)...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing %(Filename)%(Extension)...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"   -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DQT_DLL -DQT_SQL_LIB -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB  -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtOpenGL" -I"$(QTDIR)\include\QtSql" -I"$(QTDIR)\include" -I"$(QTDIR)\include\ActiveQt" -I"$(QTDIR)\mkspecs\win32-msvc2005" -I"." ".\%(Filename).h" -o "$(Configuration)\moc_%(Filename).cpp"
+</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"   -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DQT_DLL -DQT_SQL_LIB -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB  -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtOpenGL" -I"$(QTDIR)\include\QtSql" -I"$(QTDIR)\include" -I"$(QTDIR)\include\ActiveQt" -I"$(QTDIR)\mkspecs\win32-msvc2005" -I"." ".\%(Filename).h" -o "$(Configuration)\moc_%(Filename).cpp"
+</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Configuration)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <ClInclude Include="audice.h" />
+    <CustomBuild Include="audlgtitle.h">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing %(Filename)%(Extension)...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing %(Filename)%(Extension)...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"   -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DQT_DLL -DQT_SQL_LIB -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB  -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtOpenGL" -I"$(QTDIR)\include\QtSql" -I"$(QTDIR)\include" -I"$(QTDIR)\include\ActiveQt" -I"$(QTDIR)\mkspecs\win32-msvc2005" -I"." ".\%(Filename).h" -o "$(Configuration)\moc_%(Filename).cpp"
+</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"   -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DQT_DLL -DQT_SQL_LIB -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB  -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtOpenGL" -I"$(QTDIR)\include\QtSql" -I"$(QTDIR)\include" -I"$(QTDIR)\include\ActiveQt" -I"$(QTDIR)\mkspecs\win32-msvc2005" -I"." ".\%(Filename).h" -o "$(Configuration)\moc_%(Filename).cpp"
+</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Configuration)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="audocktitle.h">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing %(Filename)%(Extension)...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing %(Filename)%(Extension)...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe" -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DQT_DLL -DQT_SQL_LIB -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtOpenGL" -I"$(QTDIR)\include\QtSql" -I"$(QTDIR)\include" -I"$(QTDIR)\include\ActiveQt" -I"$(QTDIR)\mkspecs\win32-msvc2005" -I"." ".\%(Filename).h" -o "$(Configuration)\moc_%(Filename).cpp"
+</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe" -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DQT_DLL -DQT_SQL_LIB -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtOpenGL" -I"$(QTDIR)\include\QtSql" -I"$(QTDIR)\include" -I"$(QTDIR)\include\ActiveQt" -I"$(QTDIR)\mkspecs\win32-msvc2005" -I"." ".\%(Filename).h" -o "$(Configuration)\moc_%(Filename).cpp"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Configuration)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="audockwidget.h">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing %(Filename)%(Extension)...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing %(Filename)%(Extension)...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe" -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DQT_DLL -DQT_SQL_LIB -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtOpenGL" -I"$(QTDIR)\include\QtSql" -I"$(QTDIR)\include" -I"$(QTDIR)\include\ActiveQt" -I"$(QTDIR)\mkspecs\win32-msvc2005" -I"." ".\%(Filename).h" -o "$(Configuration)\moc_%(Filename).cpp"
+</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe" -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DQT_DLL -DQT_SQL_LIB -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtOpenGL" -I"$(QTDIR)\include\QtSql" -I"$(QTDIR)\include" -I"$(QTDIR)\include\ActiveQt" -I"$(QTDIR)\mkspecs\win32-msvc2005" -I"." ".\%(Filename).h" -o "$(Configuration)\moc_%(Filename).cpp"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Configuration)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="aufindtext.h">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing aufindtext.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing aufindtext.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"   -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DQT_DLL -DQT_SQL_LIB -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB  -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtOpenGL" -I"$(QTDIR)\include\QtSql" -I"$(QTDIR)\include" -I"$(QTDIR)\include\ActiveQt" -I"$(QTDIR)\mkspecs\win32-msvc2005" -I"." ".\%(Filename).h" -o "$(Configuration)\moc_%(Filename).cpp"
+</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"   -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DQT_DLL -DQT_SQL_LIB -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB  -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtOpenGL" -I"$(QTDIR)\include\QtSql" -I"$(QTDIR)\include" -I"$(QTDIR)\include\ActiveQt" -I"$(QTDIR)\mkspecs\win32-msvc2005" -I"." ".\%(Filename).h" -o "$(Configuration)\moc_%(Filename).cpp"
+</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;.\aufindtext.h;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;.\aufindtext.h;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\moc_aufindtext.cpp;%(Outputs)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Configuration)\moc_aufindtext.cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing aufindtext.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing aufindtext.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"   -DQT_NO_DEBUG -DNDEBUG -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DQT_DLL -DQT_SQL_LIB -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB  -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtOpenGL" -I"$(QTDIR)\include\QtSql" -I"$(QTDIR)\include" -I"$(QTDIR)\include\ActiveQt" -I"$(QTDIR)\mkspecs\win32-msvc2005" -I"$(AUDIR)\auatom" -I"$(AUDIR)\audata" -I"$(AUDIR)\auloginserver" -I"$(AUDIR)\aumailserver" -I"$(AUDIR)\ausceneserver" -I"$(SKDIR)\sgl" -I"$(SKDIR)\smath" -I"$(3PDIR)\include\GL" -I"C:\Program Files (x86)\NVIDIA Corporation\Cg\include" -I"C:\Program Files (x86)\freealut-1.1.0-bin\include" -I"C:\Program Files (x86)\OpenAL 1.1 SDK\include" -I"." -I".\release" -I".\GeneratedFiles" ".\aufindtext.h" -o "$(Configuration)\moc_%(Filename).cpp"
+</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"   -DQT_NO_DEBUG -DNDEBUG -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DQT_DLL -DQT_SQL_LIB -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB  -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtOpenGL" -I"$(QTDIR)\include\QtSql" -I"$(QTDIR)\include" -I"$(QTDIR)\include\ActiveQt" -I"$(QTDIR)\mkspecs\win32-msvc2005" -I"$(AUDIR)\auatom" -I"$(AUDIR)\audata" -I"$(AUDIR)\auloginserver" -I"$(AUDIR)\aumailserver" -I"$(AUDIR)\ausceneserver" -I"$(SKDIR)\sgl" -I"$(SKDIR)\smath" -I"$(3PDIR)\include\GL" -I"C:\Program Files (x86)\NVIDIA Corporation\Cg\include" -I"C:\Program Files (x86)\freealut-1.1.0-bin\include" -I"C:\Program Files (x86)\OpenAL 1.1 SDK\include" -I"." -I".\release" -I".\GeneratedFiles" ".\aufindtext.h" -o "$(Configuration)\moc_%(Filename).cpp"
+</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;.\aufindtext.h;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;.\aufindtext.h;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\moc_aufindtext.cpp;%(Outputs)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Configuration)\moc_aufindtext.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="auglobal.h">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing auglobal.h</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing auglobal.h</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"   -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DQT_DLL -DQT_SQL_LIB -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB  -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtOpenGL" -I"$(QTDIR)\include\QtSql" -I"$(QTDIR)\include" -I"$(QTDIR)\include\ActiveQt" -I"$(QTDIR)\mkspecs\win32-msvc2005" -I"." ".\%(Filename).h" -o "$(Configuration)\moc_%(Filename).cpp"
+</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"   -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DQT_DLL -DQT_SQL_LIB -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB  -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtOpenGL" -I"$(QTDIR)\include\QtSql" -I"$(QTDIR)\include" -I"$(QTDIR)\include\ActiveQt" -I"$(QTDIR)\mkspecs\win32-msvc2005" -I"." ".\%(Filename).h" -o "$(Configuration)\moc_%(Filename).cpp"
+</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(Filename).h;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(Filename).h;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">debug\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC auglobal.h</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">MOC auglobal.h</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"   -DQT_NO_DEBUG -DNDEBUG -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DQT_DLL -DQT_SQL_LIB -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB  -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtOpenGL" -I"$(QTDIR)\include\QtSql" -I"$(QTDIR)\include" -I"$(QTDIR)\include\ActiveQt" -I"$(QTDIR)\mkspecs\win32-msvc2005" -I"$(AUDIR)\auatom" -I"$(AUDIR)\audata" -I"$(AUDIR)\auloginserver" -I"$(AUDIR)\aumailserver" -I"$(AUDIR)\ausceneserver" -I"$(SKDIR)\sgl" -I"$(SKDIR)\smath" -I"$(3PDIR)\include\GL" -I"C:\Program Files (x86)\NVIDIA Corporation\Cg\include" -I"C:\Program Files (x86)\freealut-1.1.0-bin\include" -I"C:\Program Files (x86)\OpenAL 1.1 SDK\include" -I"." -I".\release" -I".\GeneratedFiles" "auglobal.h" -o "$(Configuration)\moc_%(Filename).cpp"
+</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"   -DQT_NO_DEBUG -DNDEBUG -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DQT_DLL -DQT_SQL_LIB -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB  -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtOpenGL" -I"$(QTDIR)\include\QtSql" -I"$(QTDIR)\include" -I"$(QTDIR)\include\ActiveQt" -I"$(QTDIR)\mkspecs\win32-msvc2005" -I"$(AUDIR)\auatom" -I"$(AUDIR)\audata" -I"$(AUDIR)\auloginserver" -I"$(AUDIR)\aumailserver" -I"$(AUDIR)\ausceneserver" -I"$(SKDIR)\sgl" -I"$(SKDIR)\smath" -I"$(3PDIR)\include\GL" -I"C:\Program Files (x86)\NVIDIA Corporation\Cg\include" -I"C:\Program Files (x86)\freealut-1.1.0-bin\include" -I"C:\Program Files (x86)\OpenAL 1.1 SDK\include" -I"." -I".\release" -I".\GeneratedFiles" "auglobal.h" -o "$(Configuration)\moc_%(Filename).cpp"
+</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;auglobal.h;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;auglobal.h;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_auglobal.cpp;%(Outputs)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">release\moc_auglobal.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="augotoline.h">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing augotoline.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing augotoline.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"   -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DQT_DLL -DQT_SQL_LIB -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB  -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtOpenGL" -I"$(QTDIR)\include\QtSql" -I"$(QTDIR)\include" -I"$(QTDIR)\include\ActiveQt" -I"$(QTDIR)\mkspecs\win32-msvc2005" -I"." ".\%(Filename).h" -o "$(Configuration)\moc_%(Filename).cpp"
+</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"   -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DQT_DLL -DQT_SQL_LIB -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB  -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtOpenGL" -I"$(QTDIR)\include\QtSql" -I"$(QTDIR)\include" -I"$(QTDIR)\include\ActiveQt" -I"$(QTDIR)\mkspecs\win32-msvc2005" -I"." ".\%(Filename).h" -o "$(Configuration)\moc_%(Filename).cpp"
+</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;.\augotoline.h;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;.\augotoline.h;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\moc_augotoline.cpp;%(Outputs)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Configuration)\moc_augotoline.cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing augotoline.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing augotoline.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"   -DQT_NO_DEBUG -DNDEBUG -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DQT_DLL -DQT_SQL_LIB -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB  -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtOpenGL" -I"$(QTDIR)\include\QtSql" -I"$(QTDIR)\include" -I"$(QTDIR)\include\ActiveQt" -I"$(QTDIR)\mkspecs\win32-msvc2005" -I"$(AUDIR)\auatom" -I"$(AUDIR)\audata" -I"$(AUDIR)\auloginserver" -I"$(AUDIR)\aumailserver" -I"$(AUDIR)\ausceneserver" -I"$(SKDIR)\sgl" -I"$(SKDIR)\smath" -I"$(3PDIR)\include\GL" -I"C:\Program Files (x86)\NVIDIA Corporation\Cg\include" -I"C:\Program Files (x86)\freealut-1.1.0-bin\include" -I"C:\Program Files (x86)\OpenAL 1.1 SDK\include" -I"." -I".\release" -I".\GeneratedFiles" ".\augotoline.h" -o "$(Configuration)\moc_%(Filename).cpp"
+</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"   -DQT_NO_DEBUG -DNDEBUG -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DQT_DLL -DQT_SQL_LIB -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB  -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtOpenGL" -I"$(QTDIR)\include\QtSql" -I"$(QTDIR)\include" -I"$(QTDIR)\include\ActiveQt" -I"$(QTDIR)\mkspecs\win32-msvc2005" -I"$(AUDIR)\auatom" -I"$(AUDIR)\audata" -I"$(AUDIR)\auloginserver" -I"$(AUDIR)\aumailserver" -I"$(AUDIR)\ausceneserver" -I"$(SKDIR)\sgl" -I"$(SKDIR)\smath" -I"$(3PDIR)\include\GL" -I"C:\Program Files (x86)\NVIDIA Corporation\Cg\include" -I"C:\Program Files (x86)\freealut-1.1.0-bin\include" -I"C:\Program Files (x86)\OpenAL 1.1 SDK\include" -I"." -I".\release" -I".\GeneratedFiles" ".\augotoline.h" -o "$(Configuration)\moc_%(Filename).cpp"
+</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;.\augotoline.h;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;.\augotoline.h;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\moc_augotoline.cpp;%(Outputs)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Configuration)\moc_augotoline.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <ClInclude Include="auid.h" />
+    <ClInclude Include="aumailmsg.h" />
+    <ClInclude Include="aumission.h" />
+    <ClInclude Include="ausettings.h" />
+    <CustomBuild Include="austyle.h">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing austyle.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing austyle.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"   -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DQT_DLL -DQT_SQL_LIB -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB  -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtOpenGL" -I"$(QTDIR)\include\QtSql" -I"$(QTDIR)\include" -I"$(QTDIR)\include\ActiveQt" -I"$(QTDIR)\mkspecs\win32-msvc2005" -I"." ".\%(Filename).h" -o "$(Configuration)\moc_%(Filename).cpp"
+</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"   -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DQT_DLL -DQT_SQL_LIB -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB  -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtOpenGL" -I"$(QTDIR)\include\QtSql" -I"$(QTDIR)\include" -I"$(QTDIR)\include\ActiveQt" -I"$(QTDIR)\mkspecs\win32-msvc2005" -I"." ".\%(Filename).h" -o "$(Configuration)\moc_%(Filename).cpp"
+</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;.\austyle.h;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;.\austyle.h;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\moc_austyle.cpp;%(Outputs)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Configuration)\moc_austyle.cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing austyle.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing austyle.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"   -DQT_NO_DEBUG -DNDEBUG -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DQT_DLL -DQT_SQL_LIB -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB  -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtOpenGL" -I"$(QTDIR)\include\QtSql" -I"$(QTDIR)\include" -I"$(QTDIR)\include\ActiveQt" -I"$(QTDIR)\mkspecs\win32-msvc2005" -I"$(AUDIR)\auatom" -I"$(AUDIR)\audata" -I"$(AUDIR)\auloginserver" -I"$(AUDIR)\aumailserver" -I"$(AUDIR)\ausceneserver" -I"$(SKDIR)\sgl" -I"$(SKDIR)\smath" -I"$(3PDIR)\include\GL" -I"C:\Program Files (x86)\NVIDIA Corporation\Cg\include" -I"C:\Program Files (x86)\freealut-1.1.0-bin\include" -I"C:\Program Files (x86)\OpenAL 1.1 SDK\include" -I"." -I".\release" -I".\GeneratedFiles" ".\austyle.h" -o "$(Configuration)\moc_%(Filename).cpp"
+</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"   -DQT_NO_DEBUG -DNDEBUG -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DQT_DLL -DQT_SQL_LIB -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB  -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtOpenGL" -I"$(QTDIR)\include\QtSql" -I"$(QTDIR)\include" -I"$(QTDIR)\include\ActiveQt" -I"$(QTDIR)\mkspecs\win32-msvc2005" -I"$(AUDIR)\auatom" -I"$(AUDIR)\audata" -I"$(AUDIR)\auloginserver" -I"$(AUDIR)\aumailserver" -I"$(AUDIR)\ausceneserver" -I"$(SKDIR)\sgl" -I"$(SKDIR)\smath" -I"$(3PDIR)\include\GL" -I"C:\Program Files (x86)\NVIDIA Corporation\Cg\include" -I"C:\Program Files (x86)\freealut-1.1.0-bin\include" -I"C:\Program Files (x86)\OpenAL 1.1 SDK\include" -I"." -I".\release" -I".\GeneratedFiles" ".\austyle.h" -o "$(Configuration)\moc_%(Filename).cpp"
+</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;.\austyle.h;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;.\austyle.h;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\moc_austyle.cpp;%(Outputs)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Configuration)\moc_austyle.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="autabcolumn.h">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing %(Filename)%(Extension)...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing %(Filename)%(Extension)...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe" -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DQT_DLL -DQT_SQL_LIB -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtOpenGL" -I"$(QTDIR)\include\QtSql" -I"$(QTDIR)\include" -I"$(QTDIR)\include\ActiveQt" -I"$(QTDIR)\mkspecs\win32-msvc2005" -I"." ".\%(Filename).h" -o "$(Configuration)\moc_%(Filename).cpp"
+</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe" -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DQT_DLL -DQT_SQL_LIB -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtOpenGL" -I"$(QTDIR)\include\QtSql" -I"$(QTDIR)\include" -I"$(QTDIR)\include\ActiveQt" -I"$(QTDIR)\mkspecs\win32-msvc2005" -I"." ".\%(Filename).h" -o "$(Configuration)\moc_%(Filename).cpp"
+</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Configuration)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <ClInclude Include="auversion.h" />
+    <CustomBuild Include="auwidgets.h">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing %(Filename)%(Extension)...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing %(Filename)%(Extension)...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"   -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DQT_DLL -DQT_SQL_LIB -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB  -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtOpenGL" -I"$(QTDIR)\include\QtSql" -I"$(QTDIR)\include" -I"$(QTDIR)\include\ActiveQt" -I"$(QTDIR)\mkspecs\win32-msvc2005" -I"." ".\%(Filename).h" -o "$(Configuration)\moc_%(Filename).cpp"
+</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"   -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DQT_DLL -DQT_SQL_LIB -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB  -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtOpenGL" -I"$(QTDIR)\include\QtSql" -I"$(QTDIR)\include" -I"$(QTDIR)\include\ActiveQt" -I"$(QTDIR)\mkspecs\win32-msvc2005" -I"." ".\%(Filename).h" -o "$(Configuration)\moc_%(Filename).cpp"
+</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Configuration)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing %(Filename)%(Extension)...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing %(Filename)%(Extension)...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"   -DQT_NO_DEBUG -DNDEBUG -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DQT_DLL -DQT_SQL_LIB -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB  -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtOpenGL" -I"$(QTDIR)\include\QtSql" -I"$(QTDIR)\include" -I"$(QTDIR)\include\ActiveQt" -I"$(QTDIR)\mkspecs\win32-msvc2005" -I"$(AUDIR)\auatom" -I"$(AUDIR)\audata" -I"$(AUDIR)\auloginserver" -I"$(AUDIR)\aumailserver" -I"$(AUDIR)\ausceneserver" -I"$(SKDIR)\sgl" -I"$(SKDIR)\smath" -I"$(3PDIR)\include\GL" -I"C:\Program Files (x86)\NVIDIA Corporation\Cg\include" -I"C:\Program Files (x86)\freealut-1.1.0-bin\include" -I"C:\Program Files (x86)\OpenAL 1.1 SDK\include" -I"." -I".\release" -I".\GeneratedFiles" ".\auwidgets.h" -o "$(Configuration)\moc_%(Filename).cpp"
+</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"   -DQT_NO_DEBUG -DNDEBUG -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DQT_DLL -DQT_SQL_LIB -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB  -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtOpenGL" -I"$(QTDIR)\include\QtSql" -I"$(QTDIR)\include" -I"$(QTDIR)\include\ActiveQt" -I"$(QTDIR)\mkspecs\win32-msvc2005" -I"$(AUDIR)\auatom" -I"$(AUDIR)\audata" -I"$(AUDIR)\auloginserver" -I"$(AUDIR)\aumailserver" -I"$(AUDIR)\ausceneserver" -I"$(SKDIR)\sgl" -I"$(SKDIR)\smath" -I"$(3PDIR)\include\GL" -I"C:\Program Files (x86)\NVIDIA Corporation\Cg\include" -I"C:\Program Files (x86)\freealut-1.1.0-bin\include" -I"C:\Program Files (x86)\OpenAL 1.1 SDK\include" -I"." -I".\release" -I".\GeneratedFiles" ".\auwidgets.h" -o "$(Configuration)\moc_%(Filename).cpp"
+</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Configuration)\moc_%(Filename).cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <ClInclude Include="dbcommodity.h" />
+    <ClInclude Include="dbdef.h" />
+    <ClInclude Include="dhdna.h" />
+    <ClInclude Include="dqterrain.h" />
+    <ClInclude Include="uiFindText.h" />
+    <ClInclude Include="uiGoToLine.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuildStep Include="debug\AuGlobal.res">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="AuGlobal.qrc">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Rcc%27ing AuGlobal.qrc...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Rcc%27ing AuGlobal.qrc...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\rcc.exe" -name "AuGlobal" -no-compress ".\AuGlobal.qrc" -o .\GeneratedFiles\qrc_AuGlobal.cpp
+</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\rcc.exe" -name "AuGlobal" -no-compress ".\AuGlobal.qrc" -o .\GeneratedFiles\qrc_AuGlobal.cpp
+</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\AuGlobal.qrc;.\data\hazBlackbackground.png;.\data\hazBlackbutton.png;.\data\hazBlackSliderHandle.png;.\data\hazBlackSliderArrow.png;.\data\hazBlackTab.png;.\data\hazBlackClose.png;.\data\hazBlackMax.png;.\data\hazBlackMin.png;.\data\hazBlackTitleGrad.png;.\data\hazExpand.png;.\data\hazUnExpand.png;.\data\OrderAttackTarget.png;.\data\OrderBattleStation.png;.\data\OrderCloseDoor.png;.\data\OrderComeHereExactly.png;.\data\OrderComeHere.png;.\data\OrderFollowMe.png;.\data\OrderFollowTarget.png;.\data\OrderGarrison.png;.\data\OrderGetIn.png;.\data\OrderGetItem.png;.\data\OrderGetOut.png;.\data\OrderGoToTargetExactly.png;.\data\OrderGoToTarget.png;.\data\OrderOpenDoor.png;.\data\OrderStay.png;.\data\PostureBerserk.png;.\data\PostureDefendArea.png;.\data\PostureDefendSelf.png;.\data\PostureHoldFire.png;.\data\PostureOffensive.png;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\AuGlobal.qrc;.\data\hazBlackbackground.png;.\data\hazBlackbutton.png;.\data\hazBlackSliderHandle.png;.\data\hazBlackSliderArrow.png;.\data\hazBlackTab.png;.\data\hazBlackClose.png;.\data\hazBlackMax.png;.\data\hazBlackMin.png;.\data\hazBlackTitleGrad.png;.\data\hazExpand.png;.\data\hazUnExpand.png;.\data\OrderAttackTarget.png;.\data\OrderBattleStation.png;.\data\OrderCloseDoor.png;.\data\OrderComeHereExactly.png;.\data\OrderComeHere.png;.\data\OrderFollowMe.png;.\data\OrderFollowTarget.png;.\data\OrderGarrison.png;.\data\OrderGetIn.png;.\data\OrderGetItem.png;.\data\OrderGetOut.png;.\data\OrderGoToTargetExactly.png;.\data\OrderGoToTarget.png;.\data\OrderOpenDoor.png;.\data\OrderStay.png;.\data\PostureBerserk.png;.\data\PostureDefendArea.png;.\data\PostureDefendSelf.png;.\data\PostureHoldFire.png;.\data\PostureOffensive.png;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\qrc_AuGlobal.cpp;%(Outputs)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\qrc_AuGlobal.cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Rcc%27ing AuGlobal.qrc...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Rcc%27ing AuGlobal.qrc...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\rcc.exe" -name "AuGlobal" -no-compress ".\AuGlobal.qrc" -o .\GeneratedFiles\qrc_AuGlobal.cpp
+</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\rcc.exe" -name "AuGlobal" -no-compress ".\AuGlobal.qrc" -o .\GeneratedFiles\qrc_AuGlobal.cpp
+</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\AuGlobal.qrc;.\data\hazBlackbackground.png;.\data\hazBlackbutton.png;.\data\hazBlackSliderHandle.png;.\data\hazBlackSliderArrow.png;.\data\hazBlackTab.png;.\data\hazBlackClose.png;.\data\hazBlackMax.png;.\data\hazBlackMin.png;.\data\hazBlackTitleGrad.png;.\data\hazExpand.png;.\data\hazUnExpand.png;.\data\OrderAttackTarget.png;.\data\OrderBattleStation.png;.\data\OrderCloseDoor.png;.\data\OrderComeHereExactly.png;.\data\OrderComeHere.png;.\data\OrderFollowMe.png;.\data\OrderFollowTarget.png;.\data\OrderGarrison.png;.\data\OrderGetIn.png;.\data\OrderGetItem.png;.\data\OrderGetOut.png;.\data\OrderGoToTargetExactly.png;.\data\OrderGoToTarget.png;.\data\OrderOpenDoor.png;.\data\OrderStay.png;.\data\PostureBerserk.png;.\data\PostureDefendArea.png;.\data\PostureDefendSelf.png;.\data\PostureHoldFire.png;.\data\PostureOffensive.png;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\AuGlobal.qrc;.\data\hazBlackbackground.png;.\data\hazBlackbutton.png;.\data\hazBlackSliderHandle.png;.\data\hazBlackSliderArrow.png;.\data\hazBlackTab.png;.\data\hazBlackClose.png;.\data\hazBlackMax.png;.\data\hazBlackMin.png;.\data\hazBlackTitleGrad.png;.\data\hazExpand.png;.\data\hazUnExpand.png;.\data\OrderAttackTarget.png;.\data\OrderBattleStation.png;.\data\OrderCloseDoor.png;.\data\OrderComeHereExactly.png;.\data\OrderComeHere.png;.\data\OrderFollowMe.png;.\data\OrderFollowTarget.png;.\data\OrderGarrison.png;.\data\OrderGetIn.png;.\data\OrderGetItem.png;.\data\OrderGetOut.png;.\data\OrderGoToTargetExactly.png;.\data\OrderGoToTarget.png;.\data\OrderOpenDoor.png;.\data\OrderStay.png;.\data\PostureBerserk.png;.\data\PostureDefendArea.png;.\data\PostureDefendSelf.png;.\data\PostureHoldFire.png;.\data\PostureOffensive.png;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\qrc_AuGlobal.cpp;%(Outputs)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\qrc_AuGlobal.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <None Include="data\Damage.png" />
+    <None Include="data\FleetShip.png" />
+    <None Include="data\FleetShipAlert.png" />
+    <None Include="data\FleetShipDistress.png" />
+    <None Include="data\FleetShipFinal.png" />
+    <CustomBuildStep Include="data\hazBlackbackground.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\hazBlackbutton.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\hazBlackClose.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\hazBlackMax.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\hazBlackMin.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\hazBlackSliderArrow.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\hazBlackSliderHandle.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\hazBlackTab.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\hazBlackTitleGrad.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\hazExpand.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\hazUnExpand.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\OrderAttackTarget.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\OrderBattleStation.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\OrderCloseDoor.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\OrderComeHere.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\OrderComeHereExactly.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\OrderFollowMe.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\OrderFollowTarget.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\OrderGarrison.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\OrderGetIn.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\OrderGetItem.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\OrderGetOut.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\OrderGoToTarget.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\OrderGoToTargetExactly.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\OrderOpenDoor.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\OrderStay.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PostureBerserk.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PostureDefendArea.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PostureDefendSelf.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PostureHoldFire.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PostureOffensive.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <None Include="data\ShipLog.png" />
+    <None Include="data\ShipLogAlert.png" />
+    <None Include="data\ShipLogDistress.png" />
+    <None Include="data\ShipLogFinal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="AuGlobal.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\augl\augl.vcxproj">
+      <Project>{8ea810d9-1e6c-44b0-a88a-5a05da8e11e6}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\aumath\aumath.vcxproj">
+      <Project>{a636492a-8f8f-408b-aab1-10a90e60beed}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties QtVersion="4.5.2" QtVersion_x0020_Win32="4.6.3" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

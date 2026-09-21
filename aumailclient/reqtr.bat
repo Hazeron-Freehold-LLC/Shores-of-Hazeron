@@ -1,0 +1,3 @@
+@echo off
+qmake -project "TARGET = AuMailClient" "VERSION = 7.0" "TEMPLATE = app" "CONFIG += qt thread" "QT += opengl network sql" "INCLUDEPATH = ../auutil ../auatom ../audata ../auglobal ../auloginclient ../aumail ../aumailserver ../ausceneserver ../augl ../aumath %SEIDEV%\OPENAL~1.1SD\include ../auclientmailres" "DESTDIR = ../Release" "RC_FILE = AuMailClient.rc"
+qmake "LIBS += ../release/auclientmailres7.lib ../release/audata.lib ../release/auglobal.lib ../release/auutil.lib ../release/augl.lib ../release/aumath.lib ../release/auloginclient.lib ../release/aumail.lib %SEIDEV%\OPENAL~1.1SD\libs\%AUDEVOPENAL%\OpenAL32.lib"

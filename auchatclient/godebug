@@ -1,0 +1,6 @@
+#!/bin/sh
+appname=AuChatClient_debug
+dirname=`dirname "$0"`
+LD_LIBRARY_PATH="$dirname/../debug":/usr/local/lib:/usr/lib64:/usr/lib/occt-6.7.0/lib
+export LD_LIBRARY_PATH
+"$dirname/$appname" $*

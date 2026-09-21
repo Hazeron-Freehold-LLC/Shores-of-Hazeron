@@ -1,0 +1,36 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+	<file>data/emoji-test.txt</file>
+	<file>data/hazBlackbackground.png</file>
+	<file>data/hazBlackbutton.png</file>
+	<file>data/hazBlackFloat.png</file>
+	<file>data/hazBlackSliderHandle.png</file>
+	<file>data/hazBlackSliderArrow.png</file>
+	<file>data/hazBlackTab.png</file>     
+	<file>data/hazBlackClose.png</file>
+	<file>data/hazBlackMax.png</file>
+	<file>data/hazBlackMin.png</file>
+	<file>data/hazBlackNormal.png</file>
+	<file>data/hazBlackTitleGrad.png</file>
+	<file>data/hazBranchClosed.png</file>
+	<file>data/hazBranchEnd.png</file>
+	<file>data/hazBranchItem.png</file>
+	<file>data/hazBranchMore.png</file>
+	<file>data/hazBranchOpen.png</file>
+	<file>data/hazBranchVLine.png</file>
+	<file>data/hazCheckChecked.png</file>
+	<file>data/hazCheckUnchecked.png</file>
+	<file>data/hazExpand.png</file>
+	<file>data/hazHeaderSortDown.png</file>
+	<file>data/hazHeaderSortUp.png</file>
+	<file>data/hazLeftArrow.png</file>
+	<file>data/hazLimitDown.png</file>
+	<file>data/hazLimitUp.png</file>
+	<file>data/hazRadioChecked.png</file>
+	<file>data/hazRadioUnchecked.png</file>
+	<file>data/hazRightArrow.png</file>
+	<file>data/hazSliderHandle.png</file>
+	<file>data/hazUnExpand.png</file>
+	<file>data/hazWiki.png</file>
+</qresource>
+</RCC>

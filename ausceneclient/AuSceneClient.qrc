@@ -1,0 +1,8 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+	<file>data/HSSSmallCapsule.png</file>
+	<file>data/SoHIcon.ico</file>
+	<file>data/SoHLogo128.png</file>
+	<file>data/Splash.png</file>
+</qresource>
+</RCC>

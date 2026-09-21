@@ -1,0 +1,8 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+	<file>data/DirtCrackedModerate.png</file>
+	<file>data/Grass.png</file>
+	<file>data/Viewer.ico</file>
+	<file>data/Viewer.png</file>
+</qresource>
+</RCC>

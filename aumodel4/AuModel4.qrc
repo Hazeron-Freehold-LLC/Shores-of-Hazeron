@@ -1,0 +1,27 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+	<file>data/Brain.SoH</file>
+	<file>data/Heart.SoH</file>
+	<file>data/ModuleBay.SoH</file>
+	<file>data/ModuleCapacitor.SoH</file>
+	<file>data/ModuleCnC.SoH</file>
+	<file>data/ModuleDrive.SoH</file>
+	<file>data/ModuleFTL.SoH</file>
+	<file>data/ModuleHull.SoH</file>
+	<file>data/ModuleLifeSupport.SoH</file>
+	<file>data/ModuleMedical.SoH</file>
+	<file>data/ModulePower.SoH</file>
+	<file>data/ModuleSensor.SoH</file>
+	<file>data/ModuleShield.SoH</file>
+	<file>data/ModuleTransporter.SoH</file>
+	<file>data/ModuleTurret.SoH</file>
+	<file>data/mHelicopter.3dsN</file>
+	<file>data/mHelicopter.png</file>
+	<file>data/mPowerArmorHelmet.3dsN</file>
+	<file>data/mPowerArmorHelmet.png</file>
+	<file>data/mPowerArmorHelmetM.3dsN</file>
+	<file>data/mPowerArmorHelmetM.png</file>
+	<file>data/mPowerArmorHelmetV.3dsN</file>
+	<file>data/mPowerArmorHelmetV.png</file>
+</qresource>
+</RCC>

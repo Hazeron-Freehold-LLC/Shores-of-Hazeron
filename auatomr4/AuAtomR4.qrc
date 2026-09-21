@@ -1,0 +1,11 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+	<file>data/HeartOfVictorus.png</file>
+	<file>data/HouseZanathar.png</file>
+	<file>data/IndigoSea.png</file>
+	<file>data/InkarBorderRegion.png</file>
+	<file>data/MuturonEncounter.png</file>
+	<file>data/RansuulsFlamingSword.png</file>
+	<file>data/SevenTen.png</file>
+</qresource>
+</RCC>

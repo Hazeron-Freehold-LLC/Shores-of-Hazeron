@@ -1,0 +1,19 @@
+TARGET = AuModelRes
+VERSION = 7.0
+TEMPLATE = lib
+CONFIG += dll qt
+DEFINES += AUMODELRES
+RC_FILE = AuModelRes.rc
+
+CONFIG(debug, debug|release) {
+	message($$TARGET Debug build configuration.)
+	DESTDIR = ../debug
+	TARGET = $$member(TARGET, 0)_debug
+	LIBS += -L../debug -lAuModel10_debug -lAuModel1_debug -lAuModel2_debug -lAuModel3_debug -lAuModel4_debug -lAuModel5_debug -lAuModel6_debug -lAuModel7_debug  -lAuModel8_debug -lAuModel9_debug
+}
+
+CONFIG(release, debug|release) {
+	message($$TARGET Release build configuration.)
+	DESTDIR = ../release
+	LIBS += -L../release -lAuModel10 -lAuModel1 -lAuModel2 -lAuModel3 -lAuModel4 -lAuModel5 -lAuModel6 -lAuModel7 -lAuModel8 -lAuModel9
+}

@@ -1,0 +1,1169 @@
+# Identify target names that are not to be confused with files or folders with the same name.
+.PHONY: all client servers cgi relink report reqt clean auacctemail auacctexpire auacctnew auacctpassword auacctsendpassword auloginserver aumailclient aumailserver aulauncher auchatclient ausceneclient ausceneserver auscript auserverstatus auservermon
+
+all: client servers cgi report
+
+shipresume: relink client distrolauncher distropackage
+
+shipit: reqt clean client distrolauncher distropackage
+
+client: aumailclient aulauncher ausceneclient auchatclient
+
+servers: ausceneserver auloginserver aumailserver
+
+cgi: auacctemail auacctexpire auacctnew auacctpassword auacctsendpassword auserverstatus
+
+report: auempirereport
+
+story: auscript
+
+distrolauncher: client
+	@if [ "`uname -n | grep Capella`" != "" ] || [ "`uname -n | grep MacBook`" != "" ] ; then \
+		if [ "`pwd | grep gl41`" != "" ] ; then \
+			disttarget=macos10-gl41 ; \
+		else \
+			disttarget=macos10 ; \
+		fi ; \
+		echo 'Creating Apple '$$disttarget' 64-bit Launcher Distribution' ; \
+		distfile=ShoresOfHazeron64$$disttarget.dmg ; \
+		distarch=soh-$$disttarget-64 ; \
+		rm -rf Shores\ of\ Hazeron.app; \
+		mkdir Shores\ of\ Hazeron.app; \
+		cp -R aulauncher/AuLauncher.app/Contents Shores\ of\ Hazeron.app; \
+		mv Shores\ of\ Hazeron.app/Contents/MacOS/AuLauncher Shores\ of\ Hazeron.app/Contents/MacOS/Shores\ of\ Hazeron; \
+		chmod ugo+x Shores\ of\ Hazeron.app/Contents/MacOS/Shores\ of\ Hazeron ; \
+		cp aulauncher/Info.plist Shores\ of\ Hazeron.app/Contents; \
+		cp aulauncher/PkgInfo Shores\ of\ Hazeron.app/Contents; \
+		cp ausceneclient/data/SceneClient.png Shores\ of\ Hazeron.app/Contents/Resources/ShoresOfHazeron.png ; \
+		cp ausceneclient/SoH.icns Shores\ of\ Hazeron.app/Contents/Resources ; \
+		echo $$distarch > Shores\ of\ Hazeron.app/Contents/Resources/data.bin ; \
+		macdeployqt Shores\ of\ Hazeron.app -dmg -appstore-compliant ; \
+		rm -rf "$$distfile" ; \
+		mv Shores\ of\ Hazeron.dmg "$$distfile"; \
+	else \
+		if [ "`uname -n | grep Manjaro21`" != "" ] ; then \
+			echo 'Creating Manjaro Linux 21 64-bit Launcher Distribution' ; \
+			distfile=ShoresOfHazeron64manjaro21.tar.gz ; \
+			distarch=soh-manjaro21-64 ; \
+			targroup=nobody ; \
+		elif [ "`uname -n | grep Fedora35`" != "" ] ; then \
+			echo 'Creating Fedora Linux 21 64-bit Launcher Distribution' ; \
+			distfile=ShoresOfHazeron64fedora35.tar.gz ; \
+			distarch=soh-fedora35-64 ; \
+			targroup=nobody ; \
+		elif [ "`uname -n | grep Ubuntu20`" != "" ] ; then \
+			echo 'Creating Ubuntu Linux 20 64-bit Launcher Distribution' ; \
+			distfile=ShoresOfHazeron64ubuntu20.tar.gz ; \
+			distarch=soh-ubuntu20-64 ; \
+			targroup=nogroup ; \
+		elif [ "`uname -n | grep Debian11`" != "" ] ; then \
+			echo 'Creating Debian Linux 11 64-bit Launcher Distribution' ; \
+			distfile=ShoresOfHazeron64debian11.tar.gz ; \
+			distarch=soh-debian11-64 ; \
+			targroup=nogroup ; \
+		fi ; \
+		if [ "$$distfile" != "" ] ; then \
+			rm -rf Shores\ of\ Hazeron ; \
+			mkdir Shores\ of\ Hazeron ; \
+			mkdir Shores\ of\ Hazeron/Launcher ; \
+			chmod ugo+x aulauncher/AuLauncher ; \
+			cp aulauncher/AuLauncher Shores\ of\ Hazeron/Launcher/HazeronLauncher ; \
+			cp ausceneclient/data/SceneClient.png Shores\ of\ Hazeron/Launcher/HazeronLauncher.png ; \
+			echo $$distarch > Shores\ of\ Hazeron/Launcher/data.bin ; \
+			rm -rf "$$distfile" ; \
+			tar cfz "$$distfile" Shores\ of\ Hazeron/Launcher --owner nobody --group "$$targroup" ; \
+		fi ; \
+	fi ; \
+	if [ "$$distfile" != "" ] ; then \
+		echo Posting $$distfile to Hazeron/Downloads ; \
+		cp -f "$$distfile" /sei/Common/Hazeron/Downloads ; \
+		echo Done ; \
+	else \
+		echo error: distrolauncher unrecognized builder: `uname -n` ; \
+	fi ;
+
+distropackage: ausceneclient aumailclient auchatclient
+	@if [ "`uname -n | grep Capella`" != "" ] ; then \
+		if [ "`pwd | grep gl41`" != "" ] ; then \
+			disttarget=macos10-gl41 ; \
+		else \
+			disttarget=macos10 ; \
+		fi ; \
+		echo 'Creating Apple '$$disttarget' 64-bit Package Distribution' ; \
+		distfile=soh-$$disttarget-64.tgz ; \
+		distarch=soh-$$disttarget-64 ; \
+		targroup=nogroup ; \
+		rm -rf $$distarch ; \
+		mkdir $$distarch ; \
+		mkdir $$distarch/SoH.app ; \
+		mkdir $$distarch/SoH.app/Contents ; \
+		mkdir $$distarch/SoH.app/Contents/Resources ; \
+		\
+		echo 'Constructing SoH.app' ; \
+		cp -R ausceneclient/AuSceneClient.app/Contents $$distarch/SoH.app ; \
+		mv $$distarch/SoH.app/Contents/MacOS/AuSceneClient $$distarch/SoH.app/Contents/MacOS/SoH ; \
+		cp ausceneclient/Info.plist $$distarch/SoH.app/Contents ; \
+		cp ausceneclient/PkgInfo $$distarch/SoH.app/Contents ; \
+		cp ausceneclient/data/SceneClient.png $$distarch/SoH.app/Contents/Resources/ShoresOfHazeron.png ; \
+		cp ausceneclient/SoH.icns $$distarch/SoH.app/Contents/Resources ; \
+		mkdir $$distarch/SoH.app/Contents/Frameworks ; \
+		cp release/libAuAtomRes.7.0.0.dylib $$distarch/SoH.app/Contents/Frameworks/libAuAtomRes.7.dylib ; \
+		install_name_tool -id @executable_path/../Frameworks/libAuAtomRes.7.dylib $$distarch/SoH.app/Contents/Frameworks/libAuAtomRes.7.dylib ; \
+		cp release/libAuBodyPartsRes.7.0.0.dylib $$distarch/SoH.app/Contents/Frameworks/libAuBodyPartsRes.7.dylib ; \
+		install_name_tool -id @executable_path/../Frameworks/libAuBodyPartsRes.7.dylib $$distarch/SoH.app/Contents/Frameworks/libAuBodyPartsRes.7.dylib ; \
+		cp release/libAuClientRes.7.0.0.dylib $$distarch/SoH.app/Contents/Frameworks/libAuClientRes.7.dylib ; \
+		install_name_tool -id @executable_path/../Frameworks/libAuClientRes.7.dylib $$distarch/SoH.app/Contents/Frameworks/libAuClientRes.7.dylib ; \
+		cp release/libAuClientMailRes.7.0.0.dylib $$distarch/SoH.app/Contents/Frameworks/libAuClientMailRes.7.dylib ; \
+		install_name_tool -id @executable_path/../Frameworks/libAuClientMailRes.7.dylib $$distarch/SoH.app/Contents/Frameworks/libAuClientMailRes.7.dylib ; \
+		cp release/libAuModelRes.7.0.0.dylib $$distarch/SoH.app/Contents/Frameworks/libAuModelRes.7.dylib ; \
+		install_name_tool -id @executable_path/../Frameworks/libAuModelRes.7.dylib $$distarch/SoH.app/Contents/Frameworks/libAuModelRes.7.dylib ; \
+		cp release/libAuTexture.7.0.0.dylib $$distarch/SoH.app/Contents/Frameworks/libAuTexture.7.dylib ; \
+		install_name_tool -id @executable_path/../Frameworks/libAuTexture.7.dylib $$distarch/SoH.app/Contents/Frameworks/libAuTexture.7.dylib ; \
+		cp GD $$distarch/SoH.app/Contents/Resources ; \
+		mkdir $$distarch/SoH.app/Contents/MacOS/tex ; \
+		cp autexture/data/*.png $$distarch/SoH.app/Contents/MacOS/tex ; \
+		cp auglobal/sfx/sfx.har $$distarch/SoH.app/Contents/MacOS ; \
+		mkdir $$distarch/SoH.app/Contents/Resources/Blueprints ; \
+		mkdir $$distarch/SoH.app/Contents/Resources/Blueprints/Buildings ; \
+		mkdir $$distarch/SoH.app/Contents/Resources/Blueprints/Spacecraft ; \
+		cp Blueprints/Buildings/*.SoH $$distarch/SoH.app/Contents/Resources/Blueprints/Buildings ; \
+		cp Blueprints/Spacecraft/*.SoH $$distarch/SoH.app/Contents/Resources/Blueprints/Spacecraft ; \
+		macdeployqt $$distarch/SoH.app -appstore-compliant ; \
+		install_name_tool -change libAuAtomRes.7.dylib @executable_path/../Frameworks/libAuAtomRes.7.dylib $$distarch/SoH.app/Contents/MacOS/SoH ; \
+		install_name_tool -change libAuModelRes.7.dylib @executable_path/../Frameworks/libAuModelRes.7.dylib $$distarch/SoH.app/Contents/MacOS/SoH ; \
+		install_name_tool -change libAuBodyPartsRes.7.dylib @executable_path/../Frameworks/libAuBodyPartsRes.7.dylib $$distarch/SoH.app/Contents/MacOS/SoH ; \
+		install_name_tool -change libAuClientRes.7.dylib @executable_path/../Frameworks/libAuClientRes.7.dylib $$distarch/SoH.app/Contents/MacOS/SoH ; \
+		install_name_tool -change libAuClientMailRes.7.dylib @executable_path/../Frameworks/libAuClientMailRes.7.dylib $$distarch/SoH.app/Contents/MacOS/SoH ; \
+		install_name_tool -change libAuTexture.7.dylib @executable_path/../Frameworks/libAuTexture.7.dylib $$distarch/SoH.app/Contents/MacOS/SoH ; \
+		\
+		echo 'Constructing SoHCommander.app' ; \
+		mkdir $$distarch/SoHCommander.app ; \
+		cp -R auchatclient/AuChatClient.app/Contents $$distarch/SoHCommander.app ; \
+		mv $$distarch/SoHCommander.app/Contents/MacOS/AuChatClient $$distarch/SoHCommander.app/Contents/MacOS/SoHCommander ; \
+		cp auchatclient/Info.plist $$distarch/SoHCommander.app/Contents ; \
+		cp auchatclient/PkgInfo $$distarch/SoHCommander.app/Contents ; \
+		cp auchatclient/data/ChatClient.png $$distarch/SoHCommander.app/Contents/Resources/SoHCommander.png ; \
+		cp auchatclient/SoH.icns $$distarch/SoHCommander.app/Contents/Resources/SoHCommander.icns ; \
+		mkdir $$distarch/SoHCommander.app/Contents/Frameworks ; \
+		cp release/libAuAtomRes.7.0.0.dylib $$distarch/SoHCommander.app/Contents/Frameworks/libAuAtomRes.7.dylib ; \
+		install_name_tool -id @executable_path/../Frameworks/libAuAtomRes.7.dylib $$distarch/SoHCommander.app/Contents/Frameworks/libAuAtomRes.7.dylib ; \
+		cp release/libAuBodyPartsRes.7.0.0.dylib $$distarch/SoHCommander.app/Contents/Frameworks/libAuBodyPartsRes.7.dylib ; \
+		install_name_tool -id @executable_path/../Frameworks/libAuBodyPartsRes.7.dylib $$distarch/SoHCommander.app/Contents/Frameworks/libAuBodyPartsRes.7.dylib ; \
+		cp release/libAuClientRes.7.0.0.dylib $$distarch/SoHCommander.app/Contents/Frameworks/libAuClientRes.7.dylib ; \
+		install_name_tool -id @executable_path/../Frameworks/libAuClientRes.7.dylib $$distarch/SoHCommander.app/Contents/Frameworks/libAuClientRes.7.dylib ; \
+		cp release/libAuClientMailRes.7.0.0.dylib $$distarch/SoHCommander.app/Contents/Frameworks/libAuClientMailRes.7.dylib ; \
+		install_name_tool -id @executable_path/../Frameworks/libAuClientMailRes.7.dylib $$distarch/SoHCommander.app/Contents/Frameworks/libAuClientMailRes.7.dylib ; \
+		cp release/libAuModelRes.7.0.0.dylib $$distarch/SoHCommander.app/Contents/Frameworks/libAuModelRes.7.dylib ; \
+		install_name_tool -id @executable_path/../Frameworks/libAuModelRes.7.dylib $$distarch/SoHCommander.app/Contents/Frameworks/libAuModelRes.7.dylib ; \
+		cp GD $$distarch/SoHCommander.app/Contents/Resources ; \
+		mkdir $$distarch/SoHCommander.app/Contents/MacOS/sfx ; \
+		macdeployqt $$distarch/SoHCommander.app -appstore-compliant ; \
+		install_name_tool -change libAuAtomRes.7.dylib @executable_path/../Frameworks/libAuAtomRes.7.dylib $$distarch/SoHCommander.app/Contents/MacOS/SoHCommander ; \
+		install_name_tool -change libAuModelRes.7.dylib @executable_path/../Frameworks/libAuModelRes.7.dylib $$distarch/SoHCommander.app/Contents/MacOS/SoHCommander ; \
+		install_name_tool -change libAuBodyPartsRes.7.dylib @executable_path/../Frameworks/libAuBodyPartsRes.7.dylib $$distarch/SoHCommander.app/Contents/MacOS/SoHCommander ; \
+		install_name_tool -change libAuClientRes.7.dylib @executable_path/../Frameworks/libAuClientRes.7.dylib $$distarch/SoHCommander.app/Contents/MacOS/SoHCommander ; \
+		install_name_tool -change libAuClientMailRes.7.dylib @executable_path/../Frameworks/libAuClientMailRes.7.dylib $$distarch/SoHCommander.app/Contents/MacOS/SoHCommander ; \
+		\
+		echo 'Constructing SoHMail.app' ; \
+		mkdir $$distarch/SoHMail.app ; \
+		cp -R aumailclient/AuMailClient.app/Contents $$distarch/SoHMail.app ; \
+		mv $$distarch/SoHMail.app/Contents/MacOS/AuMailClient $$distarch/SoHMail.app/Contents/MacOS/SoHMail ; \
+		cp aumailclient/Info.plist $$distarch/SoHMail.app/Contents ; \
+		cp aumailclient/PkgInfo $$distarch/SoHMail.app/Contents ; \
+		cp aumailclient/data/Mail.png $$distarch/SoHMail.app/Contents/Resources/SoHMail.png ; \
+		cp aumailclient/SoHMail.icns $$distarch/SoHMail.app/Contents/Resources ; \
+		mkdir $$distarch/SoHMail.app/Contents/Frameworks ; \
+		cp release/libAuClientMailRes.7.0.0.dylib $$distarch/SoHMail.app/Contents/Frameworks/libAuClientMailRes.7.dylib ; \
+		install_name_tool -id @executable_path/../Frameworks/libAuClientMailRes.7.dylib $$distarch/SoHMail.app/Contents/Frameworks/libAuClientMailRes.7.dylib ; \
+		macdeployqt $$distarch/SoHMail.app -appstore-compliant ; \
+		install_name_tool -change libAuClientMailRes.7.dylib @executable_path/../Frameworks/libAuClientMailRes.7.dylib $$distarch/SoHMail.app/Contents/MacOS/SoHMail ; \
+		\
+		echo 'Creating MD5 Sums' ; \
+		cd $$distarch ; \
+		find . -type f -exec md5 -r {} \; > md5sums ; \
+		chmod -R ugo+r . ; \
+		chmod ugo+x SoH.app/Contents/MacOS/SoH ; \
+		chmod ugo+x SoHMail.app/Contents/MacOS/SoHMail ; \
+		cd .. ; \
+	else \
+		if [ "`uname -n | grep Manjaro21`" != "" ] ; then \
+			echo 'Creating Manjaro Linux 21 64-bit Package Distribution' ; \
+			distfile=soh-manjaro21-64.tgz ; \
+			distarch=soh-manjaro21-64 ; \
+			targroup=nobody ; \
+		elif [ "`uname -n | grep Fedora35`" != "" ] ; then \
+			echo 'Creating Fedora Linux 21 64-bit Package Distribution' ; \
+			distfile=soh-fedora35-64.tgz ; \
+			distarch=soh-fedora35-64 ; \
+			targroup=nobody ; \
+		elif [ "`uname -n | grep Ubuntu20`" != "" ] ; then \
+			echo 'Creating Ubuntu Linux 20 64-bit Package Distribution' ; \
+			distfile=soh-ubuntu20-64.tgz ; \
+			distarch=soh-ubuntu20-64 ; \
+			targroup=nogroup ; \
+		elif [ "`uname -n | grep Debian11`" != "" ] ; then \
+			echo 'Creating Debian Linux 11 64-bit Package Distribution' ; \
+			distfile=soh-debian11-64.tgz ; \
+			distarch=soh-debian11-64 ; \
+			targroup=nogroup ; \
+		fi ; \
+		if [ "$$distfile" != "" ] ; then \
+			rm -rf $$distarch ; \
+			mkdir $$distarch ; \
+			mkdir $$distarch/tex ; \
+			mkdir $$distarch/Blueprints ; \
+			mkdir $$distarch/Blueprints/Buildings ; \
+			mkdir $$distarch/Blueprints/Spacecraft ; \
+			\
+			cp GD $$distarch ; \
+			cp autexture/data/*.png $$distarch/tex ; \
+			cp auglobal/sfx/sfx.har $$distarch ; \
+			cp Blueprints/Buildings/*.SoH $$distarch/Blueprints/Buildings ; \
+			cp Blueprints/Spacecraft/*.SoH $$distarch/Blueprints/Spacecraft ; \
+			\
+			cp aumailclient/AuMailClient $$distarch ; \
+			strip $$distarch/AuMailClient ; \
+			cp aumailclient/HazeronMail $$distarch ; \
+			cp aumailclient/data/Mail.png $$distarch/HazeronMail.png ; \
+			\
+			cp ausceneclient/AuSceneClient $$distarch ; \
+			strip $$distarch/AuSceneClient ; \
+			cp ausceneclient/ShoresOfHazeron $$distarch ; \
+			cp ausceneclient/data/SceneClient.png $$distarch/ShoresOfHazeron.png ; \
+			\
+			cp auchatclient/AuChatClient $$distarch ; \
+			strip $$distarch/AuChatClient ; \
+			cp auchatclient/HazeronCommander $$distarch ; \
+			cp auchatclient/data/ChatClient.png $$distarch/HazeronCommander.png ; \
+			\
+			cp release/*.so.7 $$distarch ; \
+			strip release/*.so.7 ; \
+			\
+			cd $$distarch ; \
+			find . -type f -exec md5sum {} \; > md5sums ; \
+			chmod -R ugo+r . ; \
+			chmod ugo+x ShoresOfHazeron AuSceneClient ; \
+			chmod ugo+x HazeronCommander AuChatClient ; \
+			chmod ugo+x HazeronMail AuMailClient ; \
+			cd .. ; \
+		fi ; \
+	fi ; \
+	if [ "$$distfile" != "" ] ; then \
+		echo Creating $$distfile ; \
+		rm -rf "$$distfile" ; \
+		tar cfz "$$distfile" $$distarch ; \
+		echo Posting $$distfile to Hazeron/Downloads ; \
+		cp -f "$$distfile" /sei/Common/Hazeron/Downloads ; \
+		echo Done ; \
+	else \
+		echo error: distropackage unrecognized builder: `uname -n` ; \
+	fi ;
+
+relink:
+	# Removing libraries and executables so they have to be archived or linked over again.
+	rm -f auacctemail/AuAcctEmail*
+	rm -f auacctexpire/AuAcctExpire*
+	rm -f auacctnew/AuAcctNew*
+	rm -f auacctpassword/AuAcctPassword*
+	rm -f auacctsendpassword/AuAcctSendPassword*
+	rm -f auempirereport/AuEmpireReport
+	rm -f auloginserver/AuLoginServer
+	rm -f aumailclient/AuMailClient
+	rm -f aumailserver/AuMailServer
+	rm -f auservermon/AuServerMon
+	rm -f aulauncher/AuLauncher
+	rm -f ausceneclient/AuSceneClient
+	rm -f auchatclient/AuChatClient
+	rm -f ausceneserver/AuSceneServer
+	rm -f auscript/AuScript
+	rm -f auserverstatus/AuServerStatus
+	rm -f release/libAuAtom*
+	rm -f release/libAuAtomRes*
+	rm -f release/libAuBodyParts*
+	rm -f release/libAuClient*
+	rm -f release/libAuData*
+	rm -f release/libAuDesigner*
+	rm -f release/libAuGL*
+	rm -f release/libAuGlobal*
+	rm -f release/libAuLoginClient*
+	rm -f release/libAuMail*
+	rm -f release/libAuMath*
+	rm -f release/libAuModel*
+	rm -f release/libAuPowerArmor*
+	rm -f release/libAuShipTex0*
+	rm -f release/libAuScTex1*
+	rm -f release/libAuScTex2*
+	rm -f release/libAuScTex3*
+	rm -f release/libAuScTex4*
+	rm -f release/libAuScTex5*
+	rm -f release/libAuStoryRes*
+	rm -f release/libAuTexture*
+	rm -f release/libAuUtil*
+
+reqt:
+	# Recreating all project Makefiles whether they need it or not.
+	@reqt release auacctemail ; \
+	reqt release auacctexpire ; \
+	reqt release auacctnew ; \
+	reqt release auacctpassword ; \
+	reqt release auacctsendpassword ; \
+	reqt release auatom ; \
+	reqt release auatomr1 ; \
+	reqt release auatomr2 ; \
+	reqt release auatomr3 ; \
+	reqt release auatomr4 ; \
+	reqt release auatomr5 ; \
+	reqt release auatomr6 ; \
+	reqt release auatomres ; \
+	reqt release auclient ; \
+	reqt release auclientres ; \
+	reqt release auclientres1 ; \
+	reqt release auclientmailres ; \
+	reqt release audata ; \
+	reqt release audesigner ; \
+	reqt release auempirereport ; \
+	reqt release augl ; \
+	reqt release auglobal ; \
+	reqt release auloginclient ; \
+	reqt release auloginserver ; \
+	reqt release aumail ; \
+	reqt release aumailclient ; \
+	reqt release aumailserver ; \
+	reqt release aumath ; \
+	reqt release auutil ; \
+	reqt release aumodel1 ; \
+	reqt release aumodel2 ; \
+	reqt release aumodel3 ; \
+	reqt release aumodel4 ; \
+	reqt release aumodel5 ; \
+	reqt release aumodel6 ; \
+	reqt release aumodel7 ; \
+	reqt release aumodel8 ; \
+	reqt release aumodel9 ; \
+	reqt release aumodel10 ; \
+	reqt release aumodelres ; \
+	reqt release aubodyparts0 ; \
+	reqt release aubodyparts1 ; \
+	reqt release aubodyparts2 ; \
+	reqt release aubodyparts3 ; \
+	reqt release aubodyparts4 ; \
+	reqt release aubodyparts5 ; \
+	reqt release aubodyparts6 ; \
+	reqt release aubodyparts7 ; \
+	reqt release aubodypartsres ; \
+	reqt release aupowerarmor ; \
+	reqt release aulauncher ; \
+	reqt release ausceneclient ; \
+	reqt release auchatclient ; \
+	reqt release ausceneserver ; \
+	reqt release auscript ; \
+	reqt release auservermon ; \
+	reqt release auserverstatus ; \
+	reqt release aushiptex0 ; \
+	reqt release ausctex1 ; \
+	reqt release ausctex2 ; \
+	reqt release ausctex3 ; \
+	reqt release ausctex4 ; \
+	reqt release ausctex5 ; \
+	reqt release austoryres ; \
+	reqt release autexture ;
+
+reqtcgi:
+	# Recreating all project Makefiles whether they need it or not.
+	@reqt release auacctemail ; \
+	reqt release auacctexpire ; \
+	reqt release auacctnew ; \
+	reqt release auacctpassword ; \
+	reqt release auacctsendpassword ; \
+	reqt release auserverstatus ; \
+	reqt release auutil ; \
+	reqt release aumath ; \
+	reqt release augl ; \
+	reqt release auglobal ; \
+	reqt release audata ;
+
+reqtservers:
+	# Recreating all project Makefiles needed to build servers, whether they need it or not.
+	@reqt release auatom ; \
+	reqt release auatomr1 ; \
+	reqt release auatomr2 ; \
+	reqt release auatomr3 ; \
+	reqt release auatomr4 ; \
+	reqt release auatomr5 ; \
+	reqt release auatomr6 ; \
+	reqt release auatomres ; \
+	reqt release aubodyparts0 ; \
+	reqt release aubodyparts1 ; \
+	reqt release aubodyparts2 ; \
+	reqt release aubodyparts3 ; \
+	reqt release aubodyparts4 ; \
+	reqt release aubodyparts5 ; \
+	reqt release aubodyparts6 ; \
+	reqt release aubodyparts7 ; \
+	reqt release aubodypartsres ; \
+	reqt release audata ; \
+	reqt release auempirereport ; \
+	reqt release augl ; \
+	reqt release auglobal ; \
+	reqt release auloginclient ; \
+	reqt release auloginserver ; \
+	reqt release aumail ; \
+	reqt release aumailserver ; \
+	reqt release aumath ; \
+	reqt release aumodel1 ; \
+	reqt release aumodel10 ; \
+	reqt release aumodel2 ; \
+	reqt release aumodel3 ; \
+	reqt release aumodel4 ; \
+	reqt release aumodel5 ; \
+	reqt release aumodel6 ; \
+	reqt release aumodel7 ; \
+	reqt release aumodel8 ; \
+	reqt release aumodel9 ; \
+	reqt release aumodelres ; \
+	reqt release aupowerarmor ; \
+	reqt release ausceneserver ; \
+	reqt release austoryres ; \
+	reqt release auutil ;
+
+clean: relink
+	# Cleaning all projects.
+	$(MAKE) -C auacctemail clean
+	$(MAKE) -C auacctexpire clean
+	$(MAKE) -C auacctnew clean
+	$(MAKE) -C auacctpassword clean
+	$(MAKE) -C auacctsendpassword clean
+	$(MAKE) -C auatom clean
+	$(MAKE) -C auatomr1 clean
+	$(MAKE) -C auatomr2 clean
+	$(MAKE) -C auatomr3 clean
+	$(MAKE) -C auatomr4 clean
+	$(MAKE) -C auatomr5 clean
+	$(MAKE) -C auatomr6 clean
+	$(MAKE) -C auatomres clean
+	$(MAKE) -C audata clean
+	$(MAKE) -C auempirereport clean
+	$(MAKE) -C augl clean
+	$(MAKE) -C auglobal clean
+	$(MAKE) -C auloginclient clean
+	$(MAKE) -C auloginserver clean
+	$(MAKE) -C aumail clean
+	$(MAKE) -C aumailclient clean
+	$(MAKE) -C aumailserver clean
+	$(MAKE) -C aumath clean
+	$(MAKE) -C auutil clean
+	$(MAKE) -C aumodel1 clean
+	$(MAKE) -C aumodel2 clean
+	$(MAKE) -C aumodel3 clean
+	$(MAKE) -C aumodel4 clean
+	$(MAKE) -C aumodel5 clean
+	$(MAKE) -C aumodel6 clean
+	$(MAKE) -C aumodel7 clean
+	$(MAKE) -C aumodel8 clean
+	$(MAKE) -C aumodel9 clean
+	$(MAKE) -C aumodel10 clean
+	$(MAKE) -C aumodelres clean
+	$(MAKE) -C aubodyparts0 clean
+	$(MAKE) -C aubodyparts1 clean
+	$(MAKE) -C aubodyparts2 clean
+	$(MAKE) -C aubodyparts3 clean
+	$(MAKE) -C aubodyparts4 clean
+	$(MAKE) -C aubodyparts5 clean
+	$(MAKE) -C aubodyparts6 clean
+	$(MAKE) -C aubodyparts7 clean
+	$(MAKE) -C aubodypartsres clean
+	$(MAKE) -C aupowerarmor clean
+	$(MAKE) -C aulauncher clean
+	$(MAKE) -C ausceneclient clean
+	$(MAKE) -C auchatclient clean
+	$(MAKE) -C auclient clean
+	$(MAKE) -C auclientres clean
+	$(MAKE) -C auclientres1 clean
+	$(MAKE) -C auclientmailres clean
+	$(MAKE) -C audesigner clean
+	$(MAKE) -C ausceneserver clean
+	$(MAKE) -C auscript clean
+	$(MAKE) -C auservermon clean
+	$(MAKE) -C auserverstatus clean
+	$(MAKE) -C aushiptex0 clean
+	$(MAKE) -C ausctex1 clean
+	$(MAKE) -C ausctex2 clean
+	$(MAKE) -C ausctex3 clean
+	$(MAKE) -C ausctex4 clean
+	$(MAKE) -C ausctex5 clean
+	$(MAKE) -C austoryres clean
+	$(MAKE) -C autexture clean
+
+cleanservers: relink
+	# Cleaning all projects.
+	$(MAKE) -C auatom clean
+	$(MAKE) -C auatomr1 clean
+	$(MAKE) -C auatomr2 clean
+	$(MAKE) -C auatomr3 clean
+	$(MAKE) -C auatomr4 clean
+	$(MAKE) -C auatomr5 clean
+	$(MAKE) -C auatomr6 clean
+	$(MAKE) -C auatomres clean
+	$(MAKE) -C aubodyparts0 clean
+	$(MAKE) -C aubodyparts1 clean
+	$(MAKE) -C aubodyparts2 clean
+	$(MAKE) -C aubodyparts3 clean
+	$(MAKE) -C aubodyparts4 clean
+	$(MAKE) -C aubodyparts5 clean
+	$(MAKE) -C aubodyparts6 clean
+	$(MAKE) -C aubodyparts7 clean
+	$(MAKE) -C aubodypartsres clean
+	$(MAKE) -C audata clean
+	$(MAKE) -C auempirereport clean
+	$(MAKE) -C augl clean
+	$(MAKE) -C auglobal clean
+	$(MAKE) -C auloginclient clean
+	$(MAKE) -C auloginserver clean
+	$(MAKE) -C aumail clean
+	$(MAKE) -C aumailserver clean
+	$(MAKE) -C aumath clean
+	$(MAKE) -C aumodel1 clean
+	$(MAKE) -C aumodel10 clean
+	$(MAKE) -C aumodel2 clean
+	$(MAKE) -C aumodel3 clean
+	$(MAKE) -C aumodel4 clean
+	$(MAKE) -C aumodel5 clean
+	$(MAKE) -C aumodel6 clean
+	$(MAKE) -C aumodel7 clean
+	$(MAKE) -C aumodel8 clean
+	$(MAKE) -C aumodel9 clean
+	$(MAKE) -C aumodelres clean
+	$(MAKE) -C aupowerarmor clean
+	$(MAKE) -C ausceneserver clean
+	$(MAKE) -C austoryres clean
+	$(MAKE) -C auutil clean
+
+cleancgi: relink
+	# Cleaning all projects.
+	$(MAKE) -C auacctemail clean
+	$(MAKE) -C auacctexpire clean
+	$(MAKE) -C auacctnew clean
+	$(MAKE) -C auacctpassword clean
+	$(MAKE) -C auacctsendpassword clean
+	$(MAKE) -C auserverstatus clean
+	$(MAKE) -C auutil clean
+
+auacctemail: auacctemail/AuAcctEmail
+
+auacctexpire: auacctexpire/AuAcctExpire
+
+auacctnew: auacctnew/AuAcctNew
+
+auacctpassword: auacctpassword/AuAcctPassword
+
+auacctsendpassword: auacctsendpassword/AuAcctSendPassword
+
+auempirereport: auempirereport/AuEmpireReport
+
+auloginserver: auloginserver/AuLoginServer
+
+aumailclient: aumailclient/AuMailClient
+
+aumailserver: aumailserver/AuMailServer
+
+aulauncher: aulauncher/AuLauncher
+
+ausceneclient: ausceneclient/AuSceneClient
+
+auchatclient: auchatclient/AuChatClient
+
+ausceneserver: ausceneserver/AuSceneServer
+
+auscript: auscript/AuScript
+
+auservermon: auservermon/AuServerMon
+
+auserverstatus: auserverstatus/AuServerStatus
+
+auacctemail/AuAcctEmail: auacctemail/Makefile release/libAuUtil.a
+	# Building auacctemail
+	$(MAKE) -C auacctemail
+
+auacctexpire/AuAcctExpire: auacctexpire/Makefile release/libAuUtil.a
+	# Building auacctexpire
+	$(MAKE) -C auacctexpire
+
+auacctnew/AuAcctNew: auacctnew/Makefile release/libAuUtil.a
+	# Building auacctnew
+	$(MAKE) -C auacctnew
+
+auacctpassword/AuAcctPassword: auacctpassword/Makefile release/libAuUtil.a
+	# Building auacctpassword
+	$(MAKE) -C auacctpassword
+
+auacctsendpassword/AuAcctSendPassword: auacctsendpassword/Makefile release/libAuUtil.a
+	# Building auacctsendpassword
+	$(MAKE) -C auacctsendpassword
+
+auempirereport/AuEmpireReport: auempirereport/Makefile release/libAuAtom.a release/libAuAtomRes.so.7 release/libAuData.a release/libAuGlobal.a release/libAuLoginClient.a release/libAuMail.a release/libAuModelRes.so.7 release/libAuBodyPartsRes.so.7 release/libAuGL.a
+	# Building auempirereport
+	$(MAKE) -C auempirereport
+
+release/libAuAtom.a: auatom/Makefile release/libAuUtil.a release/libAuMath.a release/libAuGlobal.a release/libAuGL.a release/libAuData.a release/libAuStoryRes.so.7
+	# Building auatom
+	$(MAKE) -C auatom
+
+release/libAuAtomR1.a: auatomr1/Makefile
+	# Building auatomr1
+	$(MAKE) -C auatomr1
+
+release/libAuAtomR2.a: auatomr2/Makefile
+	# Building auatomr2
+	$(MAKE) -C auatomr2
+
+release/libAuAtomR3.a: auatomr3/Makefile
+	# Building auatomr3
+	$(MAKE) -C auatomr3
+
+release/libAuAtomR4.a: auatomr4/Makefile
+	# Building auatomr4
+	$(MAKE) -C auatomr4
+
+release/libAuAtomR5.a: auatomr5/Makefile
+	# Building auatomr5
+	$(MAKE) -C auatomr5
+
+release/libAuAtomR6.a: auatomr6/Makefile
+	# Building auatomr6
+	$(MAKE) -C auatomr6
+
+release/libAuAtomRes.so.7: auatomres/Makefile release/libAuAtomR1.a release/libAuAtomR2.a release/libAuAtomR3.a release/libAuAtomR4.a release/libAuAtomR5.a release/libAuAtomR6.a
+	# Building auatomres
+	$(MAKE) -C auatomres
+
+release/libAuClient.a: auclient/Makefile
+	# Building auclient
+	$(MAKE) -C auclient
+
+release/libAuDesigner.a: audesigner/Makefile release/libAuClient.a
+	# Building audesigner
+	$(MAKE) -C audesigner
+
+release/libAuClientRes.so.7: auclientres/Makefile release/libAuClientRes1.a
+	# Building auclientres
+	$(MAKE) -C auclientres
+
+release/libAuClientRes1.a: auclientres1/Makefile
+	# Building auclientres1
+	$(MAKE) -C auclientres1
+
+release/libAuClientMailRes.so.7: auclientmailres/Makefile
+	# Building auclientmailres
+	$(MAKE) -C auclientmailres
+
+release/libAuStoryRes.so.7: austoryres/Makefile
+	# Building austoryres
+	$(MAKE) -C austoryres
+
+release/libAuTexture.so.7: autexture/Makefile release/libAuShipTex0.a release/libAuScTex1.a release/libAuScTex2.a release/libAuScTex3.a release/libAuScTex4.a release/libAuScTex5.a
+	# Building autexture
+	$(MAKE) -C autexture
+
+release/libAuData.a: audata/Makefile release/libAuUtil.a release/libAuMath.a release/libAuGlobal.a release/libAuGL.a
+	# Building audata
+	$(MAKE) -C audata
+
+release/libAuGlobal.a: auglobal/Makefile release/libAuUtil.a release/libAuMath.a release/libAuGL.a sfx
+	# Building auglobal
+	$(MAKE) -C auglobal
+
+augl/.r/AuGLVer.h:
+	@if [ "`uname -n | grep Capella`" != "" ] || [ "`uname -n | grep MacBook`" != "" ] ; then \
+		if [ "`pwd | grep gl41`" != "" ] ; then \
+			echo '#define AUGL41' > augl/.r/AuGLVer.h ; \
+		else \
+			echo '#define AUGL33' > augl/.r/AuGLVer.h ; \
+		fi ; \
+	else \
+		echo '#define AUGL32' > augl/.r/AuGLVer.h ; \
+	fi ;
+
+release/libAuGL.a: augl/Makefile augl/.r/AuGLVer.h
+	# Building augl
+	$(MAKE) -C augl
+
+release/libAuMath.a: aumath/Makefile
+	# Building aumath
+	$(MAKE) -C aumath
+
+release/libAuUtil.a: auutil/Makefile
+	# Building auutil
+	$(MAKE) -C auutil
+
+release/libAuLoginClient.a: auloginclient/Makefile release/libAuUtil.a release/libAuMath.a release/libAuGlobal.a release/libAuGL.a
+	# Building auloginclient
+	$(MAKE) -C auloginclient
+
+auloginserver/AuLoginServer: auloginserver/Makefile release/libAuData.a release/libAuUtil.a release/libAuGlobal.a release/libAuGL.a release/libAuMath.a 
+	# Building auloginserver
+	$(MAKE) -C auloginserver
+
+release/libAuMail.a: aumail/Makefile release/libAuUtil.a release/libAuMath.a release/libAuGlobal.a release/libAuGL.a release/libAuLoginClient.a 
+	# Building aumail
+	$(MAKE) -C aumail
+
+aumailclient/AuMailClient: aumailclient/Makefile release/libAuUtil.a release/libAuData.a release/libAuGL.a release/libAuMath.a release/libAuLoginClient.a release/libAuGlobal.a release/libAuMail.a release/libAuClientMailRes.so.7
+	# Building aumailclient
+	$(MAKE) -C aumailclient
+
+aumailserver/AuMailServer: aumailserver/Makefile release/libAuUtil.a release/libAuGlobal.a release/libAuGL.a release/libAuMath.a 
+	# Building aumailserver
+	$(MAKE) -C aumailserver
+
+auservermon/AuServerMon: auservermon/Makefile release/libAuAtom.a release/libAuAtomRes.so.7 release/libAuData.a release/libAuGlobal.a release/libAuLoginClient.a release/libAuMail.a release/libAuModelRes.so.7 release/libAuBodyPartsRes.so.7 release/libAuGL.a release/libAuClientRes.so.7 release/libAuClientMailRes.so.7
+	# Building auservermon
+	$(MAKE) -C auservermon
+
+release/libAuShipTex0.a: aushiptex0/Makefile
+	# Building aushiptex0
+	$(MAKE) -C aushiptex0
+
+release/libAuScTex1.a: ausctex1/Makefile
+	# Building ausctex1
+	$(MAKE) -C ausctex1
+
+release/libAuScTex2.a: ausctex2/Makefile
+	# Building ausctex2
+	$(MAKE) -C ausctex2
+
+release/libAuScTex3.a: ausctex3/Makefile
+	# Building ausctex3
+	$(MAKE) -C ausctex3
+
+release/libAuScTex4.a: ausctex4/Makefile
+	# Building ausctex4
+	$(MAKE) -C ausctex4
+
+release/libAuScTex5.a: ausctex5/Makefile
+	# Building ausctex5
+	$(MAKE) -C ausctex5
+
+release/libAuModelRes.so.7: aumodelres/Makefile release/libAuModel1.a release/libAuModel2.a release/libAuModel3.a release/libAuModel4.a release/libAuModel5.a release/libAuModel6.a release/libAuModel7.a release/libAuModel8.a release/libAuModel9.a release/libAuModel10.a
+	# Building aumodelres
+	$(MAKE) -C aumodelres
+
+release/libAuModel1.a: aumodel1/Makefile
+	# Building aumodel1
+	$(MAKE) -C aumodel1
+
+release/libAuModel2.a: aumodel2/Makefile
+	# Building aumodel2
+	$(MAKE) -C aumodel2
+
+release/libAuModel3.a: aumodel3/Makefile
+	# Building aumodel3
+	$(MAKE) -C aumodel3
+
+release/libAuModel4.a: aumodel4/Makefile
+	# Building aumodel4
+	$(MAKE) -C aumodel4
+
+release/libAuModel5.a: aumodel5/Makefile
+	# Building aumodel5
+	$(MAKE) -C aumodel5
+
+release/libAuModel6.a: aumodel6/Makefile
+	# Building aumodel6
+	$(MAKE) -C aumodel6
+
+release/libAuModel7.a: aumodel7/Makefile
+	# Building aumodel7
+	$(MAKE) -C aumodel7
+
+release/libAuModel8.a: aumodel8/Makefile
+	# Building aumodel8
+	$(MAKE) -C aumodel8
+
+release/libAuModel9.a: aumodel9/Makefile
+	# Building aumodel9
+	$(MAKE) -C aumodel9
+
+release/libAuModel10.a: aumodel10/Makefile
+	# Building aumodel10
+	$(MAKE) -C aumodel10
+
+release/libAuBodyPartsRes.so.7: aubodypartsres/Makefile release/libAuBodyParts0.a release/libAuBodyParts1.a release/libAuBodyParts2.a release/libAuBodyParts3.a release/libAuBodyParts4.a release/libAuBodyParts5.a release/libAuBodyParts6.a release/libAuBodyParts7.a release/libAuPowerArmor.a
+	# Building aubodypartsres
+	$(MAKE) -C aubodypartsres
+
+release/libAuBodyParts0.a: aubodyparts0/Makefile
+	# Building aubodyparts0
+	$(MAKE) -C aubodyparts0
+
+release/libAuBodyParts1.a: aubodyparts1/Makefile
+	# Building aubodyparts1
+	$(MAKE) -C aubodyparts1
+
+release/libAuBodyParts2.a: aubodyparts2/Makefile
+	# Building aubodyparts2
+	$(MAKE) -C aubodyparts2
+
+release/libAuBodyParts3.a: aubodyparts3/Makefile
+	# Building aubodyparts3
+	$(MAKE) -C aubodyparts3
+
+release/libAuBodyParts4.a: aubodyparts4/Makefile
+	# Building aubodyparts4
+	$(MAKE) -C aubodyparts4
+
+release/libAuBodyParts5.a: aubodyparts5/Makefile
+	# Building aubodyparts5
+	$(MAKE) -C aubodyparts5
+
+release/libAuBodyParts6.a: aubodyparts6/Makefile
+	# Building aubodyparts6
+	$(MAKE) -C aubodyparts6
+
+release/libAuBodyParts7.a: aubodyparts7/Makefile
+	# Building aubodyparts7
+	$(MAKE) -C aubodyparts7
+
+release/libAuPowerArmor.a: aupowerarmor/Makefile
+	# Building aupowerarmor
+	$(MAKE) -C aupowerarmor
+
+aulauncher/AuLauncher: aulauncher/Makefile release/libAuUtil.a
+	# Building aulauncher
+	$(MAKE) -C aulauncher
+
+ausceneclient/AuSceneClient: ausceneclient/Makefile release/libAuUtil.a release/libAuGL.a release/libAuAtom.a release/libAuAtomRes.so.7 release/libAuMath.a release/libAuData.a release/libAuGlobal.a release/libAuLoginClient.a release/libAuMail.a release/libAuModelRes.so.7 release/libAuBodyPartsRes.so.7 release/libAuClient.a release/libAuTexture.so.7 release/libAuDesigner.a release/libAuClientRes.so.7 release/libAuClientMailRes.so.7 release/libAuStoryRes.so.7
+	# Building ausceneclient
+	$(MAKE) -C ausceneclient
+
+auchatclient/AuChatClient: auchatclient/Makefile release/libAuUtil.a release/libAuGL.a release/libAuAtom.a release/libAuAtomRes.so.7 release/libAuMath.a release/libAuData.a release/libAuGlobal.a release/libAuLoginClient.a release/libAuMail.a release/libAuModelRes.so.7 release/libAuBodyPartsRes.so.7 release/libAuClient.a release/libAuTexture.so.7  release/libAuClientRes.so.7 release/libAuClientMailRes.so.7
+	# Building auchatclient
+	$(MAKE) -C auchatclient
+
+ausceneserver/AuSceneServer: ausceneserver/Makefile release/libAuUtil.a release/libAuGL.a release/libAuAtom.a release/libAuMath.a release/libAuLoginClient.a release/libAuData.a release/libAuGlobal.a release/libAuMail.a release/libAuAtomRes.so.7 release/libAuModelRes.so.7 release/libAuBodyPartsRes.so.7 release/libAuStoryRes.so.7
+	# Building ausceneserver
+	$(MAKE) -C ausceneserver
+
+auscript/AuScript: auscript/Makefile release/libAuUtil.a release/libAuAtom.a release/libAuGL.a release/libAuMath.a release/libAuGlobal.a release/libAuData.a
+	# Building auscript
+	$(MAKE) -C auscript
+
+auserverstatus/AuServerStatus: auserverstatus/Makefile release/libAuUtil.a
+	# Building auserverstatus
+	$(MAKE) -C auserverstatus
+
+auacctemail/Makefile: auacctemail/reqt.opt
+	reqt release auacctemail
+
+auacctexpire/Makefile: auacctexpire/reqt.opt
+	reqt release auacctexpire
+
+auacctnew/Makefile: auacctnew/reqt.opt
+	reqt release auacctnew
+
+auacctpassword/Makefile: auacctpassword/reqt.opt
+	reqt release auacctpassword
+
+auacctsendpassword/Makefile: auacctsendpassword/reqt.opt
+	reqt release auacctsendpassword
+
+auatom/Makefile: auatom/reqt.opt
+	reqt release auatom
+
+auatomr1/Makefile: auatomr1/reqt.opt
+	reqt release auatomr1
+
+auatomr2/Makefile: auatomr2/reqt.opt
+	reqt release auatomr2
+
+auatomr3/Makefile: auatomr3/reqt.opt
+	reqt release auatomr3
+
+auatomr4/Makefile: auatomr4/reqt.opt
+	reqt release auatomr4
+
+auatomr5/Makefile: auatomr5/reqt.opt
+	reqt release auatomr5
+
+auatomr6/Makefile: auatomr6/reqt.opt
+	reqt release auatomr6
+
+auatomres/Makefile: auatomres/reqt.opt
+	reqt release auatomres
+
+auclient/Makefile: auclient/reqt.opt
+	reqt release auclient
+
+audesigner/Makefile: audesigner/reqt.opt
+	reqt release audesigner
+
+auclientres/Makefile: auclientres/reqt.opt
+	reqt release auclientres
+
+auclientres1/Makefile: auclientres1/reqt.opt
+	reqt release auclientres1
+
+auclientmailres/Makefile: auclientmailres/reqt.opt
+	reqt release auclientmailres
+
+austoryres/Makefile: austoryres/reqt.opt
+	reqt release austoryres
+
+autexture/Makefile: autexture/reqt.opt
+	reqt release autexture
+
+audata/Makefile: audata/reqt.opt
+	reqt release audata
+
+auempirereport/Makefile: auempirereport/reqt.opt
+	reqt release auempirereport
+
+augl/Makefile: augl/reqt.opt
+	reqt release augl
+
+auglobal/Makefile: auglobal/reqt.opt
+	reqt release auglobal
+
+auloginclient/Makefile: auloginclient/reqt.opt
+	reqt release auloginclient
+
+auloginserver/Makefile: auloginserver/reqt.opt
+	reqt release auloginserver
+
+aumail/Makefile: aumail/reqt.opt
+	reqt release aumail
+
+aumailclient/Makefile: aumailclient/reqt.opt
+	reqt release aumailclient
+
+aumailserver/Makefile: aumailserver/reqt.opt
+	reqt release aumailserver
+
+aumath/Makefile: aumath/reqt.opt
+	reqt release aumath
+
+auutil/Makefile: auutil/reqt.opt
+	reqt release auutil
+
+auservermon/Makefile: auservermon/reqt.opt
+	reqt release auservermon
+
+aushiptex0/Makefile: aushiptex0/reqt.opt
+	reqt release aushiptex0
+
+ausctex1/Makefile: ausctex1/reqt.opt
+	reqt release ausctex1
+
+ausctex2/Makefile: ausctex2/reqt.opt
+	reqt release ausctex2
+
+ausctex3/Makefile: ausctex3/reqt.opt
+	reqt release ausctex3
+
+ausctex4/Makefile: ausctex4/reqt.opt
+	reqt release ausctex4
+
+ausctex5/Makefile: ausctex5/reqt.opt
+	reqt release ausctex5
+
+aumodelres/Makefile: aumodelres/reqt.opt
+	reqt release aumodelres
+
+aumodel1/Makefile: aumodel1/reqt.opt
+	reqt release aumodel1
+
+aumodel2/Makefile: aumodel2/reqt.opt
+	reqt release aumodel2
+
+aumodel3/Makefile: aumodel3/reqt.opt
+	reqt release aumodel3
+
+aumodel4/Makefile: aumodel4/reqt.opt
+	reqt release aumodel4
+
+aumodel5/Makefile: aumodel5/reqt.opt
+	reqt release aumodel5
+
+aumodel6/Makefile: aumodel6/reqt.opt
+	reqt release aumodel6
+
+aumodel7/Makefile: aumodel7/reqt.opt
+	reqt release aumodel7
+
+aumodel8/Makefile: aumodel8/reqt.opt
+	reqt release aumodel8
+
+aumodel9/Makefile: aumodel9/reqt.opt
+	reqt release aumodel9
+
+aumodel10/Makefile: aumodel10/reqt.opt
+	reqt release aumodel10
+
+aubodypartsres/Makefile: aubodypartsres/reqt.opt
+	reqt release aubodypartsres
+
+aubodyparts0/Makefile: aubodyparts0/reqt.opt
+	reqt release aubodyparts0
+
+aubodyparts1/Makefile: aubodyparts1/reqt.opt
+	reqt release aubodyparts1
+
+aubodyparts2/Makefile: aubodyparts2/reqt.opt
+	reqt release aubodyparts2
+
+aubodyparts3/Makefile: aubodyparts3/reqt.opt
+	reqt release aubodyparts3
+
+aubodyparts4/Makefile: aubodyparts4/reqt.opt
+	reqt release aubodyparts4
+
+aubodyparts5/Makefile: aubodyparts5/reqt.opt
+	reqt release aubodyparts5
+
+aubodyparts6/Makefile: aubodyparts6/reqt.opt
+	reqt release aubodyparts6
+
+aubodyparts7/Makefile: aubodyparts7/reqt.opt
+	reqt release aubodyparts7
+
+aupowerarmor/Makefile: aupowerarmor/reqt.opt
+	reqt release aupowerarmor
+
+aulauncher/Makefile: aulauncher/reqt.opt
+	reqt release aulauncher
+
+ausceneclient/Makefile: ausceneclient/reqt.opt
+	reqt release ausceneclient
+
+auchatclient/Makefile: auchatclient/reqt.opt
+	reqt release auchatclient
+
+ausceneserver/Makefile: ausceneserver/reqt.opt
+	reqt release ausceneserver
+
+auscript/Makefile: auscript/reqt.opt
+	reqt release auscript
+
+auserverstatus/Makefile: auserverstatus/reqt.opt
+	reqt release auserverstatus
+
+sfx: auglobal/sfx/sfx.har
+
+auglobal/sfx/sfx.har : auglobal/sfx/Lava.wav \
+		auglobal/sfx/FootstepsPavement.wav \
+		auglobal/sfx/DoorCargoOpen.wav \
+		auglobal/sfx/WingFlap.wav \
+		auglobal/sfx/HitElectric.wav \
+		auglobal/sfx/Bleep4.wav \
+		auglobal/sfx/RingworldStargate.wav \
+		auglobal/sfx/DoorHatchClose.wav \
+		auglobal/sfx/WindPortal.wav \
+		auglobal/sfx/ExplodeVehicle.wav \
+		auglobal/sfx/HitSeed.wav \
+		auglobal/sfx/Bleep7.wav \
+		auglobal/sfx/HitParalysis.wav \
+		auglobal/sfx/Chat4.wav \
+		auglobal/sfx/DragWoodFloor.wav \
+		auglobal/sfx/HitPierce.wav \
+		auglobal/sfx/FootstepsRock.wav \
+		auglobal/sfx/ServoStopped.wav \
+		auglobal/sfx/LaserCannon.wav \
+		auglobal/sfx/Submarine.wav \
+		auglobal/sfx/DoorExtOpen.wav \
+		auglobal/sfx/TorchFlame.wav \
+		auglobal/sfx/FireRifle.wav \
+		auglobal/sfx/AlertYellow.wav \
+		auglobal/sfx/AlertRed.wav \
+		auglobal/sfx/DirtBikeIdle.wav \
+		auglobal/sfx/HitRadiation.wav \
+		auglobal/sfx/FootstepsMetal.wav \
+		auglobal/sfx/HitCannon.wav \
+		auglobal/sfx/DragRock.wav \
+		auglobal/sfx/HelicopterEngine.wav \
+		auglobal/sfx/DragForest.wav \
+		auglobal/sfx/RocketBlastInt.wav \
+		auglobal/sfx/KnifeSwish.wav \
+		auglobal/sfx/BreathingScuba.wav \
+		auglobal/sfx/DoorExtClose.wav \
+		auglobal/sfx/EatingMeat.wav \
+		auglobal/sfx/Dig.wav \
+		auglobal/sfx/LaserPulse.wav \
+		auglobal/sfx/DragHardFloor.wav \
+		auglobal/sfx/FireMachineGun.wav \
+		auglobal/sfx/DragSavanna.wav \
+		auglobal/sfx/HitSlash.wav \
+		auglobal/sfx/FireCannon.wav \
+		auglobal/sfx/DragSnow.wav \
+		auglobal/sfx/ShroudOfGlory.wav \
+		auglobal/sfx/Bleep8.wav \
+		auglobal/sfx/RocketBlastExt.wav \
+		auglobal/sfx/BombRelease.wav \
+		auglobal/sfx/HitSonic.wav \
+		auglobal/sfx/Bleep1.wav \
+		auglobal/sfx/SnipWire.wav \
+		auglobal/sfx/KnifeHitNoDamage.wav \
+		auglobal/sfx/FireShotgun.wav \
+		auglobal/sfx/NativeDrums.wav \
+		auglobal/sfx/FootstepsSnow.wav \
+		auglobal/sfx/KnifeHitCritical.wav \
+		auglobal/sfx/AlertGreen.wav \
+		auglobal/sfx/FireHandgun.wav \
+		auglobal/sfx/Chat1.wav \
+		auglobal/sfx/DoorIntOpen.wav \
+		auglobal/sfx/SUVIdle.wav \
+		auglobal/sfx/HitBludgeon.wav \
+		auglobal/sfx/HitDisease.wav \
+		auglobal/sfx/BreathingInMask.wav \
+		auglobal/sfx/Chat3.wav \
+		auglobal/sfx/HitFire.wav \
+		auglobal/sfx/FootstepsWoodFloor.wav \
+		auglobal/sfx/HitPierceNoDamage.wav \
+		auglobal/sfx/BuddyOnLine.wav \
+		auglobal/sfx/HitPierceCritical.wav \
+		auglobal/sfx/DragSand.wav \
+		auglobal/sfx/DragPavement.wav \
+		auglobal/sfx/FootstepsGravel.wav \
+		auglobal/sfx/FootstepsHardFloor.wav \
+		auglobal/sfx/DirtBikeRPM2000.wav \
+		auglobal/sfx/HitGasping.wav \
+		auglobal/sfx/Chat2.wav \
+		auglobal/sfx/KnifeHit.wav \
+		auglobal/sfx/HitExplosion.wav \
+		auglobal/sfx/EatingPlants.wav \
+		auglobal/sfx/CommChannel.wav \
+		auglobal/sfx/ChatSOS.wav \
+		auglobal/sfx/Bleep6.wav \
+		auglobal/sfx/PlantFlag.wav \
+		auglobal/sfx/DoorIntClose.wav \
+		auglobal/sfx/Bleep5.wav \
+		auglobal/sfx/FootstepsForest.wav \
+		auglobal/sfx/SpaceShipRumble.wav \
+		auglobal/sfx/TractorBeam.wav \
+		auglobal/sfx/FootstepsWater.wav \
+		auglobal/sfx/GasLamp.wav \
+		auglobal/sfx/Harvest.wav \
+		auglobal/sfx/DragMetal.wav \
+		auglobal/sfx/ServoWeak.wav \
+		auglobal/sfx/Rain.wav \
+		auglobal/sfx/CracklingFire.wav \
+		auglobal/sfx/Telemetry.wav \
+		auglobal/sfx/DoorCargoClose.wav \
+		auglobal/sfx/HitSleep.wav \
+		auglobal/sfx/ExplodeSpacecraft.wav \
+		auglobal/sfx/HitPoison.wav \
+		auglobal/sfx/LaserBeam.wav \
+		auglobal/sfx/DragWater.wav \
+		auglobal/sfx/FireAK47.wav \
+		auglobal/sfx/HitCold.wav \
+		auglobal/sfx/FootstepsSavanna.wav \
+		auglobal/sfx/Bleep3.wav \
+		auglobal/sfx/WindWhistling.wav \
+		auglobal/sfx/HitAcid.wav \
+		auglobal/sfx/Whizzer.wav \
+		auglobal/sfx/DoorHatchOpen.wav \
+		auglobal/sfx/Bleep2.wav \
+		auglobal/sfx/ColderThanIce.wav \
+		auglobal/sfx/SailBoat.wav
+	@cd auglobal/sfx ; \
+	hashpack -c sfx.har *.wav
+
+

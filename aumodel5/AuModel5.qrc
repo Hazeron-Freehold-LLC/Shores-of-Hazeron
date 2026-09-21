@@ -1,0 +1,10 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+	<file>data/mAT.3dsN</file>
+	<file>data/mAT.png</file>
+	<file>data/mVacSuit.3dsN</file>
+	<file>data/mVacSuit.png</file>
+	<file>data/mVacSuitHelmet.3dsN</file>
+	<file>data/mVacSuitHelmet.png</file>
+</qresource>
+</RCC>

@@ -1,0 +1,26 @@
+TARGET = AuViewer
+VERSION = 7.0
+TEMPLATE = app
+RC_FILE = $$TARGET.rc
+CONFIG += qt thread
+QT += network opengl sql
+macx:CONFIG += c++11
+!macx:QMAKE_CXXFLAGS += -std=c++11
+INCLUDEPATH = ../auutil ../auatom  ../auatomres ../audata ../auglobal ../augl ../aumath ../aumodelres ../aubodypartsres ../autexture ../auclient ../auclientres ../auclientmailres
+
+macx:LIBS += -framework OpenAL
+ 
+CONFIG(debug, debug|release) {
+	message($$TARGET Debug build configuration.)
+	unix:TARGET = $$member(TARGET, 0)_debug
+	win32:TARGET = $$member(TARGET, 0)D
+	LIBS += -L../debug -lAuClient_debug -lAuAtom_debug -lAuData_debug -lAuGlobal_debug -lAuUtil_debug -lAuMath_debug -lAuGL_debug -lAuAtomRes_debug -lAuModelRes_debug -lAuBodyPartsRes_debug -lAuTexture_debug -lAuClientRes_debug -lAuClientMailRes_debug -lAuStoryRes_debug
+}
+ 
+CONFIG(release, debug|release) {
+	message($$TARGET Release build configuration.)
+	LIBS += -L../release -lAuGlobal -lAuBodyPartsRes -lAuModelRes -lAuMath -lAuGL -lAuData -lAuAtom -lAuUtil -lAuClient -lAuClientRes -lAuClientMailRes -lAuStoryRes
+}
+
+LIBS += -lSDL2
+!macx:LIBS += -lGLU -lopenal

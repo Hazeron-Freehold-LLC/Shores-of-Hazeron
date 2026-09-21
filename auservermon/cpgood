@@ -1,0 +1,2 @@
+#!/bin/sh
+cp AuServerMon_debug AuServerMon_good_debug

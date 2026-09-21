@@ -1,0 +1,10 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+	<file>data/Core.png</file>
+	<file>data/CrownOfOthon.png</file>
+	<file>data/DyrathonsRetreat.png</file>
+	<file>data/EdgeOfTheRift.png</file>
+	<file>data/FallasEmbrace.png</file>
+	<file>data/FallenLegionsOfMuturon.png</file>
+</qresource>
+</RCC>

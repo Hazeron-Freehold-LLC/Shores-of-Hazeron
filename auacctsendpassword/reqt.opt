@@ -1,0 +1,16 @@
+TARGET = AuAcctSendPassword
+VERSION = 7.0
+TEMPLATE = app
+CONFIG += qt
+QT += network sql
+INCLUDEPATH = ../auutil
+ 
+CONFIG(debug, debug|release) {
+	message($$TARGET Debug build configuration.)
+	LIBS += -L../debug -lAuUtil_debug
+}
+ 
+CONFIG(release, debug|release) {
+	message($$TARGET Release build configuration.)
+	LIBS += -L../release -lAuUtil
+}

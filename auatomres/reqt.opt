@@ -1,0 +1,19 @@
+TARGET = AuAtomRes
+VERSION = 7.0
+TEMPLATE = lib
+CONFIG += dll qt thread
+DEFINES += AUATOMRES
+RC_FILE = AuAtomRes.rc
+
+CONFIG(debug, debug|release) {
+	message($$TARGET Debug build configuration.)
+	DESTDIR = ../debug
+	TARGET = $$member(TARGET, 0)_debug
+	LIBS += -L../debug -lAuAtomR1_debug -lAuAtomR2_debug -lAuAtomR3_debug -lAuAtomR4_debug -lAuAtomR5_debug -lAuAtomR6_debug
+}
+
+CONFIG(release, debug|release) {
+	message($$TARGET Release build configuration.)
+	DESTDIR = ../release
+	LIBS += -L../release -lAuAtomR1 -lAuAtomR2 -lAuAtomR3 -lAuAtomR4 -lAuAtomR5 -lAuAtomR6
+}

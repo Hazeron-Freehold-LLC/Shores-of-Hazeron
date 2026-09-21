@@ -1,0 +1,19 @@
+TARGET = AuBodyPartsRes
+VERSION = 7.0
+TEMPLATE = lib
+CONFIG += dll qt thread
+DEFINES += AUBODYPARTSRES
+RC_FILE = AuBodyPartsRes.rc
+
+CONFIG(debug, debug|release) {
+	message($$TARGET Debug build configuration.)
+	DESTDIR = ../debug
+	TARGET = $$member(TARGET, 0)_debug
+	LIBS += -L../debug -lAuBodyParts0_debug -lAuBodyParts1_debug -lAuBodyParts2_debug -lAuBodyParts3_debug -lAuBodyParts4_debug -lAuBodyParts5_debug -lAuBodyParts6_debug -lAuBodyParts7_debug -lAuPowerArmor_debug
+}
+
+CONFIG(release, debug|release) {
+	message($$TARGET Release build configuration.)
+	DESTDIR = ../release
+	LIBS += -L../release -lAuBodyParts0 -lAuBodyParts1 -lAuBodyParts2 -lAuBodyParts3 -lAuBodyParts4 -lAuBodyParts5 -lAuBodyParts6 -lAuBodyParts7 -lAuPowerArmor
+}

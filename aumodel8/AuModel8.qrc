@@ -1,0 +1,8 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+	<file>data/Gills.SoH</file>
+	<file>data/Stomach.SoH</file>
+	<file>data/mPowerArmorM.3dsN</file>
+	<file>data/mPowerArmorM.png</file>
+</qresource>
+</RCC>

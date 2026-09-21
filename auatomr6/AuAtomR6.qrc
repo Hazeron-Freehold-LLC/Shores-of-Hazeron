@@ -1,0 +1,26 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+	<file>data/AnimalSkinTestPattern.png</file>
+	<file>data/BronzeMetal.png</file>
+	<file>data/BrownLeather.png</file>
+	<file>data/Canvas.png</file>
+	<file>data/ClothDecal.png</file>
+	<file>data/CrinklyWhiteFabric.png</file>
+	<file>data/DigitalCamo.png</file>
+	<file>data/Grid.png</file>
+	<file>data/Hair1.png</file>
+	<file>data/HomespunWhite.png</file>
+	<file>data/MetalBodyArmor.png</file>
+	<file>data/MilkyWay.png</file>
+	<file>data/NoBottom.png</file>
+	<file>data/NoDecal.png</file>
+	<file>data/NoTop.png</file>
+	<file>data/PlasticBodyArmor.png</file>
+	<file>data/Pleat.png</file>
+	<file>data/ShieldScram.png</file>
+	<file>data/SkinDecal.png</file>
+	<file>data/SkinSmooth.png</file>
+	<file>data/WhiteLeather.png</file>
+	<file>data/txGasGiants.png</file>
+</qresource>
+</RCC>

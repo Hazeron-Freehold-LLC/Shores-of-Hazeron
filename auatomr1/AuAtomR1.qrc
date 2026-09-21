@@ -1,0 +1,30 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+	<file>data/BrickLight.png</file>
+	<file>data/CobblestoneLight.png</file>
+	<file>data/ConcreteDarkModerate.png</file>
+	<file>data/ConcreteHeavy.png</file>
+	<file>data/ConstructionZone.png</file>
+	<file>data/DirtCoarse.png</file>
+	<file>data/DirtCrackedModerate.png</file>
+	<file>data/DirtCrackedSmooth.png</file>
+	<file>data/DirtGray.png</file>
+	<file>data/DirtHeavy.png</file>
+	<file>data/DirtModerate.png</file>
+	<file>data/DirtRocky.png</file>
+	<file>data/DirtSmooth.png</file>
+	<file>data/IceModerate.png</file>
+	<file>data/IceSmooth.png</file>
+	<file>data/Magma.png</file>
+	<file>data/Pebbles.png</file>
+	<file>data/RockBrown.png</file>
+	<file>data/RockBrownModerate.png</file>
+	<file>data/RockGrayCoarse.png</file>
+	<file>data/RockGrayHeavy.png</file>
+	<file>data/RockGrayModerate.png</file>
+	<file>data/RockGraySmooth.png</file>
+	<file>data/RockRedHeavy.png</file>
+	<file>data/RockRedModerate.png</file>
+	<file>data/RockRedSmooth.png</file>
+</qresource>
+</RCC>

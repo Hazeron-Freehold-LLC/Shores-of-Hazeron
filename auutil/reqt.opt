@@ -1,0 +1,19 @@
+TARGET = AuUtil
+VERSION = 7.0
+TEMPLATE = lib
+CONFIG += staticlib qt thread
+DEFINES += AUUTIL
+QT += network sql
+INCLUDEPATH = ../auloginserver ../aumailserver
+
+CONFIG(debug, debug|release) {
+	message($$TARGET Debug build configuration.)
+	DESTDIR = ../debug
+	unix:TARGET = $$member(TARGET, 0)_debug
+	win32:TARGET = $$member(TARGET, 0)D
+}
+
+CONFIG(release, debug|release) {
+	message($$TARGET Release build configuration.)
+	DESTDIR = ../release
+}

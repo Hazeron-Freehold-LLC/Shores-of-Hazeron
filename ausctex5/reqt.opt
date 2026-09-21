@@ -1,0 +1,15 @@
+TARGET = AuScTex5
+VERSION = 7.0
+TEMPLATE = lib
+CONFIG += staticlib qt thread
+
+CONFIG(debug, debug|release) {
+	message($$TARGET Debug build configuration.)
+	DESTDIR = ../debug
+	TARGET = $$member(TARGET, 0)_debug
+}
+
+CONFIG(release, debug|release) {
+	message($$TARGET Release build configuration.)
+	DESTDIR = ../release
+}

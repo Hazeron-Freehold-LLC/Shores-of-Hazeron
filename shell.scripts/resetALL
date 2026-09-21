@@ -1,0 +1,25 @@
+#!/bin/bash
+# Resets the Hazeron databases to 'new'.
+# The current user must have database 'superuser' privileges.
+#
+# Typical usage:
+#  bash ./resetALL >resetLog 2>&1
+
+# Login Database
+	#dropdb auLogin
+	#createdb -T template0 -O aumaster auLogin
+	#psql auLogin -U aumaster -f initlogin.sql
+
+	# Just reset unit ids in login database so all the login accounts don't have to be recreated.
+	psql auLogin -U aumaster -c 'UPDATE g_PLayer SET idu=0;'
+
+# Mail Database
+	dropdb auMail
+	createdb -T template0 -O aumaster auMail
+	psql auMail -U aumaster -f initmail.sql
+
+# Universe Database
+	dropdb auUniverse
+	createdb -T template0 -O aumaster auUniverse
+	psql auUniverse -U aumaster -f inituniverse.sql
+

@@ -1,0 +1,53 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+	<file>data/PA0Skull.3dsN</file>
+	<file>data/PA1Skull.3dsN</file>
+	<file>data/PA2Skull.3dsN</file>
+	<file>data/PA3Skull.3dsN</file>
+	<file>data/PA4Skull.3dsN</file>
+	<file>data/PA5Skull.3dsN</file>
+	<file>data/PA6Skull.3dsN</file>
+	<file>data/PA7Skull.3dsN</file>
+	<file>data/PAArmLeft.3dsN</file>
+	<file>data/PAArmRight.3dsN</file>
+	<file>data/PAArmToArm.3dsN</file>
+	<file>data/PAArmToArmClosed.3dsN</file>
+	<file>data/PAArmToButt.3dsN</file>
+	<file>data/PAArmToLeg.3dsN</file>
+	<file>data/PAArmToNoLimb.3dsN</file>
+	<file>data/PAFootLeft.3dsN</file>
+	<file>data/PAFootLeft0.3dsN</file>
+	<file>data/PAFootLeft1.3dsN</file>
+	<file>data/PAFootLeft2.3dsN</file>
+	<file>data/PAFootRight.3dsN</file>
+	<file>data/PAFootRight0.3dsN</file>
+	<file>data/PAFootRight1.3dsN</file>
+	<file>data/PAFootRight2.3dsN</file>
+	<file>data/PAHandLeft.3dsN</file>
+	<file>data/PAHandRight.3dsN</file>
+	<file>data/PALegClosedToButt.3dsN</file>
+	<file>data/PALegClosedToNoLimb.3dsN</file>
+	<file>data/PALegLeft.3dsN</file>
+	<file>data/PALegRight.3dsN</file>
+	<file>data/PALegToButt.3dsN</file>
+	<file>data/PALegToLeg.3dsN</file>
+	<file>data/PALegToNoLimb.3dsN</file>
+	<file>data/PANeck11.3dsN</file>
+	<file>data/PANeck12.3dsN</file>
+	<file>data/PANeck21.3dsN</file>
+	<file>data/PANeck22.3dsN</file>
+	<file>data/PANeck31.3dsN</file>
+	<file>data/PANeck32.3dsN</file>
+	<file>data/PANeck42.3dsN</file>
+	<file>data/PANoLimbClosedToButt.3dsN</file>
+	<file>data/PANoLimbClosedToNoLimb.3dsN</file>
+	<file>data/PANoLimbToButt.3dsN</file>
+	<file>data/PANoLimbToLeg.3dsN</file>
+	<file>data/PANoLimbToNoLimb.3dsN</file>
+	<file>data/PATopLimbToArm.3dsN</file>
+	<file>data/PATopLimbToButt.3dsN</file>
+	<file>data/PATopLimbToLeg.3dsN</file>
+	<file>data/PATopLimbToNoLimb.3dsN</file>
+	<file>data/PATopToTop.3dsN</file>
+</qresource>
+</RCC>

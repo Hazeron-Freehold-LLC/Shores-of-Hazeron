@@ -1,0 +1,18 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+	<file>data/Asteroid1.3ds</file>
+	<file>data/Asteroid1.png</file>
+	<file>data/Asteroid2.3ds</file>
+	<file>data/Asteroid2.png</file>
+	<file>data/Asteroid3.3ds</file>
+	<file>data/Asteroid3.png</file>
+	<file>data/Asteroid4.3ds</file>
+	<file>data/Asteroid4.png</file>
+	<file>data/mGameChair.3dsN</file>
+	<file>data/mGameTable.3dsN</file>
+	<file>data/mGameTableTex.png</file>
+	<file>data/mSpaceFighter2.3dsN</file>
+	<file>data/mSpaceFighter2.png</file>
+	<file>data/mWormhole.3dsN</file>
+</qresource>
+</RCC>

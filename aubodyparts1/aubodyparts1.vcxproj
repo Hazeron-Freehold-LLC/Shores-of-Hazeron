@@ -1,0 +1,454 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Template|Win32">
+      <Configuration>Template</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Template|x64">
+      <Configuration>Template</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{DBAE9174-9663-4013-835A-B6EE255A32A5}</ProjectGuid>
+    <RootNamespace>aubodyparts1</RootNamespace>
+    <Keyword>Qt4VSv1.0</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Template|Win32'">
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Template|x64'">
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Configuration)\</IntDir>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Template|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Template|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Template|Win32'" />
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Template|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Template|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Template|x64'" />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>.\GeneratedFiles;$(QTDIR)\include;.\GeneratedFiles\$(Configuration);$(QTDIR)\include\QtCore;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>UNICODE;WIN32;QT_THREAD_SUPPORT;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;AUBODYPARTS1_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)$(ProjectName).lib</OutputFile>
+      <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>.\GeneratedFiles;$(QTDIR)\include;.\GeneratedFiles\$(Configuration);$(QTDIR)\include\QtCore;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>UNICODE;WIN32;QT_THREAD_SUPPORT;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;AUBODYPARTS1_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)$(ProjectName).lib</OutputFile>
+      <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>.\GeneratedFiles;$(QTDIR)\include;.\GeneratedFiles\$(Configuration);$(QTDIR)\include\QtCore;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>UNICODE;WIN32;QT_THREAD_SUPPORT;QT_CORE_LIB;AUBODYPARTS1_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)$(ProjectName).lib</OutputFile>
+      <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>.\GeneratedFiles;$(QTDIR)\include;.\GeneratedFiles\$(Configuration);$(QTDIR)\include\QtCore;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>UNICODE;WIN32;QT_THREAD_SUPPORT;QT_CORE_LIB;AUBODYPARTS1_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)$(ProjectName).lib</OutputFile>
+      <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="data\1ArmLeft0.3dsn" />
+    <None Include="data\1ArmLeft1.3dsn" />
+    <None Include="data\1ArmRight0.3dsn" />
+    <None Include="data\1ArmRight1.3dsn" />
+    <None Include="data\1ArmToArm.3dsn" />
+    <None Include="data\1ArmToArmClosed.3dsn" />
+    <None Include="data\1ArmToButt.3dsn" />
+    <None Include="data\1ArmToLeg.3dsn" />
+    <None Include="data\1ArmToNoLimb.3dsn" />
+    <None Include="data\1Ear01.3dsn" />
+    <None Include="data\1Ear02.3dsn" />
+    <None Include="data\1Ear03.3dsn" />
+    <None Include="data\1Ear04.3dsn" />
+    <None Include="data\1Ear11.3dsN" />
+    <None Include="data\1Ear12.3dsn" />
+    <None Include="data\1Ear13.3dsN" />
+    <None Include="data\1Ear14.3dsN" />
+    <None Include="data\1Ear21.3dsn" />
+    <None Include="data\1Ear22.3dsn" />
+    <None Include="data\1Ear23.3dsn" />
+    <None Include="data\1Ear24.3dsn" />
+    <None Include="data\1Ear31.3dsN" />
+    <None Include="data\1Ear32.3dsN" />
+    <None Include="data\1Ear33.3dsN" />
+    <None Include="data\1Ear34.3dsN" />
+    <None Include="data\1Ear41.3dsN" />
+    <None Include="data\1Ear42.3dsN" />
+    <None Include="data\1Ear43.3dsN" />
+    <None Include="data\1Ear44.3dsN" />
+    <None Include="data\1Ear51.3dsn" />
+    <None Include="data\1Ear52.3dsn" />
+    <None Include="data\1Ear53.3dsn" />
+    <None Include="data\1Ear54.3dsn" />
+    <None Include="data\1Ear61.3dsN" />
+    <None Include="data\1Ear62.3dsN" />
+    <None Include="data\1Ear63.3dsN" />
+    <None Include="data\1Ear64.3dsN" />
+    <None Include="data\1Ear71.3dsN" />
+    <None Include="data\1Ear72.3dsN" />
+    <None Include="data\1Ear73.3dsN" />
+    <None Include="data\1Ear74.3dsN" />
+    <None Include="data\1Eye01.3dsn" />
+    <None Include="data\1Eye02.3dsn" />
+    <None Include="data\1Eye03.3dsn" />
+    <None Include="data\1Eye04.3dsn" />
+    <None Include="data\1Eye11.3dsn" />
+    <None Include="data\1Eye12.3dsn" />
+    <None Include="data\1Eye13.3dsn" />
+    <None Include="data\1Eye14.3dsn" />
+    <None Include="data\1Eye21.3dsn" />
+    <None Include="data\1Eye22.3dsn" />
+    <None Include="data\1Eye23.3dsn" />
+    <None Include="data\1Eye24.3dsn" />
+    <None Include="data\1Eye31.3dsn" />
+    <None Include="data\1Eye32.3dsn" />
+    <None Include="data\1Eye33.3dsn" />
+    <None Include="data\1Eye34.3dsn" />
+    <None Include="data\1Eye41.3dsn" />
+    <None Include="data\1Eye42.3dsn" />
+    <None Include="data\1Eye43.3dsn" />
+    <None Include="data\1Eye44.3dsn" />
+    <None Include="data\1Eye51.3dsn" />
+    <None Include="data\1Eye52.3dsn" />
+    <None Include="data\1Eye53.3dsn" />
+    <None Include="data\1Eye54.3dsn" />
+    <None Include="data\1Eye61.3dsn" />
+    <None Include="data\1Eye62.3dsn" />
+    <None Include="data\1Eye63.3dsn" />
+    <None Include="data\1Eye64.3dsn" />
+    <None Include="data\1Eye71.3dsn" />
+    <None Include="data\1Eye72.3dsn" />
+    <None Include="data\1Eye73.3dsn" />
+    <None Include="data\1Eye74.3dsn" />
+    <None Include="data\1FootLeft0.3dsn" />
+    <None Include="data\1FootLeft1.3dsn" />
+    <None Include="data\1FootLeft2.3dsn" />
+    <None Include="data\1FootLeft3.3dsn" />
+    <None Include="data\1FootLeft4.3dsN" />
+    <None Include="data\1FootLeft5.3dsn" />
+    <None Include="data\1FootLeft6.3dsn" />
+    <None Include="data\1FootLeft7.3dsn" />
+    <None Include="data\1FootRight0.3dsn" />
+    <None Include="data\1FootRight1.3dsn" />
+    <None Include="data\1FootRight2.3dsn" />
+    <None Include="data\1FootRight3.3dsn" />
+    <None Include="data\1FootRight4.3dsn" />
+    <None Include="data\1FootRight5.3dsn" />
+    <None Include="data\1FootRight6.3dsn" />
+    <None Include="data\1FootRight7.3dsn" />
+    <None Include="data\1HandLeft0.3dsn" />
+    <None Include="data\1HandLeft1.3dsN" />
+    <None Include="data\1HandLeft2.3dsN" />
+    <None Include="data\1HandLeft3.3dsn" />
+    <None Include="data\1HandLeft4.3dsn" />
+    <None Include="data\1HandLeft5.3dsn" />
+    <None Include="data\1HandLeft6.3dsn" />
+    <None Include="data\1HandLeft7.3dsn" />
+    <None Include="data\1HandRight0.3dsn" />
+    <None Include="data\1HandRight1.3dsN" />
+    <None Include="data\1HandRight2.3dsn" />
+    <None Include="data\1HandRight3.3dsn" />
+    <None Include="data\1HandRight4.3dsn" />
+    <None Include="data\1HandRight5.3dsn" />
+    <None Include="data\1HandRight6.3dsn" />
+    <None Include="data\1HandRight6.blend.3dsN" />
+    <None Include="data\1HandRight7.3dsn" />
+    <None Include="data\1HeadCrest01.3dsN" />
+    <None Include="data\1HeadCrest02.3dsN" />
+    <None Include="data\1HeadCrest03.3dsN" />
+    <None Include="data\1HeadCrest11.3dsN" />
+    <None Include="data\1HeadCrest12.3dsN" />
+    <None Include="data\1HeadCrest13.3dsN" />
+    <None Include="data\1HeadCrest21.3dsN" />
+    <None Include="data\1HeadCrest22.3dsN" />
+    <None Include="data\1HeadCrest23.3dsN" />
+    <None Include="data\1HeadCrest31.3dsN" />
+    <None Include="data\1HeadCrest32.3dsN" />
+    <None Include="data\1HeadCrest33.3dsN" />
+    <None Include="data\1Horn01.3dsn" />
+    <None Include="data\1Horn02.3dsn" />
+    <None Include="data\1Horn03.3dsn" />
+    <None Include="data\1Horn11.3dsn" />
+    <None Include="data\1Horn12.3dsn" />
+    <None Include="data\1Horn13.3dsn" />
+    <None Include="data\1Horn21.3dsn" />
+    <None Include="data\1Horn22.3dsn" />
+    <None Include="data\1Horn23.3dsn" />
+    <None Include="data\1Horn31.3dsn" />
+    <None Include="data\1Horn32.3dsn" />
+    <None Include="data\1Horn33.3dsn" />
+    <None Include="data\1LegClosedToButt.3dsn" />
+    <None Include="data\1LegClosedToLeg.3dsn" />
+    <None Include="data\1LegClosedToNoLimb.3dsn" />
+    <None Include="data\1LegClosedToNoLimb.3dsN.3dsN" />
+    <None Include="data\1LegLeft0.3dsn" />
+    <None Include="data\1LegLeft1.3dsN" />
+    <None Include="data\1LegLeft2.3dsn" />
+    <None Include="data\1LegLeft3.3dsn" />
+    <None Include="data\1LegRight0.3dsn" />
+    <None Include="data\1LegRight1.3dsN" />
+    <None Include="data\1LegRight2.3dsn" />
+    <None Include="data\1LegRight3.3dsn" />
+    <None Include="data\1LegToButt.3dsn" />
+    <None Include="data\1LegToLeg.3dsn" />
+    <None Include="data\1LegToNoLimb.3dsn" />
+    <None Include="data\1Mouth01.3dsn" />
+    <None Include="data\1Mouth02.3dsn" />
+    <None Include="data\1Mouth03.3dsn" />
+    <None Include="data\1Mouth04.3dsn" />
+    <None Include="data\1Mouth11.3dsn" />
+    <None Include="data\1Mouth12.3dsn" />
+    <None Include="data\1Mouth13.3dsn" />
+    <None Include="data\1Mouth14.3dsn" />
+    <None Include="data\1Mouth21.3dsn" />
+    <None Include="data\1Mouth22.3dsn" />
+    <None Include="data\1Mouth23.3dsn" />
+    <None Include="data\1Mouth24.3dsn" />
+    <None Include="data\1Mouth31.3dsn" />
+    <None Include="data\1Mouth32.3dsn" />
+    <None Include="data\1Mouth33.3dsn" />
+    <None Include="data\1Mouth34.3dsn" />
+    <None Include="data\1Mouth41.3dsn" />
+    <None Include="data\1Mouth42.3dsn" />
+    <None Include="data\1Mouth43.3dsn" />
+    <None Include="data\1Mouth44.3dsn" />
+    <None Include="data\1Mouth51.3dsn" />
+    <None Include="data\1Mouth52.3dsn" />
+    <None Include="data\1Mouth53.3dsn" />
+    <None Include="data\1Mouth54.3dsn" />
+    <None Include="data\1Mouth61.3dsn" />
+    <None Include="data\1Mouth62.3dsn" />
+    <None Include="data\1Mouth63.3dsn" />
+    <None Include="data\1Mouth64.3dsn" />
+    <None Include="data\1Mouth71.3dsn" />
+    <None Include="data\1Mouth72.3dsn" />
+    <None Include="data\1Mouth73.3dsn" />
+    <None Include="data\1Mouth74.3dsn" />
+    <None Include="data\1Neck11.3dsn" />
+    <None Include="data\1Neck12.3dsn" />
+    <None Include="data\1Neck21.3dsn" />
+    <None Include="data\1Neck22.3dsn" />
+    <None Include="data\1Neck31.3dsn" />
+    <None Include="data\1Neck32.3dsn" />
+    <None Include="data\1Neck42.3dsn" />
+    <None Include="data\1NoLimbClosedToButt.3dsn" />
+    <None Include="data\1NoLimbClosedToNoLimb.3dsn" />
+    <None Include="data\1NoLimbToButt.3dsN" />
+    <None Include="data\1NoLimbToLeg.3dsn" />
+    <None Include="data\1NoLimbToNoLimb.3dsn" />
+    <None Include="data\1Nose01.3dsN" />
+    <None Include="data\1Nose02.3dsN" />
+    <None Include="data\1Nose03.3dsN" />
+    <None Include="data\1Nose04.3dsN" />
+    <None Include="data\1Nose11.3dsN" />
+    <None Include="data\1Nose12.3dsN" />
+    <None Include="data\1Nose13.3dsN" />
+    <None Include="data\1Nose14.3dsN" />
+    <None Include="data\1Nose21.3dsN" />
+    <None Include="data\1Nose22.3dsN" />
+    <None Include="data\1Nose23.3dsN" />
+    <None Include="data\1Nose24.3dsN" />
+    <None Include="data\1Nose31.3dsN" />
+    <None Include="data\1Nose32.3dsN" />
+    <None Include="data\1Nose33.3dsN" />
+    <None Include="data\1Nose34.3dsN" />
+    <None Include="data\1Nose41.3dsN" />
+    <None Include="data\1Nose42.3dsN" />
+    <None Include="data\1Nose43.3dsN" />
+    <None Include="data\1Nose44.3dsN" />
+    <None Include="data\1Nose51.3dsN" />
+    <None Include="data\1Nose52.3dsN" />
+    <None Include="data\1Nose53.3dsN" />
+    <None Include="data\1Nose54.3dsN" />
+    <None Include="data\1Nose61.3dsN" />
+    <None Include="data\1Nose62.3dsN" />
+    <None Include="data\1Nose63.3dsN" />
+    <None Include="data\1Nose64.3dsN" />
+    <None Include="data\1Nose71.3dsN" />
+    <None Include="data\1Nose72.3dsN" />
+    <None Include="data\1Nose73.3dsN" />
+    <None Include="data\1Nose74.3dsN" />
+    <None Include="data\1Skull.3dsN" />
+    <None Include="data\1Tail11.3dsn" />
+    <None Include="data\1Tail12.3dsn" />
+    <None Include="data\1Tail13.3dsn" />
+    <None Include="data\1Tail31.3dsn" />
+    <None Include="data\1Tail32.3dsn" />
+    <None Include="data\1Tail33.3dsn" />
+    <None Include="data\1Tail51.3dsn" />
+    <None Include="data\1Tail52.3dsn" />
+    <None Include="data\1Tail53.3dsn" />
+    <None Include="data\1Tip1.3dsn" />
+    <None Include="data\1Tip2.3dsn" />
+    <None Include="data\1Tip3.3dsn" />
+    <None Include="data\1TopLimbToArm.3dsn" />
+    <None Include="data\1TopLimbToButt.3dsn" />
+    <None Include="data\1TopLimbToLeg.3dsn" />
+    <None Include="data\1TopLimbToNoLimb.3dsn" />
+    <None Include="data\1TopToTop.3dsn" />
+    <None Include="data\1TorsoCrest01.3dsn" />
+    <None Include="data\1TorsoCrest02.3dsn" />
+    <None Include="data\1TorsoCrest03.3dsn" />
+    <None Include="data\1TorsoCrest11.3dsn" />
+    <None Include="data\1TorsoCrest12.3dsn" />
+    <None Include="data\1TorsoCrest13.3dsn" />
+    <None Include="data\1TorsoCrest21.3dsn" />
+    <None Include="data\1TorsoCrest22.3dsn" />
+    <None Include="data\1TorsoCrest23.3dsn" />
+    <None Include="data\1TorsoCrest31.3dsn" />
+    <None Include="data\1TorsoCrest32.3dsn" />
+    <None Include="data\1TorsoCrest33.3dsn" />
+    <CustomBuild Include="AuBodyParts1.qrc">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Rcc%27ing AuBodyParts1.qrc...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Rcc%27ing AuBodyParts1.qrc...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\rcc.exe" -name "AuBodyParts1" -no-compress ".\AuBodyParts1.qrc" -o .\GeneratedFiles\qrc_AuBodyParts1.cpp
+</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\rcc.exe" -name "AuBodyParts1" -no-compress ".\AuBodyParts1.qrc" -o .\GeneratedFiles\qrc_AuBodyParts1.cpp
+</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\AuBodyParts1.qrc;.\data\1ArmLeft0.3dsN;.\data\1ArmRight0.3dsN;.\data\1ArmRight1.3dsN;.\data\1ArmToArm.3dsN;.\data\1ArmToArmClosed.3dsN;.\data\1ArmToButt.3dsN;.\data\1ArmToLeg.3dsN;.\data\1ArmToNoLimb.3dsN;.\data\1Ear01.3dsN;.\data\1Ear02.3dsN;.\data\1Ear03.3dsN;.\data\1Ear04.3dsN;.\data\1Ear11.3dsN;.\data\1Ear12.3dsN;.\data\1Ear13.3dsN;.\data\1Ear14.3dsN;.\data\1Ear21.3dsN;.\data\1Ear22.3dsN;.\data\1Ear23.3dsN;.\data\1Ear24.3dsN;.\data\1Ear31.3dsN;.\data\1Ear32.3dsN;.\data\1Ear33.3dsN;.\data\1Ear34.3dsN;.\data\1Ear41.3dsN;.\data\1Ear42.3dsN;.\data\1Ear43.3dsN;.\data\1Ear44.3dsN;.\data\1Ear51.3dsN;.\data\1Ear52.3dsN;.\data\1Ear53.3dsN;.\data\1Ear54.3dsN;.\data\1Ear61.3dsN;.\data\1Ear62.3dsN;.\data\1Ear63.3dsN;.\data\1Ear64.3dsN;.\data\1Ear71.3dsN;.\data\1Ear72.3dsN;.\data\1Ear73.3dsN;.\data\1Ear74.3dsN;.\data\1Eye01.3dsN;.\data\1Eye02.3dsN;.\data\1Eye03.3dsN;.\data\1Eye04.3dsN;.\data\1Eye11.3dsN;.\data\1Eye12.3dsN;.\data\1Eye13.3dsN;.\data\1Eye14.3dsN;.\data\1Eye21.3dsN;.\data\1Eye22.3dsN;.\data\1Eye23.3dsN;.\data\1Eye24.3dsN;.\data\1Eye31.3dsN;.\data\1Eye32.3dsN;.\data\1Eye33.3dsN;.\data\1Eye34.3dsN;.\data\1Eye41.3dsN;.\data\1Eye42.3dsN;.\data\1Eye43.3dsN;.\data\1Eye44.3dsN;.\data\1Eye51.3dsN;.\data\1Eye52.3dsN;.\data\1Eye53.3dsN;.\data\1Eye54.3dsN;.\data\1Eye61.3dsN;.\data\1Eye62.3dsN;.\data\1Eye63.3dsN;.\data\1Eye64.3dsN;.\data\1Eye71.3dsN;.\data\1Eye72.3dsN;.\data\1Eye73.3dsN;.\data\1Eye74.3dsN;.\data\1FootLeft0.3dsN;.\data\1FootLeft1.3dsN;.\data\1FootLeft2.3dsN;.\data\1FootLeft3.3dsN;.\data\1FootLeft4.3dsN;.\data\1FootLeft5.3dsN;.\data\1FootLeft6.3dsN;.\data\1FootLeft7.3dsN;.\data\1FootRight0.3dsN;.\data\1FootRight1.3dsN;.\data\1FootRight2.3dsN;.\data\1FootRight3.3dsN;.\data\1FootRight4.3dsN;.\data\1FootRight5.3dsN;.\data\1FootRight6.3dsN;.\data\1FootRight7.3dsN;.\data\1HandLeft0.3dsN;.\data\1HandLeft1.3dsN;.\data\1HandLeft2.3dsN;.\data\1HandLeft3.3dsN;.\data\1HandLeft4.3dsN;.\data\1HandLeft5.3dsN;.\data\1HandLeft6.3dsN;.\data\1HandLeft7.3dsN;.\data\1HandRight0.3dsN;.\data\1HandRight1.3dsN;.\data\1HandRight2.3dsN;.\data\1HandRight3.3dsN;.\data\1HandRight4.3dsN;.\data\1HandRight5.3dsN;.\data\1HandRight6.3dsN;.\data\1HandRight7.3dsN;.\data\1HeadCrest01.3dsN;.\data\1HeadCrest02.3dsN;.\data\1HeadCrest03.3dsN;.\data\1HeadCrest11.3dsN;.\data\1HeadCrest12.3dsN;.\data\1HeadCrest13.3dsN;.\data\1HeadCrest21.3dsN;.\data\1HeadCrest22.3dsN;.\data\1HeadCrest23.3dsN;.\data\1HeadCrest31.3dsN;.\data\1HeadCrest32.3dsN;.\data\1HeadCrest33.3dsN;.\data\1Horn01.3dsN;.\data\1Horn02.3dsN;.\data\1Horn03.3dsN;.\data\1Horn11.3dsN;.\data\1Horn12.3dsN;.\data\1Horn13.3dsN;.\data\1Horn21.3dsN;.\data\1Horn22.3dsN;.\data\1Horn23.3dsN;.\data\1Horn31.3dsN;.\data\1Horn32.3dsN;.\data\1Horn33.3dsN;.\data\1LegClosedToButt.3dsN;.\data\1LegClosedToLeg.3dsN;.\data\1LegClosedToNoLimb.3dsN;.\data\1LegLeft0.3dsN;.\data\1LegLeft1.3dsN;.\data\1LegLeft2.3dsN;.\data\1LegLeft3.3dsN;.\data\1LegRight0.3dsN;.\data\1LegRight1.3dsN;.\data\1LegRight2.3dsN;.\data\1LegRight3.3dsN;.\data\1LegToButt.3dsN;.\data\1LegToLeg.3dsN;.\data\1LegToNoLimb.3dsN;.\data\1Mouth01.3dsN;.\data\1Mouth02.3dsN;.\data\1Mouth03.3dsN;.\data\1Mouth04.3dsN;.\data\1Mouth11.3dsN;.\data\1Mouth12.3dsN;.\data\1Mouth13.3dsN;.\data\1Mouth14.3dsN;.\data\1Mouth21.3dsN;.\data\1Mouth22.3dsN;.\data\1Mouth23.3dsN;.\data\1Mouth24.3dsN;.\data\1Mouth31.3dsN;.\data\1Mouth32.3dsN;.\data\1Mouth33.3dsN;.\data\1Mouth34.3dsN;.\data\1Mouth41.3dsN;.\data\1Mouth42.3dsN;.\data\1Mouth43.3dsN;.\data\1Mouth44.3dsN;.\data\1Mouth51.3dsN;.\data\1Mouth52.3dsN;.\data\1Mouth53.3dsN;.\data\1Mouth54.3dsN;.\data\1Mouth61.3dsN;.\data\1Mouth62.3dsN;.\data\1Mouth63.3dsN;.\data\1Mouth64.3dsN;.\data\1Mouth71.3dsN;.\data\1Mouth72.3dsN;.\data\1Mouth73.3dsN;.\data\1Mouth74.3dsN;.\data\1Neck11.3dsN;.\data\1Neck12.3dsN;.\data\1Neck21.3dsN;.\data\1Neck22.3dsN;.\data\1Neck31.3dsN;.\data\1Neck32.3dsN;.\data\1Neck42.3dsN;.\data\1NoLimbClosedToButt.3dsN;.\data\1NoLimbClosedToNoLimb.3dsN;.\data\1NoLimbToButt.3dsN;.\data\1NoLimbToButtClosed.3dsN;.\data\1NoLimbToLeg.3dsN;.\data\1NoLimbToNoLimb.3dsN;.\data\1Nose01.3dsN;.\data\1Nose02.3dsN;.\data\1Nose03.3dsN;.\data\1Nose04.3dsN;.\data\1Nose11.3dsN;.\data\1Nose12.3dsN;.\data\1Nose13.3dsN;.\data\1Nose14.3dsN;.\data\1Nose21.3dsN;.\data\1Nose22.3dsN;.\data\1Nose23.3dsN;.\data\1Nose24.3dsN;.\data\1Nose31.3dsN;.\data\1Nose32.3dsN;.\data\1Nose33.3dsN;.\data\1Nose34.3dsN;.\data\1Nose41.3dsN;.\data\1Nose42.3dsN;.\data\1Nose43.3dsN;.\data\1Nose44.3dsN;.\data\1Nose51.3dsN;.\data\1Nose52.3dsN;.\data\1Nose53.3dsN;.\data\1Nose54.3dsN;.\data\1Nose61.3dsN;.\data\1Nose62.3dsN;.\data\1Nose63.3dsN;.\data\1Nose64.3dsN;.\data\1Nose71.3dsN;.\data\1Nose72.3dsN;.\data\1Nose73.3dsN;.\data\1Nose74.3dsN;.\data\1Skull.3dsN;.\data\1Tail11.3dsN;.\data\1Tail12.3dsN;.\data\1Tail13.3dsN;.\data\1Tail31.3dsN;.\data\1Tail32.3dsN;.\data\1Tail33.3dsN;.\data\1Tail51.3dsN;.\data\1Tail52.3dsN;.\data\1Tail53.3dsN;.\data\1Tip1.3dsN;.\data\1Tip2.3dsN;.\data\1Tip3.3dsN;.\data\1TopLimbToArm.3dsN;.\data\1TopLimbToButt.3dsN;.\data\1TopLimbToLeg.3dsN;.\data\1TopLimbToNoLimb.3dsN;.\data\1TopToTop.3dsN;.\data\1TorsoCrest01.3dsN;.\data\1TorsoCrest02.3dsN;.\data\1TorsoCrest03.3dsN;.\data\1TorsoCrest11.3dsN;.\data\1TorsoCrest12.3dsN;.\data\1TorsoCrest13.3dsN;.\data\1TorsoCrest21.3dsN;.\data\1TorsoCrest22.3dsN;.\data\1TorsoCrest23.3dsN;.\data\1TorsoCrest31.3dsN;.\data\1TorsoCrest32.3dsN;.\data\1TorsoCrest33.3dsN;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\AuBodyParts1.qrc;.\data\1ArmLeft0.3dsN;.\data\1ArmRight0.3dsN;.\data\1ArmRight1.3dsN;.\data\1ArmToArm.3dsN;.\data\1ArmToArmClosed.3dsN;.\data\1ArmToButt.3dsN;.\data\1ArmToLeg.3dsN;.\data\1ArmToNoLimb.3dsN;.\data\1Ear01.3dsN;.\data\1Ear02.3dsN;.\data\1Ear03.3dsN;.\data\1Ear04.3dsN;.\data\1Ear11.3dsN;.\data\1Ear12.3dsN;.\data\1Ear13.3dsN;.\data\1Ear14.3dsN;.\data\1Ear21.3dsN;.\data\1Ear22.3dsN;.\data\1Ear23.3dsN;.\data\1Ear24.3dsN;.\data\1Ear31.3dsN;.\data\1Ear32.3dsN;.\data\1Ear33.3dsN;.\data\1Ear34.3dsN;.\data\1Ear41.3dsN;.\data\1Ear42.3dsN;.\data\1Ear43.3dsN;.\data\1Ear44.3dsN;.\data\1Ear51.3dsN;.\data\1Ear52.3dsN;.\data\1Ear53.3dsN;.\data\1Ear54.3dsN;.\data\1Ear61.3dsN;.\data\1Ear62.3dsN;.\data\1Ear63.3dsN;.\data\1Ear64.3dsN;.\data\1Ear71.3dsN;.\data\1Ear72.3dsN;.\data\1Ear73.3dsN;.\data\1Ear74.3dsN;.\data\1Eye01.3dsN;.\data\1Eye02.3dsN;.\data\1Eye03.3dsN;.\data\1Eye04.3dsN;.\data\1Eye11.3dsN;.\data\1Eye12.3dsN;.\data\1Eye13.3dsN;.\data\1Eye14.3dsN;.\data\1Eye21.3dsN;.\data\1Eye22.3dsN;.\data\1Eye23.3dsN;.\data\1Eye24.3dsN;.\data\1Eye31.3dsN;.\data\1Eye32.3dsN;.\data\1Eye33.3dsN;.\data\1Eye34.3dsN;.\data\1Eye41.3dsN;.\data\1Eye42.3dsN;.\data\1Eye43.3dsN;.\data\1Eye44.3dsN;.\data\1Eye51.3dsN;.\data\1Eye52.3dsN;.\data\1Eye53.3dsN;.\data\1Eye54.3dsN;.\data\1Eye61.3dsN;.\data\1Eye62.3dsN;.\data\1Eye63.3dsN;.\data\1Eye64.3dsN;.\data\1Eye71.3dsN;.\data\1Eye72.3dsN;.\data\1Eye73.3dsN;.\data\1Eye74.3dsN;.\data\1FootLeft0.3dsN;.\data\1FootLeft1.3dsN;.\data\1FootLeft2.3dsN;.\data\1FootLeft3.3dsN;.\data\1FootLeft4.3dsN;.\data\1FootLeft5.3dsN;.\data\1FootLeft6.3dsN;.\data\1FootLeft7.3dsN;.\data\1FootRight0.3dsN;.\data\1FootRight1.3dsN;.\data\1FootRight2.3dsN;.\data\1FootRight3.3dsN;.\data\1FootRight4.3dsN;.\data\1FootRight5.3dsN;.\data\1FootRight6.3dsN;.\data\1FootRight7.3dsN;.\data\1HandLeft0.3dsN;.\data\1HandLeft1.3dsN;.\data\1HandLeft2.3dsN;.\data\1HandLeft3.3dsN;.\data\1HandLeft4.3dsN;.\data\1HandLeft5.3dsN;.\data\1HandLeft6.3dsN;.\data\1HandLeft7.3dsN;.\data\1HandRight0.3dsN;.\data\1HandRight1.3dsN;.\data\1HandRight2.3dsN;.\data\1HandRight3.3dsN;.\data\1HandRight4.3dsN;.\data\1HandRight5.3dsN;.\data\1HandRight6.3dsN;.\data\1HandRight7.3dsN;.\data\1HeadCrest01.3dsN;.\data\1HeadCrest02.3dsN;.\data\1HeadCrest03.3dsN;.\data\1HeadCrest11.3dsN;.\data\1HeadCrest12.3dsN;.\data\1HeadCrest13.3dsN;.\data\1HeadCrest21.3dsN;.\data\1HeadCrest22.3dsN;.\data\1HeadCrest23.3dsN;.\data\1HeadCrest31.3dsN;.\data\1HeadCrest32.3dsN;.\data\1HeadCrest33.3dsN;.\data\1Horn01.3dsN;.\data\1Horn02.3dsN;.\data\1Horn03.3dsN;.\data\1Horn11.3dsN;.\data\1Horn12.3dsN;.\data\1Horn13.3dsN;.\data\1Horn21.3dsN;.\data\1Horn22.3dsN;.\data\1Horn23.3dsN;.\data\1Horn31.3dsN;.\data\1Horn32.3dsN;.\data\1Horn33.3dsN;.\data\1LegClosedToButt.3dsN;.\data\1LegClosedToLeg.3dsN;.\data\1LegClosedToNoLimb.3dsN;.\data\1LegLeft0.3dsN;.\data\1LegLeft1.3dsN;.\data\1LegLeft2.3dsN;.\data\1LegLeft3.3dsN;.\data\1LegRight0.3dsN;.\data\1LegRight1.3dsN;.\data\1LegRight2.3dsN;.\data\1LegRight3.3dsN;.\data\1LegToButt.3dsN;.\data\1LegToLeg.3dsN;.\data\1LegToNoLimb.3dsN;.\data\1Mouth01.3dsN;.\data\1Mouth02.3dsN;.\data\1Mouth03.3dsN;.\data\1Mouth04.3dsN;.\data\1Mouth11.3dsN;.\data\1Mouth12.3dsN;.\data\1Mouth13.3dsN;.\data\1Mouth14.3dsN;.\data\1Mouth21.3dsN;.\data\1Mouth22.3dsN;.\data\1Mouth23.3dsN;.\data\1Mouth24.3dsN;.\data\1Mouth31.3dsN;.\data\1Mouth32.3dsN;.\data\1Mouth33.3dsN;.\data\1Mouth34.3dsN;.\data\1Mouth41.3dsN;.\data\1Mouth42.3dsN;.\data\1Mouth43.3dsN;.\data\1Mouth44.3dsN;.\data\1Mouth51.3dsN;.\data\1Mouth52.3dsN;.\data\1Mouth53.3dsN;.\data\1Mouth54.3dsN;.\data\1Mouth61.3dsN;.\data\1Mouth62.3dsN;.\data\1Mouth63.3dsN;.\data\1Mouth64.3dsN;.\data\1Mouth71.3dsN;.\data\1Mouth72.3dsN;.\data\1Mouth73.3dsN;.\data\1Mouth74.3dsN;.\data\1Neck11.3dsN;.\data\1Neck12.3dsN;.\data\1Neck21.3dsN;.\data\1Neck22.3dsN;.\data\1Neck31.3dsN;.\data\1Neck32.3dsN;.\data\1Neck42.3dsN;.\data\1NoLimbClosedToButt.3dsN;.\data\1NoLimbClosedToNoLimb.3dsN;.\data\1NoLimbToButt.3dsN;.\data\1NoLimbToButtClosed.3dsN;.\data\1NoLimbToLeg.3dsN;.\data\1NoLimbToNoLimb.3dsN;.\data\1Nose01.3dsN;.\data\1Nose02.3dsN;.\data\1Nose03.3dsN;.\data\1Nose04.3dsN;.\data\1Nose11.3dsN;.\data\1Nose12.3dsN;.\data\1Nose13.3dsN;.\data\1Nose14.3dsN;.\data\1Nose21.3dsN;.\data\1Nose22.3dsN;.\data\1Nose23.3dsN;.\data\1Nose24.3dsN;.\data\1Nose31.3dsN;.\data\1Nose32.3dsN;.\data\1Nose33.3dsN;.\data\1Nose34.3dsN;.\data\1Nose41.3dsN;.\data\1Nose42.3dsN;.\data\1Nose43.3dsN;.\data\1Nose44.3dsN;.\data\1Nose51.3dsN;.\data\1Nose52.3dsN;.\data\1Nose53.3dsN;.\data\1Nose54.3dsN;.\data\1Nose61.3dsN;.\data\1Nose62.3dsN;.\data\1Nose63.3dsN;.\data\1Nose64.3dsN;.\data\1Nose71.3dsN;.\data\1Nose72.3dsN;.\data\1Nose73.3dsN;.\data\1Nose74.3dsN;.\data\1Skull.3dsN;.\data\1Tail11.3dsN;.\data\1Tail12.3dsN;.\data\1Tail13.3dsN;.\data\1Tail31.3dsN;.\data\1Tail32.3dsN;.\data\1Tail33.3dsN;.\data\1Tail51.3dsN;.\data\1Tail52.3dsN;.\data\1Tail53.3dsN;.\data\1Tip1.3dsN;.\data\1Tip2.3dsN;.\data\1Tip3.3dsN;.\data\1TopLimbToArm.3dsN;.\data\1TopLimbToButt.3dsN;.\data\1TopLimbToLeg.3dsN;.\data\1TopLimbToNoLimb.3dsN;.\data\1TopToTop.3dsN;.\data\1TorsoCrest01.3dsN;.\data\1TorsoCrest02.3dsN;.\data\1TorsoCrest03.3dsN;.\data\1TorsoCrest11.3dsN;.\data\1TorsoCrest12.3dsN;.\data\1TorsoCrest13.3dsN;.\data\1TorsoCrest21.3dsN;.\data\1TorsoCrest22.3dsN;.\data\1TorsoCrest23.3dsN;.\data\1TorsoCrest31.3dsN;.\data\1TorsoCrest32.3dsN;.\data\1TorsoCrest33.3dsN;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\qrc_AuBodyParts1.cpp;%(Outputs)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\qrc_AuBodyParts1.cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Rcc%27ing AuBodyParts1.qrc...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Rcc%27ing AuBodyParts1.qrc...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\rcc.exe" -name "AuBodyParts1" -no-compress ".\AuBodyParts1.qrc" -o .\GeneratedFiles\qrc_AuBodyParts1.cpp
+</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\rcc.exe" -name "AuBodyParts1" -no-compress ".\AuBodyParts1.qrc" -o .\GeneratedFiles\qrc_AuBodyParts1.cpp
+</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\AuBodyParts1.qrc;.\data\1ArmLeft0.3dsN;.\data\1ArmRight0.3dsN;.\data\1ArmRight1.3dsN;.\data\1ArmToArm.3dsN;.\data\1ArmToArmClosed.3dsN;.\data\1ArmToButt.3dsN;.\data\1ArmToLeg.3dsN;.\data\1ArmToNoLimb.3dsN;.\data\1Ear01.3dsN;.\data\1Ear02.3dsN;.\data\1Ear03.3dsN;.\data\1Ear04.3dsN;.\data\1Ear11.3dsN;.\data\1Ear12.3dsN;.\data\1Ear13.3dsN;.\data\1Ear14.3dsN;.\data\1Ear21.3dsN;.\data\1Ear22.3dsN;.\data\1Ear23.3dsN;.\data\1Ear24.3dsN;.\data\1Ear31.3dsN;.\data\1Ear32.3dsN;.\data\1Ear33.3dsN;.\data\1Ear34.3dsN;.\data\1Ear41.3dsN;.\data\1Ear42.3dsN;.\data\1Ear43.3dsN;.\data\1Ear44.3dsN;.\data\1Ear51.3dsN;.\data\1Ear52.3dsN;.\data\1Ear53.3dsN;.\data\1Ear54.3dsN;.\data\1Ear61.3dsN;.\data\1Ear62.3dsN;.\data\1Ear63.3dsN;.\data\1Ear64.3dsN;.\data\1Ear71.3dsN;.\data\1Ear72.3dsN;.\data\1Ear73.3dsN;.\data\1Ear74.3dsN;.\data\1Eye01.3dsN;.\data\1Eye02.3dsN;.\data\1Eye03.3dsN;.\data\1Eye04.3dsN;.\data\1Eye11.3dsN;.\data\1Eye12.3dsN;.\data\1Eye13.3dsN;.\data\1Eye14.3dsN;.\data\1Eye21.3dsN;.\data\1Eye22.3dsN;.\data\1Eye23.3dsN;.\data\1Eye24.3dsN;.\data\1Eye31.3dsN;.\data\1Eye32.3dsN;.\data\1Eye33.3dsN;.\data\1Eye34.3dsN;.\data\1Eye41.3dsN;.\data\1Eye42.3dsN;.\data\1Eye43.3dsN;.\data\1Eye44.3dsN;.\data\1Eye51.3dsN;.\data\1Eye52.3dsN;.\data\1Eye53.3dsN;.\data\1Eye54.3dsN;.\data\1Eye61.3dsN;.\data\1Eye62.3dsN;.\data\1Eye63.3dsN;.\data\1Eye64.3dsN;.\data\1Eye71.3dsN;.\data\1Eye72.3dsN;.\data\1Eye73.3dsN;.\data\1Eye74.3dsN;.\data\1FootLeft0.3dsN;.\data\1FootLeft1.3dsN;.\data\1FootLeft2.3dsN;.\data\1FootLeft3.3dsN;.\data\1FootLeft4.3dsN;.\data\1FootLeft5.3dsN;.\data\1FootLeft6.3dsN;.\data\1FootLeft7.3dsN;.\data\1FootRight0.3dsN;.\data\1FootRight1.3dsN;.\data\1FootRight2.3dsN;.\data\1FootRight3.3dsN;.\data\1FootRight4.3dsN;.\data\1FootRight5.3dsN;.\data\1FootRight6.3dsN;.\data\1FootRight7.3dsN;.\data\1HandLeft0.3dsN;.\data\1HandLeft1.3dsN;.\data\1HandLeft2.3dsN;.\data\1HandLeft3.3dsN;.\data\1HandLeft4.3dsN;.\data\1HandLeft5.3dsN;.\data\1HandLeft6.3dsN;.\data\1HandLeft7.3dsN;.\data\1HandRight0.3dsN;.\data\1HandRight1.3dsN;.\data\1HandRight2.3dsN;.\data\1HandRight3.3dsN;.\data\1HandRight4.3dsN;.\data\1HandRight5.3dsN;.\data\1HandRight6.3dsN;.\data\1HandRight7.3dsN;.\data\1HeadCrest01.3dsN;.\data\1HeadCrest02.3dsN;.\data\1HeadCrest03.3dsN;.\data\1HeadCrest11.3dsN;.\data\1HeadCrest12.3dsN;.\data\1HeadCrest13.3dsN;.\data\1HeadCrest21.3dsN;.\data\1HeadCrest22.3dsN;.\data\1HeadCrest23.3dsN;.\data\1HeadCrest31.3dsN;.\data\1HeadCrest32.3dsN;.\data\1HeadCrest33.3dsN;.\data\1Horn01.3dsN;.\data\1Horn02.3dsN;.\data\1Horn03.3dsN;.\data\1Horn11.3dsN;.\data\1Horn12.3dsN;.\data\1Horn13.3dsN;.\data\1Horn21.3dsN;.\data\1Horn22.3dsN;.\data\1Horn23.3dsN;.\data\1Horn31.3dsN;.\data\1Horn32.3dsN;.\data\1Horn33.3dsN;.\data\1LegClosedToButt.3dsN;.\data\1LegClosedToLeg.3dsN;.\data\1LegClosedToNoLimb.3dsN;.\data\1LegLeft0.3dsN;.\data\1LegLeft1.3dsN;.\data\1LegLeft2.3dsN;.\data\1LegLeft3.3dsN;.\data\1LegRight0.3dsN;.\data\1LegRight1.3dsN;.\data\1LegRight2.3dsN;.\data\1LegRight3.3dsN;.\data\1LegToButt.3dsN;.\data\1LegToLeg.3dsN;.\data\1LegToNoLimb.3dsN;.\data\1Mouth01.3dsN;.\data\1Mouth02.3dsN;.\data\1Mouth03.3dsN;.\data\1Mouth04.3dsN;.\data\1Mouth11.3dsN;.\data\1Mouth12.3dsN;.\data\1Mouth13.3dsN;.\data\1Mouth14.3dsN;.\data\1Mouth21.3dsN;.\data\1Mouth22.3dsN;.\data\1Mouth23.3dsN;.\data\1Mouth24.3dsN;.\data\1Mouth31.3dsN;.\data\1Mouth32.3dsN;.\data\1Mouth33.3dsN;.\data\1Mouth34.3dsN;.\data\1Mouth41.3dsN;.\data\1Mouth42.3dsN;.\data\1Mouth43.3dsN;.\data\1Mouth44.3dsN;.\data\1Mouth51.3dsN;.\data\1Mouth52.3dsN;.\data\1Mouth53.3dsN;.\data\1Mouth54.3dsN;.\data\1Mouth61.3dsN;.\data\1Mouth62.3dsN;.\data\1Mouth63.3dsN;.\data\1Mouth64.3dsN;.\data\1Mouth71.3dsN;.\data\1Mouth72.3dsN;.\data\1Mouth73.3dsN;.\data\1Mouth74.3dsN;.\data\1Neck11.3dsN;.\data\1Neck12.3dsN;.\data\1Neck21.3dsN;.\data\1Neck22.3dsN;.\data\1Neck31.3dsN;.\data\1Neck32.3dsN;.\data\1Neck42.3dsN;.\data\1NoLimbClosedToButt.3dsN;.\data\1NoLimbClosedToNoLimb.3dsN;.\data\1NoLimbToButt.3dsN;.\data\1NoLimbToButtClosed.3dsN;.\data\1NoLimbToLeg.3dsN;.\data\1NoLimbToNoLimb.3dsN;.\data\1Nose01.3dsN;.\data\1Nose02.3dsN;.\data\1Nose03.3dsN;.\data\1Nose04.3dsN;.\data\1Nose11.3dsN;.\data\1Nose12.3dsN;.\data\1Nose13.3dsN;.\data\1Nose14.3dsN;.\data\1Nose21.3dsN;.\data\1Nose22.3dsN;.\data\1Nose23.3dsN;.\data\1Nose24.3dsN;.\data\1Nose31.3dsN;.\data\1Nose32.3dsN;.\data\1Nose33.3dsN;.\data\1Nose34.3dsN;.\data\1Nose41.3dsN;.\data\1Nose42.3dsN;.\data\1Nose43.3dsN;.\data\1Nose44.3dsN;.\data\1Nose51.3dsN;.\data\1Nose52.3dsN;.\data\1Nose53.3dsN;.\data\1Nose54.3dsN;.\data\1Nose61.3dsN;.\data\1Nose62.3dsN;.\data\1Nose63.3dsN;.\data\1Nose64.3dsN;.\data\1Nose71.3dsN;.\data\1Nose72.3dsN;.\data\1Nose73.3dsN;.\data\1Nose74.3dsN;.\data\1Skull.3dsN;.\data\1Tail11.3dsN;.\data\1Tail12.3dsN;.\data\1Tail13.3dsN;.\data\1Tail31.3dsN;.\data\1Tail32.3dsN;.\data\1Tail33.3dsN;.\data\1Tail51.3dsN;.\data\1Tail52.3dsN;.\data\1Tail53.3dsN;.\data\1Tip1.3dsN;.\data\1Tip2.3dsN;.\data\1Tip3.3dsN;.\data\1TopLimbToArm.3dsN;.\data\1TopLimbToButt.3dsN;.\data\1TopLimbToLeg.3dsN;.\data\1TopLimbToNoLimb.3dsN;.\data\1TopToTop.3dsN;.\data\1TorsoCrest01.3dsN;.\data\1TorsoCrest02.3dsN;.\data\1TorsoCrest03.3dsN;.\data\1TorsoCrest11.3dsN;.\data\1TorsoCrest12.3dsN;.\data\1TorsoCrest13.3dsN;.\data\1TorsoCrest21.3dsN;.\data\1TorsoCrest22.3dsN;.\data\1TorsoCrest23.3dsN;.\data\1TorsoCrest31.3dsN;.\data\1TorsoCrest32.3dsN;.\data\1TorsoCrest33.3dsN;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\AuBodyParts1.qrc;.\data\1ArmLeft0.3dsN;.\data\1ArmRight0.3dsN;.\data\1ArmRight1.3dsN;.\data\1ArmToArm.3dsN;.\data\1ArmToArmClosed.3dsN;.\data\1ArmToButt.3dsN;.\data\1ArmToLeg.3dsN;.\data\1ArmToNoLimb.3dsN;.\data\1Ear01.3dsN;.\data\1Ear02.3dsN;.\data\1Ear03.3dsN;.\data\1Ear04.3dsN;.\data\1Ear11.3dsN;.\data\1Ear12.3dsN;.\data\1Ear13.3dsN;.\data\1Ear14.3dsN;.\data\1Ear21.3dsN;.\data\1Ear22.3dsN;.\data\1Ear23.3dsN;.\data\1Ear24.3dsN;.\data\1Ear31.3dsN;.\data\1Ear32.3dsN;.\data\1Ear33.3dsN;.\data\1Ear34.3dsN;.\data\1Ear41.3dsN;.\data\1Ear42.3dsN;.\data\1Ear43.3dsN;.\data\1Ear44.3dsN;.\data\1Ear51.3dsN;.\data\1Ear52.3dsN;.\data\1Ear53.3dsN;.\data\1Ear54.3dsN;.\data\1Ear61.3dsN;.\data\1Ear62.3dsN;.\data\1Ear63.3dsN;.\data\1Ear64.3dsN;.\data\1Ear71.3dsN;.\data\1Ear72.3dsN;.\data\1Ear73.3dsN;.\data\1Ear74.3dsN;.\data\1Eye01.3dsN;.\data\1Eye02.3dsN;.\data\1Eye03.3dsN;.\data\1Eye04.3dsN;.\data\1Eye11.3dsN;.\data\1Eye12.3dsN;.\data\1Eye13.3dsN;.\data\1Eye14.3dsN;.\data\1Eye21.3dsN;.\data\1Eye22.3dsN;.\data\1Eye23.3dsN;.\data\1Eye24.3dsN;.\data\1Eye31.3dsN;.\data\1Eye32.3dsN;.\data\1Eye33.3dsN;.\data\1Eye34.3dsN;.\data\1Eye41.3dsN;.\data\1Eye42.3dsN;.\data\1Eye43.3dsN;.\data\1Eye44.3dsN;.\data\1Eye51.3dsN;.\data\1Eye52.3dsN;.\data\1Eye53.3dsN;.\data\1Eye54.3dsN;.\data\1Eye61.3dsN;.\data\1Eye62.3dsN;.\data\1Eye63.3dsN;.\data\1Eye64.3dsN;.\data\1Eye71.3dsN;.\data\1Eye72.3dsN;.\data\1Eye73.3dsN;.\data\1Eye74.3dsN;.\data\1FootLeft0.3dsN;.\data\1FootLeft1.3dsN;.\data\1FootLeft2.3dsN;.\data\1FootLeft3.3dsN;.\data\1FootLeft4.3dsN;.\data\1FootLeft5.3dsN;.\data\1FootLeft6.3dsN;.\data\1FootLeft7.3dsN;.\data\1FootRight0.3dsN;.\data\1FootRight1.3dsN;.\data\1FootRight2.3dsN;.\data\1FootRight3.3dsN;.\data\1FootRight4.3dsN;.\data\1FootRight5.3dsN;.\data\1FootRight6.3dsN;.\data\1FootRight7.3dsN;.\data\1HandLeft0.3dsN;.\data\1HandLeft1.3dsN;.\data\1HandLeft2.3dsN;.\data\1HandLeft3.3dsN;.\data\1HandLeft4.3dsN;.\data\1HandLeft5.3dsN;.\data\1HandLeft6.3dsN;.\data\1HandLeft7.3dsN;.\data\1HandRight0.3dsN;.\data\1HandRight1.3dsN;.\data\1HandRight2.3dsN;.\data\1HandRight3.3dsN;.\data\1HandRight4.3dsN;.\data\1HandRight5.3dsN;.\data\1HandRight6.3dsN;.\data\1HandRight7.3dsN;.\data\1HeadCrest01.3dsN;.\data\1HeadCrest02.3dsN;.\data\1HeadCrest03.3dsN;.\data\1HeadCrest11.3dsN;.\data\1HeadCrest12.3dsN;.\data\1HeadCrest13.3dsN;.\data\1HeadCrest21.3dsN;.\data\1HeadCrest22.3dsN;.\data\1HeadCrest23.3dsN;.\data\1HeadCrest31.3dsN;.\data\1HeadCrest32.3dsN;.\data\1HeadCrest33.3dsN;.\data\1Horn01.3dsN;.\data\1Horn02.3dsN;.\data\1Horn03.3dsN;.\data\1Horn11.3dsN;.\data\1Horn12.3dsN;.\data\1Horn13.3dsN;.\data\1Horn21.3dsN;.\data\1Horn22.3dsN;.\data\1Horn23.3dsN;.\data\1Horn31.3dsN;.\data\1Horn32.3dsN;.\data\1Horn33.3dsN;.\data\1LegClosedToButt.3dsN;.\data\1LegClosedToLeg.3dsN;.\data\1LegClosedToNoLimb.3dsN;.\data\1LegLeft0.3dsN;.\data\1LegLeft1.3dsN;.\data\1LegLeft2.3dsN;.\data\1LegLeft3.3dsN;.\data\1LegRight0.3dsN;.\data\1LegRight1.3dsN;.\data\1LegRight2.3dsN;.\data\1LegRight3.3dsN;.\data\1LegToButt.3dsN;.\data\1LegToLeg.3dsN;.\data\1LegToNoLimb.3dsN;.\data\1Mouth01.3dsN;.\data\1Mouth02.3dsN;.\data\1Mouth03.3dsN;.\data\1Mouth04.3dsN;.\data\1Mouth11.3dsN;.\data\1Mouth12.3dsN;.\data\1Mouth13.3dsN;.\data\1Mouth14.3dsN;.\data\1Mouth21.3dsN;.\data\1Mouth22.3dsN;.\data\1Mouth23.3dsN;.\data\1Mouth24.3dsN;.\data\1Mouth31.3dsN;.\data\1Mouth32.3dsN;.\data\1Mouth33.3dsN;.\data\1Mouth34.3dsN;.\data\1Mouth41.3dsN;.\data\1Mouth42.3dsN;.\data\1Mouth43.3dsN;.\data\1Mouth44.3dsN;.\data\1Mouth51.3dsN;.\data\1Mouth52.3dsN;.\data\1Mouth53.3dsN;.\data\1Mouth54.3dsN;.\data\1Mouth61.3dsN;.\data\1Mouth62.3dsN;.\data\1Mouth63.3dsN;.\data\1Mouth64.3dsN;.\data\1Mouth71.3dsN;.\data\1Mouth72.3dsN;.\data\1Mouth73.3dsN;.\data\1Mouth74.3dsN;.\data\1Neck11.3dsN;.\data\1Neck12.3dsN;.\data\1Neck21.3dsN;.\data\1Neck22.3dsN;.\data\1Neck31.3dsN;.\data\1Neck32.3dsN;.\data\1Neck42.3dsN;.\data\1NoLimbClosedToButt.3dsN;.\data\1NoLimbClosedToNoLimb.3dsN;.\data\1NoLimbToButt.3dsN;.\data\1NoLimbToButtClosed.3dsN;.\data\1NoLimbToLeg.3dsN;.\data\1NoLimbToNoLimb.3dsN;.\data\1Nose01.3dsN;.\data\1Nose02.3dsN;.\data\1Nose03.3dsN;.\data\1Nose04.3dsN;.\data\1Nose11.3dsN;.\data\1Nose12.3dsN;.\data\1Nose13.3dsN;.\data\1Nose14.3dsN;.\data\1Nose21.3dsN;.\data\1Nose22.3dsN;.\data\1Nose23.3dsN;.\data\1Nose24.3dsN;.\data\1Nose31.3dsN;.\data\1Nose32.3dsN;.\data\1Nose33.3dsN;.\data\1Nose34.3dsN;.\data\1Nose41.3dsN;.\data\1Nose42.3dsN;.\data\1Nose43.3dsN;.\data\1Nose44.3dsN;.\data\1Nose51.3dsN;.\data\1Nose52.3dsN;.\data\1Nose53.3dsN;.\data\1Nose54.3dsN;.\data\1Nose61.3dsN;.\data\1Nose62.3dsN;.\data\1Nose63.3dsN;.\data\1Nose64.3dsN;.\data\1Nose71.3dsN;.\data\1Nose72.3dsN;.\data\1Nose73.3dsN;.\data\1Nose74.3dsN;.\data\1Skull.3dsN;.\data\1Tail11.3dsN;.\data\1Tail12.3dsN;.\data\1Tail13.3dsN;.\data\1Tail31.3dsN;.\data\1Tail32.3dsN;.\data\1Tail33.3dsN;.\data\1Tail51.3dsN;.\data\1Tail52.3dsN;.\data\1Tail53.3dsN;.\data\1Tip1.3dsN;.\data\1Tip2.3dsN;.\data\1Tip3.3dsN;.\data\1TopLimbToArm.3dsN;.\data\1TopLimbToButt.3dsN;.\data\1TopLimbToLeg.3dsN;.\data\1TopLimbToNoLimb.3dsN;.\data\1TopToTop.3dsN;.\data\1TorsoCrest01.3dsN;.\data\1TorsoCrest02.3dsN;.\data\1TorsoCrest03.3dsN;.\data\1TorsoCrest11.3dsN;.\data\1TorsoCrest12.3dsN;.\data\1TorsoCrest13.3dsN;.\data\1TorsoCrest21.3dsN;.\data\1TorsoCrest22.3dsN;.\data\1TorsoCrest23.3dsN;.\data\1TorsoCrest31.3dsN;.\data\1TorsoCrest32.3dsN;.\data\1TorsoCrest33.3dsN;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\qrc_AuBodyParts1.cpp;%(Outputs)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\qrc_AuBodyParts1.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="GeneratedFiles\qrc_AuBodyParts1.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\aubodyparts0\aubodyparts0.vcxproj">
+      <Project>{6c259d07-c7a1-47b9-bd3d-0e3497afa5d0}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties MocDir=".\GeneratedFiles\$(ConfigurationName)" QtVersion="4.5.2" QtVersion_x0020_Win32="4.6.3" RccDir=".\GeneratedFiles" UicDir=".\GeneratedFiles" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

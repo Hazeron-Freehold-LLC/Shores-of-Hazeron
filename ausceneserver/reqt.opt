@@ -1,0 +1,28 @@
+TARGET = AuSceneServer
+VERSION = 7.0
+TEMPLATE = app
+RC_FILE = $$TARGET.rc
+CONFIG += qt thread
+QT += network opengl sql
+macx:CONFIG += c++11
+!macx:QMAKE_CXXFLAGS += -std=c++11
+INCLUDEPATH = ../auutil ../auatom ../audata ../auglobal ../auloginclient ../aumail ../augl ../aumath ../auloginserver ../auatomres ../aubodypartsres ../aumodelres /usr/local/inc
+ 
+macx:INCLUDEPATH += /opt/local/include
+macx:INCLUDEPATH += /usr/local/include
+macx:LIBS += -L/usr/local/lib
+macx:LIBS += -framework OpenAL
+macx:LIBS += -lSDL2
+ 
+CONFIG(debug, debug|release) {
+	message($$TARGET Debug build configuration.)
+	TARGET = $$member(TARGET, 0)_debug
+	LIBS += -L../debug -lAuAtom_debug -lAuData_debug -lAuGlobal_debug -lAuUtil_debug -lAuGL_debug -lAuMath_debug -lAuLoginClient_debug -lAuMail_debug -lAuAtomRes_debug -lAuModelRes_debug -lAuBodyPartsRes_debug -lAuStoryRes_debug
+}
+ 
+CONFIG(release, debug|release) {
+	message($$TARGET Release build configuration.)
+	LIBS += -L../release -lAuAtom -lAuData -lAuGlobal -lAuUtil -lAuGL -lAuMath -lAuLoginClient -lAuMail -lAuAtomRes -lAuModelRes -lAuBodyPartsRes -lAuStoryRes
+}
+
+!macx:LIBS += -lSDL2 -lGLU -lopenal

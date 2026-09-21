@@ -1,0 +1,8 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+	<file>data/mPowerArmorV.3dsN</file>
+	<file>data/mPowerArmorV.png</file>
+	<file>data/mTequila.3dsN</file>
+	<file>data/mTequila.png</file>
+</qresource>
+</RCC>

@@ -1,0 +1,21 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+	<file>data/MarbleTileWhiteBlackSquares.png</file>
+	<file>data/MetalBeaten.png</file>
+	<file>data/MetalBrushed.png</file>
+	<file>data/MetalCeilingGold.png</file>
+	<file>data/MetalCeilingSilver.png</file>
+	<file>data/MetalGreenShiny.png</file>
+	<file>data/MetalGrillHoles.png</file>
+	<file>data/MetalPlateBox.png</file>
+	<file>data/MetalPlateSquares.png</file>
+	<file>data/MetalPlateX.png</file>
+	<file>data/MetalScratchBumps.png</file>
+	<file>data/MetalScratchRust.png</file>
+	<file>data/MetalTread.png</file>
+	<file>data/OSB.png</file>
+	<file>data/Obsidian.png</file>
+	<file>data/PopcornCeilingHeavy.png</file>
+	<file>data/PopcornCeilingLight.png</file>
+</qresource>
+</RCC>

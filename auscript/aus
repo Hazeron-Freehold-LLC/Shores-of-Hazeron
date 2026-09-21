@@ -1,0 +1,6 @@
+#!/bin/sh
+appname=AuScript
+appdir=`dirname "$0"`
+LD_LIBRARY_PATH="$appdir"
+export LD_LIBRARY_PATH
+"$appdir/$appname" $*

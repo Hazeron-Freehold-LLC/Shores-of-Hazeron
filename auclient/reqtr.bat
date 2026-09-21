@@ -1,0 +1,3 @@
+@echo off
+qmake -project -t lib "TARGET = AuClient" "VERSION = 7.0" "TEMPLATE = lib" "CONFIG += staticlib qt thread" "QT += opengl network sql" "INCLUDEPATH = ../auutil ../audata ../auglobal ../ausceneserver ../augl ../aumath ../auatom ../auloginclient ../aumail %SEIDEV%\OPENAL~1.1SD\include %SEIDEV%\SDL2-2.0.3\include" "DESTDIR = ../Release" "DEFINES += AUCLIENT" "QMAKE_CXXFLAGS += /MP"
+qmake "LIBS += ../release/aumail.lib ../release/auloginclient.lib ../release/auatom.lib ../release/auglobal.lib ../release/audata.lib ../release/auutil.lib ../release/aumath.lib ../release/augl.lib %SEIDEV%\OPENAL~1.1SD\libs\%AUDEVOPENAL%\OpenAL32.lib %SEIDEV%\SDL2-2.0.3\VisualC\SDL\%AUDEVSDL%\Release\SDL2.lib"

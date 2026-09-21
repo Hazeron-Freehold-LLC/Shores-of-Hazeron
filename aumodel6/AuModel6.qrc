@@ -1,0 +1,7 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+	<file>data/Lungs.SoH</file>
+	<file>data/mPowerArmor.3dsN</file>
+	<file>data/mPowerArmor.png</file>
+</qresource>
+</RCC>

@@ -1,0 +1,17 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+	<file>data/AdamantinePlateBox.png</file>
+	<file>data/AdamantinePlateSquares.png</file>
+	<file>data/AdamantinePlateX.png</file>
+	<file>data/ChainLinkFence.png</file>
+	<file>data/Decals.png</file>
+	<file>data/Fabric.png</file>
+	<file>data/SandBagWall.png</file>
+	<file>data/StoneWall.png</file>
+	<file>data/WoodPlanksBeams.png</file>
+	<file>data/WoodSiding.png</file>
+	<file>data/WoodSidingPainted.png</file>
+	<file>data/WoodTileRustic.png</file>
+	<file>data/WoodWallStuds.png</file>
+</qresource>
+</RCC>

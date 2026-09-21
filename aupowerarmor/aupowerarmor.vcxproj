@@ -1,0 +1,409 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Template|Win32">
+      <Configuration>Template</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Template|x64">
+      <Configuration>Template</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{68577386-22F8-487E-BD9E-99FDB2AE642A}</ProjectGuid>
+    <RootNamespace>aupowerarmor</RootNamespace>
+    <Keyword>Qt4VSv1.0</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Template|Win32'">
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Template|x64'">
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Configuration)\</IntDir>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Template|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Template|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Template|Win32'" />
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Template|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Template|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Template|x64'" />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>.\GeneratedFiles;$(QTDIR)\include;.\GeneratedFiles\$(Configuration);$(QTDIR)\include\QtCore;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>UNICODE;WIN32;QT_THREAD_SUPPORT;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;AUBODYPARTS7_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)$(ProjectName).lib</OutputFile>
+      <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>.\GeneratedFiles;$(QTDIR)\include;.\GeneratedFiles\$(Configuration);$(QTDIR)\include\QtCore;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>UNICODE;WIN32;QT_THREAD_SUPPORT;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;AUBODYPARTS7_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)$(ProjectName).lib</OutputFile>
+      <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>.\GeneratedFiles;$(QTDIR)\include;.\GeneratedFiles\$(Configuration);$(QTDIR)\include\QtCore;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>UNICODE;WIN32;QT_THREAD_SUPPORT;QT_CORE_LIB;AUBODYPARTS7_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)$(ProjectName).lib</OutputFile>
+      <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>.\GeneratedFiles;$(QTDIR)\include;.\GeneratedFiles\$(Configuration);$(QTDIR)\include\QtCore;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>UNICODE;WIN32;QT_THREAD_SUPPORT;QT_CORE_LIB;AUBODYPARTS7_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)$(ProjectName).lib</OutputFile>
+      <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="AuPowerArmor.qrc">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Rcc%27ing AuPowerArmor.qrc...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Rcc%27ing AuPowerArmor.qrc...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\rcc.exe" -name "AuPowerArmor" -no-compress ".\AuPowerArmor.qrc" -o .\GeneratedFiles\qrc_AuPowerArmor.cpp
+</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\rcc.exe" -name "AuPowerArmor" -no-compress ".\AuPowerArmor.qrc" -o .\GeneratedFiles\qrc_AuPowerArmor.cpp
+</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\AuPowerArmor.qrc;.\data\PA0Helmet0.png;.\data\PA0Helmet1.png;.\data\PA0Helmet2.png;.\data\PA0Skull.3dsN;.\data\PA1Helmet0.png;.\data\PA1Helmet1.png;.\data\PA1Helmet2.png;.\data\PA1Skull.3dsN;.\data\PA2Helmet0.png;.\data\PA2Helmet1.png;.\data\PA2Helmet2.png;.\data\PA2Skull.3dsN;.\data\PA3Helmet0.png;.\data\PA3Helmet1.png;.\data\PA3Helmet2.png;.\data\PA3Skull.3dsN;.\data\PA4Helmet0.png;.\data\PA4Helmet1.png;.\data\PA4Helmet2.png;.\data\PA4Skull.3dsN;.\data\PA5Helmet0.png;.\data\PA5Helmet1.png;.\data\PA5Helmet2.png;.\data\PA5Skull.3dsN;.\data\PA6Helmet0.png;.\data\PA6Helmet1.png;.\data\PA6Helmet2.png;.\data\PA6Skull.3dsN;.\data\PA7Helmet0.png;.\data\PA7Helmet1.png;.\data\PA7Helmet2.png;.\data\PA7Skull.3dsN;.\data\PAArmLeft.3dsN;.\data\PAArmRight.3dsN;.\data\PAArmToArm.3dsN;.\data\PAArmToArmClosed.3dsN;.\data\PAArmToButt.3dsN;.\data\PAArmToLeg.3dsN;.\data\PAArmToNoLimb.3dsN;.\data\PAFootLeft.3dsN;.\data\PAFootRight.3dsN;.\data\PAHandLeft.3dsN;.\data\PAHandRight.3dsN;.\data\PALegClosedToButt.3dsN;.\data\PALegClosedToNoLimb.3dsN;.\data\PALegLeft.3dsN;.\data\PALegRight.3dsN;.\data\PALegToButt.3dsN;.\data\PALegToLeg.3dsN;.\data\PALegToNoLimb.3dsN;.\data\PANeck11.3dsN;.\data\PANeck12.3dsN;.\data\PANeck21.3dsN;.\data\PANeck22.3dsN;.\data\PANeck31.3dsN;.\data\PANeck32.3dsN;.\data\PANeck42.3dsN;.\data\PANoLimbClosedToButt.3dsN;.\data\PANoLimbClosedToNoLimb.3dsN;.\data\PANoLimbToButt.3dsN;.\data\PANoLimbToLeg.3dsN;.\data\PANoLimbToNoLimb.3dsN;.\data\PATopLimbToArm.3dsN;.\data\PATopLimbToButt.3dsN;.\data\PATopLimbToLeg.3dsN;.\data\PATopLimbToNoLimb.3dsN;.\data\PATopToTop.3dsN;.\data\PAMetal.png;.\data\PAMagmium.png;.\data\PAVulcium.png;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\AuPowerArmor.qrc;.\data\PA0Helmet0.png;.\data\PA0Helmet1.png;.\data\PA0Helmet2.png;.\data\PA0Skull.3dsN;.\data\PA1Helmet0.png;.\data\PA1Helmet1.png;.\data\PA1Helmet2.png;.\data\PA1Skull.3dsN;.\data\PA2Helmet0.png;.\data\PA2Helmet1.png;.\data\PA2Helmet2.png;.\data\PA2Skull.3dsN;.\data\PA3Helmet0.png;.\data\PA3Helmet1.png;.\data\PA3Helmet2.png;.\data\PA3Skull.3dsN;.\data\PA4Helmet0.png;.\data\PA4Helmet1.png;.\data\PA4Helmet2.png;.\data\PA4Skull.3dsN;.\data\PA5Helmet0.png;.\data\PA5Helmet1.png;.\data\PA5Helmet2.png;.\data\PA5Skull.3dsN;.\data\PA6Helmet0.png;.\data\PA6Helmet1.png;.\data\PA6Helmet2.png;.\data\PA6Skull.3dsN;.\data\PA7Helmet0.png;.\data\PA7Helmet1.png;.\data\PA7Helmet2.png;.\data\PA7Skull.3dsN;.\data\PAArmLeft.3dsN;.\data\PAArmRight.3dsN;.\data\PAArmToArm.3dsN;.\data\PAArmToArmClosed.3dsN;.\data\PAArmToButt.3dsN;.\data\PAArmToLeg.3dsN;.\data\PAArmToNoLimb.3dsN;.\data\PAFootLeft.3dsN;.\data\PAFootRight.3dsN;.\data\PAHandLeft.3dsN;.\data\PAHandRight.3dsN;.\data\PALegClosedToButt.3dsN;.\data\PALegClosedToNoLimb.3dsN;.\data\PALegLeft.3dsN;.\data\PALegRight.3dsN;.\data\PALegToButt.3dsN;.\data\PALegToLeg.3dsN;.\data\PALegToNoLimb.3dsN;.\data\PANeck11.3dsN;.\data\PANeck12.3dsN;.\data\PANeck21.3dsN;.\data\PANeck22.3dsN;.\data\PANeck31.3dsN;.\data\PANeck32.3dsN;.\data\PANeck42.3dsN;.\data\PANoLimbClosedToButt.3dsN;.\data\PANoLimbClosedToNoLimb.3dsN;.\data\PANoLimbToButt.3dsN;.\data\PANoLimbToLeg.3dsN;.\data\PANoLimbToNoLimb.3dsN;.\data\PATopLimbToArm.3dsN;.\data\PATopLimbToButt.3dsN;.\data\PATopLimbToLeg.3dsN;.\data\PATopLimbToNoLimb.3dsN;.\data\PATopToTop.3dsN;.\data\PAMetal.png;.\data\PAMagmium.png;.\data\PAVulcium.png;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\qrc_AuPowerArmor.cpp;%(Outputs)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\qrc_AuPowerArmor.cpp;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Rcc%27ing AuPowerArmor.qrc...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Rcc%27ing AuPowerArmor.qrc...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\rcc.exe" -name "AuPowerArmor" -no-compress ".\AuPowerArmor.qrc" -o .\GeneratedFiles\qrc_AuPowerArmor.cpp
+</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\rcc.exe" -name "AuPowerArmor" -no-compress ".\AuPowerArmor.qrc" -o .\GeneratedFiles\qrc_AuPowerArmor.cpp
+</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\AuPowerArmor.qrc;.\data\PA0Helmet0.png;.\data\PA0Helmet1.png;.\data\PA0Helmet2.png;.\data\PA0Skull.3dsN;.\data\PA1Helmet0.png;.\data\PA1Helmet1.png;.\data\PA1Helmet2.png;.\data\PA1Skull.3dsN;.\data\PA2Helmet0.png;.\data\PA2Helmet1.png;.\data\PA2Helmet2.png;.\data\PA2Skull.3dsN;.\data\PA3Helmet0.png;.\data\PA3Helmet1.png;.\data\PA3Helmet2.png;.\data\PA3Skull.3dsN;.\data\PA4Helmet0.png;.\data\PA4Helmet1.png;.\data\PA4Helmet2.png;.\data\PA4Skull.3dsN;.\data\PA5Helmet0.png;.\data\PA5Helmet1.png;.\data\PA5Helmet2.png;.\data\PA5Skull.3dsN;.\data\PA6Helmet0.png;.\data\PA6Helmet1.png;.\data\PA6Helmet2.png;.\data\PA6Skull.3dsN;.\data\PA7Helmet0.png;.\data\PA7Helmet1.png;.\data\PA7Helmet2.png;.\data\PA7Skull.3dsN;.\data\PAArmLeft.3dsN;.\data\PAArmRight.3dsN;.\data\PAArmToArm.3dsN;.\data\PAArmToArmClosed.3dsN;.\data\PAArmToButt.3dsN;.\data\PAArmToLeg.3dsN;.\data\PAArmToNoLimb.3dsN;.\data\PAFootLeft.3dsN;.\data\PAFootRight.3dsN;.\data\PAHandLeft.3dsN;.\data\PAHandRight.3dsN;.\data\PALegClosedToButt.3dsN;.\data\PALegClosedToNoLimb.3dsN;.\data\PALegLeft.3dsN;.\data\PALegRight.3dsN;.\data\PALegToButt.3dsN;.\data\PALegToLeg.3dsN;.\data\PALegToNoLimb.3dsN;.\data\PANeck11.3dsN;.\data\PANeck12.3dsN;.\data\PANeck21.3dsN;.\data\PANeck22.3dsN;.\data\PANeck31.3dsN;.\data\PANeck32.3dsN;.\data\PANeck42.3dsN;.\data\PANoLimbClosedToButt.3dsN;.\data\PANoLimbClosedToNoLimb.3dsN;.\data\PANoLimbToButt.3dsN;.\data\PANoLimbToLeg.3dsN;.\data\PANoLimbToNoLimb.3dsN;.\data\PATopLimbToArm.3dsN;.\data\PATopLimbToButt.3dsN;.\data\PATopLimbToLeg.3dsN;.\data\PATopLimbToNoLimb.3dsN;.\data\PATopToTop.3dsN;.\data\PAMetal.png;.\data\PAMagmium.png;.\data\PAVulcium.png;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\AuPowerArmor.qrc;.\data\PA0Helmet0.png;.\data\PA0Helmet1.png;.\data\PA0Helmet2.png;.\data\PA0Skull.3dsN;.\data\PA1Helmet0.png;.\data\PA1Helmet1.png;.\data\PA1Helmet2.png;.\data\PA1Skull.3dsN;.\data\PA2Helmet0.png;.\data\PA2Helmet1.png;.\data\PA2Helmet2.png;.\data\PA2Skull.3dsN;.\data\PA3Helmet0.png;.\data\PA3Helmet1.png;.\data\PA3Helmet2.png;.\data\PA3Skull.3dsN;.\data\PA4Helmet0.png;.\data\PA4Helmet1.png;.\data\PA4Helmet2.png;.\data\PA4Skull.3dsN;.\data\PA5Helmet0.png;.\data\PA5Helmet1.png;.\data\PA5Helmet2.png;.\data\PA5Skull.3dsN;.\data\PA6Helmet0.png;.\data\PA6Helmet1.png;.\data\PA6Helmet2.png;.\data\PA6Skull.3dsN;.\data\PA7Helmet0.png;.\data\PA7Helmet1.png;.\data\PA7Helmet2.png;.\data\PA7Skull.3dsN;.\data\PAArmLeft.3dsN;.\data\PAArmRight.3dsN;.\data\PAArmToArm.3dsN;.\data\PAArmToArmClosed.3dsN;.\data\PAArmToButt.3dsN;.\data\PAArmToLeg.3dsN;.\data\PAArmToNoLimb.3dsN;.\data\PAFootLeft.3dsN;.\data\PAFootRight.3dsN;.\data\PAHandLeft.3dsN;.\data\PAHandRight.3dsN;.\data\PALegClosedToButt.3dsN;.\data\PALegClosedToNoLimb.3dsN;.\data\PALegLeft.3dsN;.\data\PALegRight.3dsN;.\data\PALegToButt.3dsN;.\data\PALegToLeg.3dsN;.\data\PALegToNoLimb.3dsN;.\data\PANeck11.3dsN;.\data\PANeck12.3dsN;.\data\PANeck21.3dsN;.\data\PANeck22.3dsN;.\data\PANeck31.3dsN;.\data\PANeck32.3dsN;.\data\PANeck42.3dsN;.\data\PANoLimbClosedToButt.3dsN;.\data\PANoLimbClosedToNoLimb.3dsN;.\data\PANoLimbToButt.3dsN;.\data\PANoLimbToLeg.3dsN;.\data\PANoLimbToNoLimb.3dsN;.\data\PATopLimbToArm.3dsN;.\data\PATopLimbToButt.3dsN;.\data\PATopLimbToLeg.3dsN;.\data\PATopLimbToNoLimb.3dsN;.\data\PATopToTop.3dsN;.\data\PAMetal.png;.\data\PAMagmium.png;.\data\PAVulcium.png;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\qrc_AuPowerArmor.cpp;%(Outputs)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\qrc_AuPowerArmor.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuildStep Include="data\PA0Helmet0.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PA0Helmet1.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PA0Helmet2.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PA0Skull.3dsN">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PA1Helmet0.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PA1Helmet1.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PA1Helmet2.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PA1Skull.3dsN">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PA2Helmet0.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PA2Helmet1.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PA2Helmet2.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PA2Skull.3dsN">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PA3Helmet0.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PA3Helmet1.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PA3Helmet2.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PA3Skull.3dsN">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PA4Helmet0.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PA4Helmet1.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PA4Helmet2.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PA4Skull.3dsN">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PA5Helmet0.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PA5Helmet1.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PA5Helmet2.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PA5Skull.3dsN">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PA6Helmet0.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PA6Helmet1.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PA6Helmet2.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PA6Skull.3dsN">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PA7Helmet0.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PA7Helmet1.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PA7Helmet2.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PA7Skull.3dsN">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PAArmLeft.3dsN">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PAArmRight.3dsN">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PAArmToArm.3dsN">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PAArmToArmClosed.3dsN">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PAArmToButt.3dsN">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PAArmToLeg.3dsN">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PAArmToNoLimb.3dsN">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <None Include="data\PAFootLeft0.3dsN" />
+    <None Include="data\PAFootLeft1.3dsN" />
+    <None Include="data\PAFootRight0.3dsN" />
+    <None Include="data\PAFootRight1.3dsN" />
+    <CustomBuildStep Include="data\PAHandLeft.3dsN">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <None Include="data\PAHandRight.3dsN" />
+    <CustomBuildStep Include="data\PALegClosedToButt.3dsN">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PALegClosedToNoLimb.3dsN">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PALegLeft.3dsN">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PALegRight.3dsN">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PALegToButt.3dsN">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PALegToLeg.3dsN">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PALegToNoLimb.3dsN">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PAMagmium.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PAMetal.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PANeck11.3dsN">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PANeck12.3dsN">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PANeck21.3dsN">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PANeck22.3dsN">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PANeck31.3dsN">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PANeck32.3dsN">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PANeck42.3dsN">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PANoLimbClosedToButt.3dsN">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PANoLimbClosedToNoLimb.3dsN">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PANoLimbToButt.3dsN">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PANoLimbToLeg.3dsN">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PANoLimbToNoLimb.3dsN">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PATopLimbToArm.3dsN">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PATopLimbToButt.3dsN">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PATopLimbToLeg.3dsN">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PATopLimbToNoLimb.3dsN">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PATopToTop.3dsN">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+    <CustomBuildStep Include="data\PAVulcium.png">
+      <FileType>Document</FileType>
+    </CustomBuildStep>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="generatedfiles\qrc_AuPowerArmor.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\aubodyparts7\aubodyparts7.vcxproj">
+      <Project>{c2ec1427-7271-4a8d-b634-49d3f046ea19}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties MocDir=".\GeneratedFiles\$(ConfigurationName)" QtVersion="4.5.2" QtVersion_x0020_Win32="4.6.3" RccDir=".\GeneratedFiles" UicDir=".\GeneratedFiles" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

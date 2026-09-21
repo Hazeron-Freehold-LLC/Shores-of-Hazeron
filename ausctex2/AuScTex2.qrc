@@ -1,0 +1,24 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+	<file>data/MagmiumPlateBox.png</file>
+	<file>data/MagmiumPlateSquares.png</file>
+	<file>data/MagmiumPlateX.png</file>
+	<file>data/TerraCottaRoof.png</file>
+	<file>data/ThomasCole.1.Savage.png</file>
+	<file>data/ThomasCole.2.Pastoral.png</file>
+	<file>data/ThomasCole.3.Consummation.png</file>
+	<file>data/ThomasCole.4.Destruction.png</file>
+	<file>data/ThomasCole.5.Desolation.png</file>
+	<file>data/TileJade.png</file>
+	<file>data/VentBlack.png</file>
+	<file>data/VentCopper.png</file>
+	<file>data/VentWhite.png</file>
+	<file>data/VulciumPlateBox.png</file>
+	<file>data/VulciumPlateSquares.png</file>
+	<file>data/VulciumPlateX.png</file>
+	<file>data/WallCargo.png</file>
+	<file>data/WallKnockdown.png</file>
+	<file>data/WallMetal.png</file>
+	<file>data/WallPipes.png</file>
+</qresource>
+</RCC>

@@ -1,0 +1,34 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+	<file>data/Backdrop1.png</file>
+	<file>data/Backdrop10.png</file>
+	<file>data/Backdrop11.png</file>
+	<file>data/Backdrop12.png</file>
+	<file>data/Backdrop13.png</file>
+	<file>data/Backdrop14.png</file>
+	<file>data/Backdrop15.png</file>
+	<file>data/Backdrop16.png</file>
+	<file>data/Backdrop17.png</file>
+	<file>data/Backdrop18.png</file>
+	<file>data/Backdrop19.png</file>
+	<file>data/Backdrop2.png</file>
+	<file>data/Backdrop20.png</file>
+	<file>data/Backdrop3.png</file>
+	<file>data/Backdrop4.png</file>
+	<file>data/Backdrop5.png</file>
+	<file>data/Backdrop6.png</file>
+	<file>data/Backdrop7.png</file>
+	<file>data/Backdrop8.png</file>
+	<file>data/Backdrop9.png</file>
+	<file>data/Commander.png</file>
+	<file>data/Folder.png</file>
+	<file>data/Hazeron.png</file>
+	<file>data/Launcher.ico</file>
+	<file>data/Launcher.png</file>
+	<file>data/Mail.png</file>
+	<file>data/Settings.png</file>
+	<file>data/StoryEditor.png</file>
+	<file>data/TitleText.png</file>
+	<file>data/Wormhole.png</file>
+</qresource>
+</RCC>

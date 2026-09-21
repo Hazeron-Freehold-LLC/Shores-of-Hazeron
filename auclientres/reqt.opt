@@ -1,0 +1,19 @@
+TARGET = AuClientRes
+VERSION = 7.0
+TEMPLATE = lib
+CONFIG += dll qt thread
+DEFINES += AUCLIENTRES
+RC_FILE = AuClientRes.rc
+
+CONFIG(debug, debug|release) {
+	message($$TARGET Debug build configuration.)
+	DESTDIR = ../debug
+	TARGET = $$member(TARGET, 0)_debug
+	LIBS += -L../debug -lAuClientRes1_debug
+}
+
+CONFIG(release, debug|release) {
+	message($$TARGET Release build configuration.)
+	DESTDIR = ../release
+	LIBS += -L../release -lAuClientRes1
+}

@@ -1,0 +1,8 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+	<file>data/ThustrasEye.png</file>
+	<file>data/VeilOfTargoss.png</file>
+	<file>data/VreenoxEclipse.png</file>
+	<file>data/VulcansForge.png</file>
+</qresource>
+</RCC>

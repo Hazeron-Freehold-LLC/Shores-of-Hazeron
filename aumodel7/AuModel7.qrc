@@ -1,0 +1,43 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+	<file>data/BoltCube.3dsX</file>
+	<file>data/FenceBrickWall.SoH</file>
+	<file>data/FenceChainLink.SoH</file>
+	<file>data/FenceChainLinkRazor.SoH</file>
+	<file>data/FenceFlags.SoH</file>
+	<file>data/FencePosts.SoH</file>
+	<file>data/FencePostsT.SoH</file>
+	<file>data/FenceRange.SoH</file>
+	<file>data/FenceRangeT.SoH</file>
+	<file>data/FenceSandBagWall.SoH</file>
+	<file>data/FenceSplitRail.SoH</file>
+	<file>data/FenceStoneWall.SoH</file>
+	<file>data/FenceWire.SoH</file>
+	<file>data/FenceWireT.SoH</file>
+	<file>data/FenceWoodYard.SoH</file>
+	<file>data/mAK47.3dsN</file>
+	<file>data/mAK47.png</file>
+	<file>data/mFlowerPotLarge.3ds</file>
+	<file>data/mFlowerPotLarge.png</file>
+	<file>data/mFlowerPotSmall.3ds</file>
+	<file>data/mFlowerPotSmall.png</file>
+	<file>data/mFlyingAT.3dsN</file>
+	<file>data/mFlyingAT.png</file>
+	<file>data/mGenesisDevice.3ds</file>
+	<file>data/mGenesisDevice.png</file>
+	<file>data/mPaper.3dsN</file>
+	<file>data/mPaper.png</file>
+	<file>data/mPictureFrame120x68.3ds</file>
+	<file>data/mPictureFrame120x68.png</file>
+	<file>data/mPictureFrame22x28.3ds</file>
+	<file>data/mPictureFrame22x28.png</file>
+	<file>data/mPictureFrame60x34.3ds</file>
+	<file>data/mPictureFrame60x34.png</file>
+	<file>data/mPreon.3ds</file>
+	<file>data/mPreon.png</file>
+	<file>data/mSeed.3ds</file>
+	<file>data/mSeed.png</file>
+	<file>data/mSpacefighter.3dsN</file>
+	<file>data/mSpacefighter.png</file>
+</qresource>
+</RCC>

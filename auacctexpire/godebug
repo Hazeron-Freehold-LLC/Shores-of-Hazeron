@@ -1,0 +1,6 @@
+#!/bin/sh
+appname=AuServerStatus_debug
+dirname=`dirname $0`
+LD_LIBRARY_PATH=$dirname/../debug:$dirname/../../sk/debug
+export LD_LIBRARY_PATH
+$dirname/$appname $*

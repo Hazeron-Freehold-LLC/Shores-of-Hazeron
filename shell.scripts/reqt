@@ -1,0 +1,83 @@
+#!/bin/bash
+# Recreates the Makefile for a Qt project.
+#
+# The first command line parameter this script accepts is the build configuration
+# which can be 'debug' or 'release'. 'debug' is the default if not specified.
+#
+# The second parameter may specify a directory to cd to before doing the work.
+# This must be the second parameter; this script isn't very smart. If unspecified,
+# no directory change takes place.
+#
+# If the file reqt.opt exists in the current folder, its contents will be passed
+# to 'qmake -project' on the command line in quotes following any command line
+# parameters specified. A typical reqt.opt file might contain:
+#  TARGET = myapp
+#  VERSION = 1.0.0
+#  CONFIG += qt thread
+#  QT += opengl
+#  RC_FILE = myapp.rc
+#  CONFIG(debug, debug|release) {
+#      message(Debug build configuration.)
+#      unix:TARGET = $$member(TARGET, 0)_debug
+#      else:TARGET = $$member(TARGET, 0)D
+#  }
+#  CONFIG(release, debug|release) {
+#      message(Release build configuration.)
+#  }
+#
+# If the file reqt.user exists, it will be used just like the reqt.opt file. If
+# both reqt.user and reqt.opt exist, they will be combined, reqt.user first then
+# reqt.opt. A typical reqt.user file might contain:
+#  DESTDIR = /home/me/aptest
+#
+# If the file reqt.sed exists, it will be used by sed to modify the resulting
+# Makefile.
+#
+# Refer to the Qt documentation on 'qmake' and qmake project files for details.
+
+# Change directory if one is specified.
+CURDIR=`pwd`
+if [ "$2" != "" ]; then
+	cd $2
+fi
+
+# Build configuration is passed on the command line.
+if [ "$1" = "release" ]; then
+	echo 'CONFIG += release' > /tmp/reqt.opt
+else
+	echo 'CONFIG += debug' > /tmp/reqt.opt
+fi
+
+# Append user options.
+if [ -f reqt.user ] ; then
+	cat reqt.user >> /tmp/reqt.opt
+fi
+
+# Append project options.
+if [ -f reqt.opt ] ; then
+	cat reqt.opt >> /tmp/reqt.opt
+fi
+
+# Create a Qt project file.
+REQT_OPT=`cat /tmp/reqt.opt`
+rm /tmp/reqt.opt
+qmake -project -after "$REQT_OPT"
+
+# Create a Qt Makefile using the project file.
+if [ "$1" = "release" ]; then
+	qmake MOC_DIR=.r/ OBJECTS_DIR=.r/ RCC_DIR=.r/
+else
+	qmake MOC_DIR=.d/ OBJECTS_DIR=.d/ RCC_DIR=.d/
+fi
+
+# Sometimes the resulting Makefile needs slight modifications.
+if [ -f reqt.sed ] ; then
+	mv -f Makefile Makefile.qt
+	sed -f reqt.sed Makefile.qt > Makefile
+	rm Makefile.qt
+fi
+
+# Change back to our original directory.
+if [ "$2" != "" ]; then
+	cd $CURDIR
+fi

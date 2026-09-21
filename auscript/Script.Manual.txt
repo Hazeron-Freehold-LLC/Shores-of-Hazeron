@@ -1,0 +1,1674 @@
+--------------------------------------------------------------------------------
+Shores of Hazeron Story Script Compiler
+--------------------------------------------------------------------------------
+ Copyright (c) 2009-2026, Hazeron Freehold LLC
+ All rights reserved.
+
+ Hazeron Freehold LLC
+ 3900 N. 37th St.
+ Norfolk, NE 68701
+ 402-860-9757
+
+ https://www.Hazeron.com
+
+--------------------------------------------------------------------------------
+Stories
+--------------------------------------------------------------------------------
+Stories are told to the player in the form of one or more scripts, like chapters
+of a book or acts of a play. Each instance of a script being enacted is
+associated with an avatar. The player's avatar is the main character.
+
+Scripts start automatically based on conditions defined in the script itself.
+
+Script sequence is established by making each subsequent script depend upon the
+completion of its preceding script.
+
+Completion states can be stored by a script to influence the startup conditions
+of subsequent scripts, or to remember outcomes for recall in later scripts.
+
+When an avatar uses the Jobs page of the Bio window to drop a story, that script
+is not considered to be completed. It will autostart again if/when script
+settings and game conditions permit.
+
+An avatar can only have one active autostarted script at a time. When they do
+not have one, the game tries to start a new script once per minute while they
+are online. The avatar is evaluated against the start conditions of all
+autostartable scripts. Scripts that have already been completed by the avatar
+are never autostarted again.
+
+The solo game is automatically saved whenever a new script starts.
+
+Multiple stories can play out simultaneously, with chapters interleaved, due to
+chapters starting whenever conditions permit. It is unknown if this behavior is
+beneficial to game play, as it has never been tried.
+
+The intent was that stories could start/continue when conditions permit, like
+during the Relic story while searching for the archeological dig site. The
+avatar could be drawn to a different story for a while, then be interrupted by a
+supply ship beacon when they happen upon an appropriate sector for the Relic
+script.
+
+Avatars remember every story character they meet, by name. When a script creates
+a character that an avatar has met before, the character is recreated using the
+avatar's memory. The character's DNA, gender, handedness, growth stage, haircut,
+shave, empire, and gear are restored.
+
+--------------------------------------------------------------------------------
+Script Files
+--------------------------------------------------------------------------------
+Each story script is created in a folder named with a number[.name] format. The
+number is the script id, which must be unique among all scripts. The number does
+not imply a sequence; it is only used for identification. The optional '.name'
+part must not contain spaces. e.g. "6.Relic". 
+
+A script is created in a text file named 'script.sh'. The .sh suffix triggers a
+useful color scheme in the vi text editor that I use.
+
+A '#' denotes a script comment. The remainder of the script line is ignored by
+the script compiler, including the #.
+
+A script consists of two or more blocks. A block is denoted by a block label,
+which marks the beginning of the block. A colon ':' at the beginning of a line
+starts a block label. Following are some examples.
+
+	:
+	:Introduction
+	:TheEnd
+
+The first block label listed is only a ':' colon with no name. This marks a
+special block called the 'catalyst'. Every script must have a catalyst block.
+The catalyst block declares information about the script and its run conditions.
+The catalyst block provides logical tests that are used to determine when the
+script can start for an avatar in the game.
+
+The 'storyTitle', 'storyAuthor', and 'storyBrief' functions must be called
+in the catalyst block.
+
+At least one 'if' is required for evaluation of the catalyst. When any of the
+catalyst 'if's returns true, the script can begin for an avatar.
+
+The catalyst section may optionally contain an interval declaration. This
+specifies the number of minutes that must pass before the script can be started
+again by the same person, after the previous time it was started.
+
+Each 'if' evaluation specifies a block name. The block name is the next part of
+the script that is executed when the 'if' test becomes true. By using multiple
+'if' tests, a block can branch to different parts of the script based on varying
+conditions.
+
+Example catalyst block:
+-----------------------
+
+	:
+		# Basic story info.
+		story.title("Simple Story");
+		story.author("Charles S. Lewis");
+		story.brief("A simple story.");
+
+		# Test to begin story.
+		if(!avatarHasItem(Hammer)) Introduction;
+
+In the preceding example, a minimal catalyst block is created. The script will
+be available to all avatars with no hammer.
+
+Example body block:
+-------------------
+
+	:Introduction
+		narratorTitle("Simple Story");
+		narratorSay("Welcome to my simple story.");
+		if(wait(10)) PickUp;
+
+In this example, the person who starts the script receives a title message on
+the screen, followed by a narrated message, welcoming them to the story. After
+ten seconds have passed, the script branches to the 'PickUp' block.
+
+Example body block with conditional branch:
+-------------------------------------------
+It is possible for a block to branch to different parts of the script, depending
+on conditions present in the script.
+
+Every 10 seconds, the story engine evaluates the current script block for
+completion. When doing so, the branch conditions are tested one-by-one in
+sequence. The script branches to the first branch condition that is true.
+
+In the following example, there are three 'if' conditions. Observe that the
+order is critical. If the first 'if' was moved to the third position, the script
+would likely never branch on that condition. The Candle branch and the Hammer
+branch would individually be true and they would branch first.
+
+This is an unpredictable set of 'if's. It is possible the branch conditions will
+be checked before the avatar picks up the second item. Then the script will
+branch based on the first item the avatar grabbed, not both items.
+
+	:PickUp
+		narratorSay("Pick up a hammer and a candle.");
+		if(avatarHasItem(Hammer) & avatarHasItem(Candle)) HammerAndCandle;
+		if(avatarHasItem(Hammer)) Hammer;
+		if(avatarHasItem(Candle)) Candle;
+
+	:HammerAndCandle
+		narratorSay("You picked up both the candle and the hammer.");
+		if(wait(10)) TheEnd;
+
+	:Hammer
+		narratorSay("You picked up the hammer.");
+		if(wait(10)) TheEnd;
+
+	:Candle
+		narratorSay("You picked up the candle.");
+		if(wait(10)) TheEnd;
+
+Example final block:
+--------------------
+
+	:TheEnd
+		narratorSay("Good bye.");
+		narratorSay("I hope you had fun!");
+
+In this ending block example, the person receives two narrated messages. The
+script terminates because the block contains no 'if' or 'goto' statements. The
+script is now completed for the avatar; it will not restart.
+
+Data Files
+----------
+Scripts may reference many kinds of data files, such as .chr and .dna files,
+and also picture and sound .wav files.
+
+Script data files should accompany the script.sh file in the same folder.
+
+Blueprints
+----------
+Blueprints must be finalized online but publishing is not required.
+
+Scripts may reference spacecraft or building blueprints by number. The number
+is the one that appears in the online multiplayer game.
+
+Each empire associated with a published blueprint, that is referenced by a story
+script, will be added to the Empires list in this document.
+
+--------------------------------------------------------------------------------
+Commodity Names
+--------------------------------------------------------------------------------
+APC
+APC Apparatus Patent
+Adamantine
+Adamantine Bullion Patent
+Adamantine Hull
+Adamantite
+Air
+Animal Carcass
+Animal Meat
+Antidote
+Antidote using Herbs Patent
+Antidote using Minerals Patent
+Antidote using Petrochemicals Patent
+Antiflux Particles
+Antitoxin
+Antitoxin using Animal Carcass Patent
+Antitoxin using Eggs Patent
+Atmosphere Condenser Bay Module
+Atmosphere Condenser Bay Module Patent
+Atmosphere Density
+Backpack
+Ballistic Weapon Bay Module
+Ballistic Weapon Bay Module Patent
+Ballistic Weapon Turret Module
+Ballistic Weapon Turret Module Patent
+Battle Ship Apparatus Patent
+Beacon
+Beacon Patent
+Beans
+Beer
+Black Uniform
+Blank Disk
+Blank Disk Patent
+Blue Binder
+Blue Uniform
+Bolite
+Bomb Bl Black Cat
+Bomb Bl Black Cat Patent
+Bomb BlPi Porcupine
+Bomb BlPi Porcupine Patent
+Bomb BlRa Los Alamos
+Bomb BlRa Los Alamos Patent
+Bomb ElSt Tesla
+Bomb ElSt Tesla Patent
+Bomb SlCr Meat Slicer
+Bomb SlCr Meat Slicer Patent
+Bomb SuPo Muffler
+Bomb SuPo Muffler Patent
+Bone
+Borexino Precipitate
+Brain
+Bread
+Brown Uniform
+Building Blueprint Disk
+Building Blueprint Drawing
+Burning Barrel
+Candle
+Candle using Petrochemicals Patent
+Candy
+Candy Patent
+Capacitor Module
+Capacitor Module Patent
+Capris and Halter
+Cheese
+Clamp
+Cloaking Shield Module
+Cloaking Shield Module Patent
+Coal
+Coal Power Plant Module
+Command And Control Module
+Command And Control Module Patent
+Commercial Ship
+Commercial Ship Apparatus Patent
+Compressor Beam Lens
+Compressor Beam Lens Patent
+Computer
+Computer Patent
+Crate
+Cronodollars
+Cryo Heat Sink
+Cryo Heat Sink Patent
+Cryozine
+Crystal Necklace
+Crystals
+Cybernetics Medical Module
+Cybernetics Medical Module Patent
+DNA Sample
+DNA Sample Kit
+DNA Sample Kit Patent
+Disintegrator Ray Lens
+Disintegrator Ray Lens Patent
+Disruptor Beam Lens
+Disruptor Beam Lens Patent
+Distilling Gin Patent
+Distilling Rum Patent
+Distilling Tequila Patent
+Distilling Vodka Patent
+Distilling Whiskey Patent
+Drilling Phlogiston Patent
+Drilling Polytaride Patent
+Drilling Viathol Patent
+Drum
+Dynamite
+Dynamite Patent
+EV Helmet
+EV Helmet Patent
+EV Suit
+EV Suit Patent
+Eggs
+Electricity
+Electron Beam Lens
+Electron Beam Lens Patent
+Electronic Part
+Electronic Part Patent
+Eludium
+Energy Shield Module
+Energy Shield Module Patent
+Energy Weapon Bay Module
+Energy Weapon Bay Module Patent
+Energy Weapon Turret Module
+Energy Weapon Turret Module Patent
+Erg Ray Lens
+Erg Ray Lens Patent
+Extracting Flomentum Patent
+Extracting Magmex Patent
+Extracting Myrathane Patent
+Farm Machinery
+Farm Machinery Apparatus Patent
+Fertilizer
+Fire
+Fish
+Fish Meat
+Fitting Wrench
+Flag
+Flak Helmet
+Flak Vest
+Flomentum
+Flour
+Freeze Ray Lens
+Freeze Ray Lens Patent
+Frigid Atmosphere Density
+Fruit
+Gasoline
+Gasoline Power Plant Module
+Gem Ring
+Gems
+Generating Electricity using Coal Patent
+Generating Electricity using Gasoline Patent
+Generating Electricity using Hydrogen Patent
+Generating Electricity using Natural Gas Patent
+Generating Electricity using Nuclear Fuel Rod Patent
+Generating Electricity using Radioactives Patent
+Generating Electricity using Sunlight Patent
+Generating Electricity using Water in Environment Patent
+Generating Electricity using Wind Patent
+Genetics Medical Module
+Genetics Medical Module Patent
+Gigacell
+Gigacell Patent
+Gills
+Gin
+Glue Gun
+Glue Gun Patent
+Gold
+Gold Hull
+Gold Ore
+Gold Ring
+Gold Uniform
+Grain
+Grapes
+Grav Coupling
+Grav Coupling Patent
+Grav Pack
+Grav Pack Patent
+Gravity Drive Module
+Gravity Drive Module Patent
+Green Binder
+Green Uniform
+Grey BDU
+Grey Uniform
+Gun Powder
+Gun Powder Patent
+Hammer
+Hay
+Head
+Heart
+Heat Ray Lens
+Heat Ray Lens Patent
+Heavy Arms Ammo Pi Patent
+Heavy Arms Ammo PiAc Patent
+Heavy Arms Ammo PiBl Patent
+Heavy Arms Ammo PiRa Patent
+Heavy Arms Ammunition Pi
+Heavy Arms Ammunition PiAc
+Heavy Arms Ammunition PiBl
+Heavy Arms Ammunition PiRa
+Heavy Weapon
+Heavy Weapon Patent
+Helicopter
+Helicopter Apparatus Patent
+Herbs
+Hops
+Hydroelectric Power Plant Module
+Hydrogen
+Hydrogen Power Plant Module
+Hydrogen Power Plant Module Patent
+Hydrogen from Natural Gas Patent
+Ice
+Ice Cream
+Ice Cream Patent
+Inferno Atmosphere Density
+Io Tube
+Io Tube Patent
+Ioplasma
+Jeans and Shirt
+Jewelry Storage Device Patent
+Khaki BDU
+Kinetic Shield Module
+Kinetic Shield Module Patent
+Knapsack
+Knife
+Knife using Metal and Plastic Patent
+Lantern
+Lantern Patent
+Large Flower Pot
+Large Missile Bl Thumper
+Large Missile Bl Thumper Patent
+Large Missile BlBu Fireball
+Large Missile BlBu Fireball Patent
+Large Missile SlPo Sideviper
+Large Missile SlPo Sideviper Patent
+Large Rocket Bl Thud
+Large Rocket Bl Thud Patent
+Large Rocket BlBu Molotov
+Large Rocket BlBu Molotov Patent
+Large Rocket BuDi Scudpox
+Large Rocket BuDi Scudpox Patent
+Large Rocket Motor
+Large Rocket Motor Patent
+Laser Pistol
+Laser Pistol Patent
+Laser Rifle
+Laser Rifle Patent
+Lava in the Environment
+Leather
+Leather Armor
+Leather Clothing
+Leather Helmet
+Life Support Gravity Module
+Life Support Gravity Module Patent
+Life Support Module
+Life Support Module Patent
+Log
+Lumber
+Lumber Hull
+Lumenite
+Lungs
+Magmex
+Magmium
+Magmium Bullion Patent
+Magmium EV Helmet
+Magmium EV Helmet Patent
+Magmium EV Suit
+Magmium EV Suit Patent
+Magmium Heat Sink
+Magmium Heat Sink Patent
+Magmium Hull
+Magmium Knife
+Magmium Knife Patent
+Mechanical Part
+Medical Kit
+Metal
+Metal Armor
+Metal Bracelet
+Metal EV Helmet
+Metal EV Helmet Patent
+Metal EV Suit
+Metal EV Suit Patent
+Metal Helmet
+Metal Hull
+Microscope
+Microscope Patent
+Milk
+Mine Machinery
+Mine Machinery Apparatus Patent
+Minerals
+Mining Adamantite Patent
+Mining Bolite Patent
+Mining Eludium Patent
+Mining Lumenite Patent
+Mining Radioactives Patent
+Mining Vulcanite Patent
+Mission Disk
+Motor Bike
+Motor Bike Apparatus Patent
+Myrasplicer
+Myrasplicer Patent
+Myrathane
+Nanopath Calibrator
+Nanopath Calibrator Patent
+Natural Gas
+Natural Gas Power Plant Module
+Naval Ship
+Neutron Beam Lens
+Neutron Beam Lens Patent
+Nitrate Explosive
+Nitrate Explosive Patent
+Nuclear Fuel Rod
+Nuclear Fuel Rod Patent
+Nuclear Power Plant Module
+Nuts
+Officer Log
+Oil
+Olive Drab BDU
+Orange Uniform
+Ore
+Oscilloscope
+Oscilloscope Patent
+Paper
+ParcX Box
+ParcX Uniform
+Particle Collector Bay Module
+Particle Collector Bay Module Patent
+Pastry
+Pastry Patent
+Personnel Transporter Module
+Personnel Transporter Module Patent
+Petrochemicals
+Pharmaceuticals
+Pharmaceuticals using Petrochemicals Patent
+Phlogiston
+Picture Frame 120x68cm
+Picture Frame 22x28cm
+Picture Frame 60x34cm
+Pink Uniform
+Pistol
+Pistol Ammunition
+Pistol Ammunition Patent
+Pistol Patent
+Plant Fiber
+Plastic
+Plastic Armor
+Plastic Explosive
+Plastic Explosive Patent
+Plastic Helmet
+Plastic Patent
+Plastic Sailboat Apparatus Patent
+Pliers
+Plutonium
+Plutonium Patent
+Polytaride
+Preon Ring Patent
+Pressure Tent
+Pressure Tent Patent
+Prospector Bay Module
+Prospector Bay Module Patent
+Proton Beam Lens
+Proton Beam Lens Patent
+Radioactives
+Red Binder
+Red Uniform
+Refining Air from Atmosphere Patent
+Refining Air from Water Patent
+Refining Antiflux Particles from Atmosphere Patent
+Refining Borexino Precipitate from Atmosphere Patent
+Refining Cryozine Patent
+Refining Fertilizer from Air Patent
+Refining Fertilizer from Atmosphere Patent
+Refining Gasoline Patent
+Refining Hydrogen from Atmosphere Patent
+Refining Hydrogen from Water Patent
+Refining Ioplasma Patent
+Refining Petrochemicals Patent
+Rifle
+Rifle Ammunition
+Rifle Ammunition Patent
+Rifle Patent
+Rocket Drive Module
+Rocket Drive Module Patent
+Rum
+SUV
+SUV Apparatus Patent
+Sailboat
+Screw Driver
+Seed
+Sensor Module
+Sensor Module Patent
+Sewing Needle
+Shotgun
+Shotgun Ammunition
+Shotgun Ammunition Patent
+Shotgun Patent
+Shovel
+Silage
+Siphon Bay Module
+Siphon Bay Module Patent
+Small Flower Pot
+Small Missile Bl Zipper
+Small Missile Bl Zipper Patent
+Small Missile BlBu Barnburner
+Small Missile BlBu Barnburner Patent
+Small Missile CrFr Snowball
+Small Missile CrFr Snowball Patent
+Small Rocket Bl Partypopper
+Small Rocket Bl Partypopper Patent
+Small Rocket BlBu Firecracker
+Small Rocket BlBu Firecracker Patent
+Small Rocket Motor
+Small Rocket Motor Patent
+Small Rocket SlPi Meathook
+Small Rocket SlPi Meathook Patent
+Smelting Adamantine Patent
+Smelting Magmium Patent
+Smelting Vulcium Patent
+Solar Power Plant Module
+Soldering Iron
+Soldering Iron Patent
+Space Fighter F1
+Space Fighter F1 Apparatus Patent
+Space Fighter F2
+Space Fighter F2 Apparatus Patent
+Space Rocket
+Space Rocket Apparatus Patent
+Space Transport
+Space Transport Apparatus Patent
+Spacecraft Blueprint Disk
+Spacecraft Blueprint Drawing
+Spacecraft Title
+Spices
+Stasis Beam Lens
+Stasis Beam Lens Patent
+Stomach
+Stone
+Stone Hull
+Storage Crystal
+Storage Crystal Bracelet
+Storage Crystal Necklace
+Storage Crystal Patent
+Storage Crystal Ring
+Submarine
+Submarine Apparatus Patent
+Sugar
+Sunlight
+Supercooled Liquid in the Environment
+Surgery Medical Module
+Surgery Medical Module Patent
+TEU Container
+Tank
+Tank Apparatus Patent
+Teal Uniform
+Tepee
+Tequila
+Tesloid Dissipator
+Tesloid Dissipator Patent
+Textiles
+Thumb Drive
+Thumb Drive Bracelet
+Thumb Drive Necklace
+Thumb Drive Patent
+Thumb Drive Ring
+Tongs
+Torch
+Torque Wrench
+Tractor Beam Bay Module
+Tractor Beam Bay Module Patent
+Type A Preon Ring
+Type A Preons
+Type B Preon Ring
+Type B Preons
+Type F Preon Ring
+Type F Preons
+Type G Preon Ring
+Type G Preons
+Type K Preon Ring
+Type K Preons
+Type M Preon Ring
+Type M Preons
+Type O Preon Ring
+Type O Preons
+Utility Pouch
+Vegetable
+Vegetation Density
+Vehicle Transporter Module
+Vehicle Transporter Module Patent
+Viathol
+Vodka
+Vulcanite
+Vulcium
+Vulcium Bullion Patent
+Vulcium EV Helmet
+Vulcium EV Helmet Patent
+Vulcium EV Suit
+Vulcium EV Suit Patent
+Vulcium Heat Sink
+Vulcium Heat Sink Patent
+Vulcium Hull
+Vulcium Knife
+Vulcium Knife Patent
+Warp 1 FTL Drive Module
+Warp 1 FTL Drive Module Patent
+Warp 2 FTL Drive Module
+Warp 2 FTL Drive Module Patent
+Warp 3 FTL Drive Module
+Warp 3 FTL Drive Module Patent
+Warp 4 FTL Drive Module
+Warp 4 FTL Drive Module Patent
+Warp 5 FTL Drive Module
+Warp 5 FTL Drive Module Patent
+Warp 6 FTL Drive Module
+Warp 6 FTL Drive Module Patent
+Warp 7 FTL Drive Module
+Warp 7 FTL Drive Module Patent
+Warp 8 FTL Drive Module
+Warp 8 FTL Drive Module Patent
+Warp 9 FTL Drive Module
+Warp 9 FTL Drive Module Patent
+Water
+Water in the Environment
+Water using Air and Hydrogen Patent
+Weapon Deployment Bay Module
+Weapon Deployment Bay Module Patent
+Weapon Launcher Bay Module
+Weapon Launcher Bay Module Patent
+Weapon Launcher Turret Module
+Weapon Launcher Turret Module Patent
+Weaving Textiles using Plastic Patent
+Whiskey
+White Uniform
+Wildcatter Bay Module
+Wildcatter Bay Module Patent
+Wind Power Plant Module
+Wine
+Wood Hull
+Wormhole P FTL Drive Module
+Wormhole P FTL Drive Module Patent
+Wormhole PN FTL Drive Module
+Wormhole PN FTL Drive Module Patent
+Wormhole PNN FTL Drive Module
+Wormhole PNN FTL Drive Module Patent
+Wrench
+Кала́шников
+Кала́шников Patent
+
+--------------------------------------------------------------------------------
+Industry Names
+--------------------------------------------------------------------------------
+Aerial Platform
+Aircraft Factory
+Airport Radar
+Airport Repair Shop
+Airport Terminal
+Apartment
+Arena
+Armorer
+Bakery
+Bank
+Biodome
+Brewery
+Bridge
+Broker
+Cantina
+Capitol
+Carpenter
+Casino
+Church
+Clothing Factory
+Coal Power Plant
+Computer Factory
+Condominium
+Dairy
+Design Studio
+Distillery
+Drilling Rig
+Electronics Factory
+Explosives Factory
+Farm
+Fence/Wall
+Fire Station
+Gasoline Power Plant
+Grist Mill
+Grocery
+Ground Platform
+Hangar
+Hospital
+House
+Hydroelectric Power Plant
+Hydrogen Power Plant
+Jeweler
+Landscape
+Logging Camp
+Lumber Mill
+Machine Shop
+Mass Media
+Meat Processing Plant
+Military Airport Terminal
+Military Barracks
+Military Dock
+Military Flag
+Military Guard Post
+Military Gun Tower
+Military Headquarters
+Military Motor Pool
+Military Radar
+Military Shield Projector
+Military Weapon System
+Mine
+Munitions Factory
+Natural Gas Power Plant
+Nuclear Fuel Plant
+Nuclear Power Plant
+Observatory
+Orchard
+Paper Mill
+Park
+Pharmaceutical Lab
+Plastics Factory
+Police Station
+Private Security Contractor
+Refinery
+Retail Store
+Road
+Rocket Motor Factory
+Sea Platform
+Shed
+Ship Yard
+Smelter
+Solar Power Plant
+Space Marine Barracks
+Spacecraft Factory
+Star Fleet Academy
+Storage Tank
+Street Light
+Sugar Mill
+Textile Mill
+Town Square
+Treatment Plant
+Tunnel
+University
+Vehicle Factory
+Warehouse
+Weapon Smith
+Well
+Wharf
+Wind Power Plant
+Winery
+Zoo
+
+--------------------------------------------------------------------------------
+Empires
+--------------------------------------------------------------------------------
+These are the empires that initially exist in the solo game universe.
+
+Pirate empires show their ranking, from the least difficult at 1 to the most
+difficult at 15. The name of each pirate emperor is also shown. Pirate emperor
+name is seen in the game when a city is surrendered to a pirate empire.
+
+Akson - Pirate 9. Emperor Detria.
+Alpha Fleet - Arena only.
+Balorite - Pirate 3. Emperor Atrakhan.
+Dendrae - Pirate 13. Emperor Martress.
+Haxu - Pirate 14. Emperor Tenracca.
+Imperium - Admin empire. Required for Haxus' exchange entries in the solo game.
+Kla'tra - Pirate 5. Emperor Putres'p.
+Malacon - Pirate 7. Emperor Ilth.
+Myntaka - Pirate 12. Emperor Tiver.
+Observer - Arena only.
+Ogar - Pirate 2. Emperor Xidius.
+Otari - Pirate 11. Emperor Boanon.
+Seledon - Pirate 1. Emperor Nahoth.
+Syth - Pirate 6. Emperor Decavit.
+Tassad - Pirate 10. Emperor Si'darr.
+Vilmorti - Pirate 8. Emperor Levalle.
+Vreen - Pirate 4. Emperor Ortax.
+Zulu Fleet - Arena only.
+Zuul - Pirate 15. Emperor Kang.
+
+--------------------------------------------------------------------------------
+Comm Channel Names
+--------------------------------------------------------------------------------
+Hail - Channel to everyone out to solar system range. Stations monitor this
+	channel.
+Galactic - Channel to everyone.
+Voice - Channel to everyone nearby who can hear.
+Intercom - Channel to everyone aboard the ship you occupy and to the ship
+	itself. Vehicles also have an intercom channel.
+Crew - Channel to crew mates, passengers and the ship. You must be a ship crew
+	member or passenger to broadcast on this channel.
+Trade - Channel to everyone for trading purposes, out to solar system range.
+	Cities and brokers monitor this channel.
+Friend - Channel to members of your empire and friendly empires.
+Help - Channel to service staff for help playing the game.
+Diplomacy - Channel to members of all governments. Only government officials may
+	broadcast on this channel.
+Empire - Channel to members of your empire.
+Government - Channel to members of your empire's government. Only government
+	officials may broadcast on this channel.
+Fleet - Channel to officers of spacecraft in your empire. Only officers in your
+	chain-of-command will respond. Only spacecraft officers and government
+	officials may broadcast on this channel.
+Company - Channel to officers of spacecraft in your company. Anyone may
+	broadcast on this channel. Your company is the owner of the company ship on
+	which you hold an officer berth; or it is you.
+Recruit - Channel to everyone for recruiting purposes.
+Thoughts - Channel for thoughts vocalized in your own mind.
+Galaktika - Russian language channel to everyone.
+Galaxie - French language channel to everyone.
+Galaxia - Spanish language channel to everyone.
+Galaktischen - German language channel to everyone.
+
+--------------------------------------------------------------------------------
+Comm Ranges
+--------------------------------------------------------------------------------
+Close
+Hail
+System
+Sector
+Galaxy
+Universe
+
+--------------------------------------------------------------------------------
+Atom Class Hierarchy
+--------------------------------------------------------------------------------
+Atoms are C++ class objects that have a position in space. A class defines an
+object's behavior when used in a computer program. An atom in the game is an
+instance of an Atom class object. Each atom instance is identified with a number
+that is unique among all atoms.
+
+Classes derive from base classes, altering program behavior as required.
+Operations on a class perform similarly on derived classes. e.g. A function to
+return the mass of an atom will work quite differently on a star atom than a
+space ship atom, while providing a consistent useful result.
+
+Here is a general depiction of the atom class hierarchy. 
+	Atom*
+		Galaxy
+		Sector
+		Solar System
+		Star
+		World*
+			Globe
+			Ringworld
+		Unit*
+			Building
+			Creature*
+				Animal
+				Sentient*
+					Avatar
+					Npc/Character
+			Item
+			Ship
+			Vehicle
+		Universe
+
+	*Denotes atoms that cannot be instantiated. e.g. No atom is only a Unit.
+
+This means Sentient functions operate on Avatar atoms as well as Npc atoms and
+Atom functions operate on all atoms.
+
+--------------------------------------------------------------------------------
+Function Argument Types
+--------------------------------------------------------------------------------
+angle - Angle in degrees, in the range -360 to 360.
+animal - A wild animal. A creature that is not sentient.
+atom - A variable that references an atom. Most objects in the game universe are atoms.
+avatar - A variable that references an avatar atom.
+bool - Boolean value returned by calling one or more functions. Can use logical operators '&', '|', and '!'.
+bool - Boolean argument. Accepts 'true' or 'false', not case sensitive.
+building - Building name, not case sensitive.
+city - A variable that references a capitol building atom.
+commodity - Commodity name, not case sensitive.
+channel - Communication channel name. Not limited to standard channel names.
+character - A variable that references an npc atom who is associated with the current story. Characters disappear when their story ends. Characters are created with the npcrole of Citizen.
+choiceValue - A value associated with multiple choices, in the range -127 to 127.
+creature - A variable that references a creature atom. Animals and sentients are creature atoms.
+dna - DNA specification. Loaded from a file if the string ends with '.chr' or '.dna'. Can also be Avatar, Indigenous or Worker. Worker returns Indigenous result if the avatar is not in a city.
+empire - Empire name, case sensitive, or Empire, Vassal, Friend, Neutral, Enemy.
+file - A file name found in the same path as the script.
+gearslot - Gear slot, not case sensitive: Hand, Head, Face, Neck, Body, Wear, Limb, Digit, Waist. All creatures have at least one Hand. It is always their dominant hand. Do not expect more than that. All creatures have at least one Head. Both are treated as one when it comes to equipment. You cannot place a different hat or helmet on each head. Only one hat or helmet is needed for both heads. The same applies to faces and necks. All creatures have at least one body slot for carrying gear. Wear is specifically for things worn on the body, such as clothing and armor. Limb slots are for bracelets and anklets. A creature has one limb slot for each arm and leg on its body. Digit slots are for fingers and toes. A creature has one digit slot for each hand and foot on its body. All creatures have four waist slots; there is a size limit to items placed at the waist. 
+gender - Gender of creature, not case sensitive: Male, Female, Asexual, Hermaphrodite.
+hand - Dominant hand of creature, not case sensitive: Left Handed, Right Handed
+int - Signed integer value. Decimals are truncated.
+item - A variable that references an item atom. Item are atoms that represent a commodities in the environment.
+ll - A variable that contains a longitude latitude coordinate on a world.
+npc - A variable that references an npc atom.
+npcrole - A role for an AI controlled sentient: Citizen, Worker, Passenger, Crew, Troop, Officer, IndigenousPerson, IndigenousElder, IndigenousHealer, IndigenousStargazer.
+orbit - Orbit: Inferno, Inner, Habitable, Outer or Frigid also Any, Harsh (Inferno or Frigid), Mild (Inner, Habitable, or Outer), Uninhabitable (not Habitable).
+quality - Quality in the range 1 to 255.
+range - Communication range, not case sensitive.
+real - Signed real value.
+sector - A variable that references a sector atom.
+sentient - A variable that references a sentient atom. Avatars and AI controlled citizens are sentient atoms.
+ship - A variable that references a spacecraft atom, could be a station.
+stage - Growth stage of creature, not case sensitive: Mature, Juvenile.
+stance - Political stance, not case sensitive. Empire, Vassal, Friend, Neutral, Enemy. Often used in conjunction with a stanceCheck int value which is 0=exact match, 1=stance equal or better sought, 2=stance equal or worse sought.
+station - Station that can be occupied, not case sensitive: Command, Citizen, Designer, Engine, FireControl, Game, Helm, Livestock, Medic, Navigation, Patient, Power, Sensor, Shield, Transporter, Troop, Turret
+system - A variable that references a solar system atom.
+text - Text string delimited with " quotes. May be split across script lines. Can contain fields to include variable information. e.g. [A.F] where A is a valid atom variable and F is a field. Fields available depend on the atom type: all atoms have Name; ships have NameWithEmpire; people have TitleName; creatures have HerHim, herhim, HersHis, hershis, MaamSir, maamsir, MomDad, momdad, MotherFather, motherfather, MsMr, NieceNephew, niecenephew, SheHe, shehe. e.g. '[monster.HerHim]' would be substituted with 'Her' or 'Him', depending on the gender of the 'monster' atom.
+unit - A variable that references a unit atom. Avatars, citizens, animals, vehicles and spacecraft are unit atoms.
+vehicle - A variable that references a vehicle atom.
+void - A function return value placeholder indicating a function does not return anything.
+world - A variable that references a world atom.
+
+--------------------------------------------------------------------------------
+Functions
+--------------------------------------------------------------------------------
+
+Miscellaneous Functions
+-----------------------
+
+goto blockName - Unconditional branch to a block of the story.
+
+if(bool) blockName - In the catalyst block, 'if' tests determine when the story can start for an avatar and which block will begin the story.
+	In body blocks, 'if' tests determine when to branch to another block of the story.
+	Each block of the story, including the catalyst, may contain more than one 'if' to test and branch based on different conditions. The story engine checks the 'if' conditions of the current block every 10 seconds. Each 'if' is tested in the order it appears in the script. The first 'if' to return true results in a branch to its block of the story.
+
+choiceValue choiceMade() - Test for selection of a specific choice that was offered using a choice command on a comm channel.
+
+bool dateIsChristmas() - Test if the current date is Christmas eve or Christmas day. Returns true on 12/24 and 12/25.
+
+int secondsElapsed() - Returns the number of seconds that have passed since the current story block was started.
+
+bool wait(int) - Returns true if 'int' seconds or more have passed since the current story block was started.
+
+
+Story Functions
+---------------
+
+Story functions configure the current story. Most story functions can only be used in the catalyst block. The only exception is the 'storyDroppable' function.
+
+void storyAuthor(text) - Identifies the author of the story. Required in catalyst block.
+
+void storyAutoRepeat() - Enables the story to automatically start repeatedly, based on the catalyst.
+	The story can restart within 10 seconds of being terminated if an interval is not specified.
+	Only one auto started story can be active at a time.
+
+void storyAutoRepeatUntilComplete() - Enables the story to automatically start repeatedly, based on the catalyst. 
+	The story can restart within 10 seconds of being terminated if an interval is not specified.The story stops autostarting once it has been completed. 
+	A story that is dropped is not considered to be completed. 
+	Only one auto started story can be active at a time.
+
+void storyAutoStart() - Enables the story to automatically start once, based on the catalyst. 
+	Only one auto started story can be active at a time.
+
+void storyBrief(text) - Gives a brief description of the story. Required in catalyst block.
+
+void storyDroppable(bool) - Sets the current story's droppable state. The droppable state of a story can be changed at any time in the script. 
+	A story that is not droppable cannot be canceled by the avatar using the Jobs window. The avatar gets a thought message if they try dropping an undroppable story. 
+	Usually, avatars must be able to drop a story to enable it to restart. Disable drop only when dropping would break the story in some way. 
+
+void storyInterval(int) - Specifies the time interval in minutes before the story can start again. 
+	The time interval starts when the story terminates, whether by finishing or by dropping. 
+
+void storyTitle(text) - Declares the title of the story. Required in catalyst block.
+
+
+Avatar Functions
+----------------
+
+Avatar functions operate on the avatar atom for whom the story is running. 
+
+avatar avatar() - Returns the person executing the story.
+
+bool avatarConstructedBuildingHabitable(building) - Test if the person has ever constructed a particular kind of building on a habitable world. True is returned if they ever planned one, regardless of whether it was completed.
+
+bool avatarConstructedBuildingHarsh(building) - Test if the person has ever constructed a particular kind of building on a world with a harsh environment. True is returned if they ever planned one, regardless of whether it was completed.
+
+void avatarCreditGovtDebt(real) - Credits the person's government debt account with a number of cronodollars.
+
+bool avatarCurrentItem(commodity) - Test if the person's current item is a commodity.
+
+atom avatarEnvironment() - Returns the environment atom that contains the person. This is usually a solar system but it can be an arena or a design studio. The environment containing the person is the only environment a story can access.
+
+int avatarEVAMinutes() - Returns the number of minutes of EVA experience.
+
+bool avatarHadItem(commodity) - Test if the person's gear has ever contained a commodity.
+
+bool avatarHasFood() - Test if the person's gear contains any food.
+
+bool avatarHasItem(commodity) - Test if the person's gear contains a commodity.
+
+bool avatarHasItemInHand(commodity) - Test if the person is holding a commodity in their hand.
+
+bool avatarHasItemInHandSpecific(commodity,quality,empire,text) - Test if the person is holding a specific commodity in their hand. 'text' is compared against the inscription only if 'text' is not blank.
+
+bool avatarHasItemSpecific(commodity,quality,empire,text) - Test if the person's gear contains a very specific commodity. 'text' is compared against the inscription only if 'text' is not blank.
+
+bool avatarInCity() - Test if the person is in a city. The person must be standing in a developed terrain tile.
+
+bool avatarInOrbit() - Test if the person is in orbit at a planet, outside the atmosphere.
+
+bool avatarInStudio() - Test if the person is inside a design studio instance.
+
+bool avatarInVehicle(commodity) - Test if the person is inside a certain type of vehicle.
+
+bool avatarInVehicleMoving(commodity) - Test if the person is inside a certain type of vehicle that is moving.
+
+bool avatarInVehicleOnGround(commodity) - Test if the person is inside a certain type of vehicle that is touching the ground.
+
+int avatarItemCount(commodity) - Returns the amount of a commodity possessed by the avatar.
+
+void avatarItemMakePermanent(commodity,quality,empire,text) - Makes permanent a specific item in the person's gear. Permanent story items persist in the game after the story ends. Nonpermanent story items are removed from the game when the story ends. 
+	Arguments:
+	'text' is compared against the inscription only if 'text' is not blank.
+
+void avatarItemSetDropOnDeath(int,commodity,quality,empire,text) - Sets the 'drop' behavior of an item: 0=default random drop on death, 1=no drop, 2=always drop. 'bool' is the new state.
+
+bool avatarLineageAvatar() - Returns true if the avatar's lineage is a regular avatar.
+
+bool avatarLineageDemiavatar() - Returns true if the avatar's lineage is demiavatar.
+
+bool avatarLineageHighborn() - Returns true if the avatar's lineage is highborn.
+
+int avatarOnLineMinutes() - Returns number of minutes the person has been on line.
+
+bool avatarStoryCompleted(int) - Test if the person has completed a particular story script id.
+
+int avatarStoryLastResult(int) - Returns a result code associated with a particular story script id. 0 is returned if the story has never been started.
+
+void avatarStoryResult(int) - Stores the result for the current story in an avatar's memory. 'int' is result, in the range 0 to 255. 
+
+int avatarVehicleMinutes(commodity) - Returns number of minutes the person has experience in a vehicle.
+
+
+Atom Functions
+--------------
+
+Atom functions operate on a specific atom, which is the first argument of most atom functions. When the 'atom' argument is not valid, all functions return quietly. 
+
+atom atom(int) - Casts 'int' to be an atom identifier.
+
+city atomCity(atom) - Returns the city capitol building atom whose jurisdiction controls the building site that contains 'atom'. 
+	The result is 0 if the atom's current building is not part of a city. 
+	If 'atom' is on a road, the capitol building whose jurisdiction contains 'atom' is returned. 
+	The result is 0 if 'atom' is not at a building site or on a road in a city. 
+
+void atomComm(atom,channel,range,text) - Atom sends a message on a comm channel.
+
+void atomCommChannelToAtom(atom,atom,channel) - Atom opens a channel to the other atom.
+
+void atomCommChoice(atom,channel,range,choiceValue,text) - Atom says a choice on a comm channel. A choice message appears with a bright green asterisk. 
+	Several choices may be stated if each is given a different choiceValue. 
+	Result of player's choice is tested using the choiceMade function.
+
+character atomCreateCharacter(atom,angle,real,text,gender,hand,empire,dna,stage) - Creates a character near 'atom', subordinate to the same parent as 'atom'. Will not create the charater if 'atom' is in a vehicle. 
+	Arguments:
+	'angle' is relative to the atom's facing: 0 is forward, 90 is left, -90 is right and 180 is behind. 
+	'real' is a distance in meters. 
+	The new character's location will be in the domain of 'atom's parent. i.e. on the same ship or world. The path from 'atom' to the new character's location will be unobstructed. The final starting location will be no farther than 'real' meters from 'atom', even if it means starting on top of 'atom'. It will be closer than 'real' if the path to the starting location from the 'atom' is obstructed. 
+	'text' is the name of the new character. 
+	If a character with the same name and story instance exists in the environment, it is moved rather than create a new character. 
+	'dna' specifies the DNA of the character. However, if the avatar of the story has ever met a story character with the same name, in any prior encounter, then the 'dna' argument is overridden by the DNA of the original character met by the avatar. 
+
+real atomDistanceToAtom(atom,atom) - Returns the distance between two atoms, in meters. 
+
+int atomEmpire(atom) - Returns id value of an atom's empire. 0 if none.
+
+atom atomFindBuilding(atom,building,int,stance,int) - Locates a building of a specific 'building' type, subordinate to 'atom'. 
+	Arguments:
+	'int' is under construction requirement 0=yes, 1=no, 2=ok, 
+	'stance' and 'int' are used to check the atom empire's stance toward the building's empire. 'int' 0=stance must match, 1=stance must match or be better, 2=stance must match or be worse. 
+
+vehicle atomFindVehicle(atom,commodity,int) - Locates a vehicle of a specific 'commodity' type, subordinate to 'atom'. 'int' is 1 if the vehicle must be new, 2 if the vehicle must not be new, and 0 if you don't care. 
+
+bool atomHasAtom(atom,atom) - Searches the atom recursively for an atom. Returns true if the atom is found.
+
+bool atomHasBuilding(atom,building,int,stance,int) - Test recursively if an atom has a building type. The atom might typically be a system, world or city. 
+	Arguments:
+	'int' is under construction requirement 0=yes, 1=no, 2=ok, 
+	'stance' and 'int' are used to check the atom empire's stance toward the building's empire. 'int' 0=stance must match, 1=stance must match or be better, 2=stance must match or be worse. 
+
+bool atomInSystem(atom,system) - Returns true if atom is in a solar system.
+
+bool atomIsAtom(atom,atom) - Returns true if atom == atom and atom is valid.
+
+sector atomSector(atom) - Returns the sector atom that contains 'atom'.
+
+bool atomValid(atom) - Returns true if the atom exists and looks valid. The atom must be in the same solar system, design studio, or arena as the avatar.
+
+world atomWorld(atom) - Returns the world atom that contains 'atom'. 'atom' may be subordinate to the world at any subatom level or distance, possibly in space. 
+	Returns 'atom' if atom is a world.
+
+ll atomWorldLL(atom) - Returns the longitude latitude of an atom, if it is on a world.
+
+
+Blueprint Functions
+-------------------
+
+Blueprint functions operate on the designs in the blueprint library. The library can contain many blueprints. Only the blueprints in use by game objects are loaded at any given time. 
+	Atoms may reference blueprints but blueprints are not atoms by themselves. i.e. a building atom references a building blueprint to know about its geometry and other design features.
+
+bool blueprintSpacecraftLoad(int) - Test if the spacecraft design is loaded. Signals the need for it to be loaded, if it is not already loaded.
+
+
+Character Functions
+-------------------
+
+Character functions operate on a character atom that was created by this story. 
+	Characters are associated with a specific instance of a story when they are created. This enables multiple instances of the same story to exist in an environment simultaneously. 
+
+void characterDepart(character) - Causes a character to depart the scene. The character disappears instantly with no visual effect. 
+
+void characterDie(character) - Kills a character. They fall to the ground and die like other sentient creatures. Their body dies of massive internal injuries with no bleed out time. 
+
+void characterEquipFromCity(character,gearslot,commodity,text) - Transfer an item to a character's gear from the inventory of the current city. 
+	Arguments:
+	'text' is an optional inscription to place on the item.
+	Quietly does nothing if the character already has an item in that slot.
+
+void characterSetIndestructible(character,bool) - Sets indestructible state of a character. 
+
+void characterWantItem(character,commodity) - Causes the character to want a specific commodity. 
+	When a character wants an item, they will make a bid if it is offered on the voice channel. 
+
+void characterWantItemSpecific(character,commodity,quality,empire,text) - Causes the character to want a very specific commodity. 
+	When a character wants an item, they will make a bid if it is offered on the voice channel. 
+	Arguments:
+	'text' is compared against the inscription only if 'text' is not blank. 
+
+
+City Functions
+--------------
+
+City functions operate on a capitol building atom. 
+
+vehicle cityFindNewVehicle(city,commodity) - Returns a new vehicle in a city, at a factory that makes them.
+
+bool cityHasBuilding(city,building,int) - Test if a city has a number of completed levels of a building type, as shown on the city report. Levels are shops, fields, generators, etc. as appropriate to the type of building. 
+
+bool cityHasFood(city) - Test if a city has any food in any of its buildings.
+
+bool cityHasItem(city,commodity) - Test if a city has a commodity in any of its buildings. 
+	Vehicle commodities return true if a new vehicle is found at a factory that makes them.
+
+bool cityHasPower(city) - Test if a city has any electricity. 
+	Arguments:
+	'city' can be any building. 
+
+int cityItemCount(city,commodity) - Returns the total amount of a commodity in a city's inventory. Does not count vehicles.
+
+int cityPopulation(city) - Returns the population of a city.
+
+
+Creature Functions
+------------------
+
+Creature functions operate on a specific creature, which is the first argument of all creature functions. 
+
+bool creatureIsDyingOrDead(creature) - Test if the creature's body is dying or dead.
+
+void creatureSetHealth(creature,int) - Sets health level of a creature. 
+	Arguments:
+	'int' is the health level as a percentage, 0 to 100.
+
+void creatureSetMouth(creature,visage,visage) - Sets 'visage' pose of a creature. 
+	When the first 'visage' pose is an animated pose, the second 'visage' pose is set when the animation completes. 
+
+void creatureSetVisage(creature,visage) - Sets 'visage' of a creature. 
+
+
+Find Functions
+--------------
+
+Find functions operate in the avatar's current environment. The environment is the solar system, design studio instance, or arena instance that contains the avatar. 
+
+world findGasGiant(orbit) - Locates a gas giant in the current environment. Avatar must not be in deep space. 
+	Arguments:
+	'orbit' may include the also types.
+
+world findMoon(orbit) - Locates a moon in the current environment. Avatar must not be in deep space. 
+	Arguments:
+	'orbit' may include the also types.
+
+world findPlanet(orbit,int) - Locates a planet in the current environment. Avatar must not be in deep space. 
+	Arguments:
+	'orbit' may include the also types. 
+	'int' is maximum hydrographics percentage in the range 0 to 100.
+
+world findRing(orbit) - Locates a ring around a world in the current environment. Avatar must not be in deep space. 
+	Arguments:
+	'orbit' may include the also types.
+
+world findRingWorld() - Locates a ringworld arc section in the current environment. 
+	Arguments:
+	Avatar must not be in deep space.
+
+
+Henge Functions
+---------------
+
+Henge functions operate on the henges that interconnect ringworld arc sections with other worlds in the ringworld's sector. 
+
+text hengeSystemName(system) - Returns the name of a solar system that is known to contain a henge, as returned by the 'sectorHengeSystem' function. 
+
+worldcat hengeSystemWorld(system,int) - Returns the catalog name of a habitable world that contains a henge portal, if any. The henge portal will be more than 200m from any city. 
+	Arguments:
+	'int' is henge type: 0=any, 1=on globe, 2=on ringworld
+
+world hengeWorld(worldcat) - Returns the world id of a henge world, given its catalog name. Story avatar must be in the solar system with the world. 
+	'worldcat' is a catalog name of a henge world. 
+
+ll hengeWorldLL(worldcat) - Returns the longitude latitude of a henge if there is one. 
+	Arguments:
+	'worldcat' is a catalog name of a henge world. 
+
+text hengeWorldName(worldcat) - Returns the name assigned to a henge world, given its catalog name.
+
+bool hengeWorldPortalActive(worldcat,ll) - Test if the henge portal on a world is active. An active portal is indicated when the henge fire turns blue. That is when it operates as a portal. 
+	Arguments:
+	'worldcat' is a catalog name of a henge world. 
+
+
+Item Functions
+--------------
+
+Item functions operate on a specific item, which is the first argument of all item functions. 
+	An item atom represents a commodity in the environment. Once it is picked up by anybody, the item atom ceases to exist and the item's data is added to their gear. The item atom can no longer be referenced after that. 
+	A new atom is created when that item, or any item, is dropped in the environment. It will not be the same atom as it was before being picked up. The item atom identifier must be reacquired to operate on the new item atom. 
+
+void itemArmWeapon(item,unit,empire) - Arms a weapon, if the item is a weapon that can be armed. e.g. Plastic Explosive. 
+	Arguments:
+	'unit' is the unit who armed the weapon. 
+	'empire' is the empire who armed the weapon. 
+
+void itemCreateContent(item,bool,int,commodity,quality,empire,text) - Creates a new item inside 'item', which is expected to be a container. 
+	Arguments:
+	'bool' is true to make the item permanent. Permanent story items persist in the game after the story ends. Nonpermanent story items are removed from the game when the story ends. 
+	'empire' is the empire of origin of the item. 
+	'int' is condition percent, 1 to 100. 
+	If 'text' is not blank, it is inscribed onto the item.
+
+void itemDetonate(item) - Detonates an armed weapon, if the item is a weapon that is armed. e.g. Plastic Explosive. Other items disappear quietly.
+
+void itemMakePermanent(item) - Changes a story item into a permanent item. 
+	Permanent story items persist in the game after the story ends. Nonpermanent story items are removed from the game when the story ends. 
+
+item itemOnGround(commodity,real) - Locates an item on the ground nearby. 
+	Arguments:
+	'real' is the farthest distance from the story avatar to find the item, in meters.
+
+item itemOnGroundSpecific(int,commodity,quality,empire,text) - Locates a specific item on the ground nearby. 
+	Arguments:
+	'int' is the farthest distance from the story avatar to find the item, in meters. 
+	'text' is compared against the inscription only if 'text' is not blank.
+
+void itemSetDropOnDeath(item,int) - Sets the drop behavior of an item: 0=default random drop on death, 1=no drop, 2=always drop. 
+	Arguments:
+	'int' is the new state.
+
+void itemSetMessage(item,text) - Sets the message of an item, such as a beacon. This is not the inscription. 
+	Arguments:
+	'text' is the new message.
+
+void itemSetState(item,int) - Sets the state of an item, such as the on/off state of a light or musical instrument. 
+	Arguments:
+	'int' is the new state.
+
+
+Narrator Functions
+------------------
+
+Narrator functions provide a means for communicating with the story avatar. Narrator communications are associated with the story itself and they do not emanate from any in-game source. 
+
+void narratorHint(text) - Sends a text message on the narrator comm channel when requested by the person. Hints are requested using the ? button on the Jobs window. 
+
+void narratorImage(file,text,text) - Sends a picture, a title, and an optional message on the narrator comm channel. The image appears automatically in a popup window. 
+
+void narratorSay(text) - Sends a text message on the narrator comm channel. 
+
+void narratorSayAudio(file,text) - Sends audio and an optional text message on the narrator comm channel.
+
+void narratorSayChoice(choiceValue,text) - Say a choice on the narrator comm channel. A choice message appears with a bright green asterisk. 
+	Several choices may be stated if each is given a different choiceValue. 
+	Result of player's choice is tested using the choiceMade function.
+
+void narratorTitle(text) - Sends a text message on the narrator comm channel formatted as a title. 
+
+void narratorVideo(file,text) - Sends video and an optional text message on the narrator comm channel. 
+
+
+Npc Functions
+-------------
+
+Npc functions operate on a specific npc, which is the first argument of all npc functions. Npc's are AI controlled citizens not including demiavatars who are AI controlled. 
+
+void npcSetRole(npcrole) - Changes the role of an npc. 
+	The role of an npc cannot be changed while they hold a berth. 
+
+
+Sector Functions
+----------------
+
+Sector functions operate on a specific sector, which is the first argument of all sector functions. 
+
+bool sectorHasHengeSystem(sector,int) - Test if the sector contains a habitable world with a henge portal. The henge portal will be more than 200m from any city. 
+	Arguments:
+	'int' is henge type: 0=any, 1=on globe, 2=on ringworld
+
+system sectorHengeSystem(sector,int) - Returns a solar system that contains a habitable world with a henge portal, if any. The henge portal will be more than 200m from any city. 
+	If more than one of them exists, one is chosen randomly. Ringworld systems are not returned even though they always contain henge portals.
+	Arguments:
+	'int' is henge type: 0=any, 1=on globe, 2=on ringworld
+
+
+Sentient Functions
+------------------
+
+Sentient functions operate on a specific sentient creature, which is the first argument of all sentient functions. 
+
+void sentientAttackUnit(sentient,unit) - Order a sentient to attack a unit.
+
+void sentientCreateGear(sentient,gearslot,bool,commodity,quality,empire,text) - Create an item in a sentient's gear. 
+	Arguments:
+	'bool' is true to make the item permanent. Permanent story items persist in the game after the story ends. Nonpermanent story items are removed from the game when the story ends. 
+	'empire' is the empire of origin of the item. 
+	'text' is inscribed on the item if not blank.
+
+item sentientDropGear(sentient,gearslot) - Drops the item at a sentient's gear slot.
+
+item sentientDropGearItem(sentient,commodity) - Drops an item from a sentient's gear.
+
+void sentientFireWeapon(sentient) - Order a sentient to fire their weapon in hand at nothing in particular.
+
+void sentientFollowAvatar(sentient) - Order a sentient to follow the person.
+
+void sentientFollowSentient(sentient,sentient) - Order a sentient to follow another sentient.
+
+void sentientGetItem(sentient,item) - Order a sentient to pick an item up off the ground.
+
+void sentientGoToAvatar(sentient) - Order a sentient to go to the avatar.
+
+void sentientGoToLL(sentient,ll) - Order a sentient to go to a longitude latitude.
+
+void sentientGoToLLExactly(sentient,ll) - Order a sentient to go to a longitude latitude as precisely as possible.
+
+void sentientGoToRoom(sentient,text) - Order a sentient to go to a room, by room name. The sentient needs to be aboard a spacecraft.
+
+void sentientGoToUnit(sentient,unit) - Order a sentient to go to a unit.
+
+bool sentientHasItem(sentient,commodity) - Test if the sentient possesses a specific commodity.
+
+bool sentientHasItemSpecific(sentient,commodity,quality,empire,text) - Test if the sentient's gear contains a very specific commodity. 
+	Arguments:
+	'text' is compared against the inscription only if 'text' is not blank.
+
+void sentientHengeCeremony(sentient,ll) - Order a sentient to perform the henge ceremony, if a henge is found near 'll'.
+
+void sentientItemMakePermanent(sentient,commodity,quality,empire,text) - Makes permanent a specific item in the sentient's gear. Permanent story items persist in the game after the story ends. Nonpermanent story items are removed from the game when the story ends. 
+	Arguments:
+	'text' is compared against the inscription only if 'text' is not blank.
+
+void sentientItemSetDropOnDeath(sentient,int,commodity,quality,empire,text) - Sets the drop behavior of an item: 0=default random drop on death, 1=no drop, 2=always drop. 
+	Arguments:
+	'bool' is the new state.
+
+void sentientMoveBack(sentient,real) - Order a sentient to move backward a distance specified in meters.
+
+void sentientMoveForward(sentient,real) - Order a sentient to move forward a distance specified in meters.
+
+void sentientSay(sentient,text,visage) - Order a sentient being to say a message on the Voice channel.
+	Arguments:
+	'visage' is the mouth pose after speaking, may be None to leave it as is.
+
+void sentientSayAudio(sentient,file,text,visage) - Order a sentient to say a message on the Voice channel. The audio emits from the sentient.
+	Arguments:
+	'visage' is the mouth pose after speaking, may be None to leave it as is.
+
+void sentientSayChoice(sentient,choiceValue,text,visage) - Order a sentient being to say a choice on the Voice channel. A choice message appears with a bright green asterisk. 
+	Several choices may be stated if each is given a different choiceValue. 
+	Result of player's choice is tested using the choiceMade function. 
+	Arguments:
+	'visage' is the mouth pose after speaking, may be None to leave it as is.
+
+void sentientSayImage(sentient,file,text,text,visage) - Order a sentient to say a message on the Voice channel. The image appears automatically.
+	Arguments:
+	'text' args are image title and text to say. 
+	'visage' is the mouth pose after speaking, may be None to leave it as is.
+
+void sentientSayTo(sentient,atom,text,visage) - Order a sentient being to say a message on the Voice channel to someone. They will turn to face them.
+	Arguments:
+	'visage' is the mouth pose after speaking, may be None to leave it as is.
+
+void sentientSellGearItem(sentient,atom,commodity,int) - Offers an item from a sentient's gear on the Voice channel. 
+	Arguments:
+	'atom' is the target of the sale, causing sentient to turn to face them; it can be null. 
+	The best Q 'commodity' possessed by 'sentient' is offered for sale. 
+	'int' is the price, which can be 0 to offer it for free. 
+
+void sentientStay(sentient) - Order a sentient to stay at their current location.
+
+
+Ship Functions
+--------------
+
+Ship functions operate on a specific spacecraft, which is the first argument of all ship functions. 
+
+void shipChargeCapacitor(ship) - Fills the capacitor to 100% on a ship.
+
+void shipChargeShields(ship) - Fills the shields to 100% on a ship.
+
+character shipCreateCharacter(ship,int,text,gender,hand,empire,dna,stage) - Creates a character aboard 'ship'. 
+	Arguments:
+	'int' is placement strategy: 0=transporter void location, 1=crew or troop void location, 2=colonist void location. 
+	'text' is the name of the new character. 
+	If a character with the same name and story instance exists in the environment, it is moved rather than create a new character. 
+	'dna' specifies the DNA of the character. However, if the avatar of the story has ever met a story character with the same name, in any prior encounter, then the 'dna' argument is overridden by the DNA of the original character met by the avatar. 
+
+void shipCreateCrew(ship,dna) - Fills all empty crew positions on a ship. 
+	Arguments:
+	'dna' is used to create the new crew members.
+
+void shipCreateTroops(ship,dna) - Fills all empty troop positions on a ship. 
+	Arguments:
+	'dna' is used to create the new troops.
+
+sentient shipFindAI(ship,npcrole) - Locates an AI controlled sentient aboard a ship. 
+	The returned sentient will be an NPC or a demiavatar who is offline and AI controlled. The sentient will not be at a station or post; use shipStationOccupant to find them. 
+
+sentient shipFindAIInRoom(ship,npcrole,text) - Locates an AI controlled sentient aboard a ship, in a specific room. 
+	The returned sentient will be an NPC or a demiavatar who is offline and AI controlled. The sentient will not be at a station or post; use shipStationOccupant to find them. 
+	Arguments:
+	text - Room name to find station occupant, as returned by unitRoomName. 
+
+npc shipFindNpc(ship,npcrole) - Locates an npc aboard a ship. 
+	Does not find demiavatars. 
+
+npc shipFindNpcInRoom(ship,npcrole,text) - Locates an npc aboard a ship, in a specific room. 
+	Does not find demiavatars. 
+	Arguments:
+	text - Room name to find station occupant, as returned by unitRoomName. 
+
+void shipInteriorLight(ship,int) - Sets a ship's interior light state. 0=off, 1=on, 2=dim.
+
+void shipManeuverDrive(ship,int) - Sets a ship's maneuver drive state. 0=off, 1=on, 2=hold.
+
+void shipPowerPlant(ship,int) - Sets a ship's power plant state. 0=off, 1=on.
+
+void shipRefuel(ship,int) - Fills the fuel cells to 100% on a ship with 'int' quality fuel.
+
+void shipRetreat(ship) - Ship selects a random solar system and goes directly there at maximum speed, without using wormholes. This is an exit-the-scene maneuver.
+
+void shipShields(ship,int) - Sets a ship's shield state. 0=off, 1=on.
+
+creature shipStationOccupant(ship,station) - Returns a creature who is controlling or occupying a station on the ship. 
+	When multiple redundant stations exist, the sentient currently controlling the underlying system is returned. e.g. when two helms exist the active pilot is returned. 
+	Unless otherwise noted here, the returned creature will be an NPC or a demiavatar who is offline and AI controlled. 
+	Command station prefers to return the AI officer with the con. If none is found, any AI officer is returned. 
+	Designer returns an avatar in a designer instance. 
+	Livestock returns an animal. 
+
+creature shipStationOccupantInRoom(ship,station,text) - Returns a creature who is controlling or occupying a station on the ship. 
+	When multiple redundant stations exist, the sentient currently controlling the underlying system is returned. e.g. when two helms exist the active pilot is returned. 
+	Unless otherwise noted here, the returned creature will be an NPC or a demiavatar who is offline and AI controlled. 
+	Command station prefers to return the AI officer with the con. If none is found, any AI officer is returned. 
+	Designer returns an avatar in a designer instance. 
+	Livestock returns an animal. 
+	Arguments:
+	text - Room name to find station occupant, as returned by unitRoomName. 
+
+
+Unit Functions
+--------------
+
+Unit functions operate on a specific unit, which is the first argument of all unit functions. A unit is any creature, vehicle, or spacecraft. 
+
+ship unitAboardShip(unit) - Returns the ship that the unit is aboard, could be on the hull or hanging from a ladder.
+
+bool unitAtBuilding(unit,building) - Test for presence of a unit at a particular building site. Does not have to be inside the building.
+
+world unitAtWorld(unit) - Returns the world that the unit is at. They could be inside or outside the atmosphere.
+
+bool unitInOrbit(unit) - Test if the unit is in orbit at a planet, outside the atmosphere.
+
+ship unitInsideShip(unit) - Returns the ship that the unit is inside. The unit must be in a room, not on the hull or hanging from a ladder.
+
+text unitRoomName(unit) - Returns the name of the room that the unit is inside. The room may be in a ship or in a building. Blank is returned when the unit is not inside a room. 
+
+ship unitStationInTradeRange(unit,stance,int) - Returns station that is within trade range of the unit. 
+	Arguments:
+	'stance' and 'int' are used to check the station empire's stance toward the unit's empire. 'int' 0=stance must match, 1=stance must match or be better, 2=stance must match or be worse. 
+
+
+Vehicle Functions
+-----------------
+
+Vehicle functions operate on a specific vehicle, which is the first argument of all vehicle functions. 
+
+void vehicleRefuel(vehicle) - Fills the fuel cells to 100% on a vehicle. 
+
+
+World Functions
+---------------
+
+World functions operate on a specific world, which is the first argument of all world functions. 
+
+bool worldAtmosphereBreathable(world) - Test if the world atmosphere is breathable.
+
+bool worldClaimed(world) - Test if the world is claimed by any empire.
+
+bool worldClaimedBy(world,empire) - Test if the world is claimed by 'empire'.
+
+character worldCreateCharacter(world,ll,text,gender,hand,empire,dna,stage) - Creates a character on 'world' at 'll'. 
+	Arguments:
+	'text' is the name of the new character. 
+	If a character with the same name and story instance exists in the environment, it is moved rather than create a new character. 
+	'dna' specifies the DNA of the character. However, if the avatar of the story has ever met a story character with the same name, in any prior encounter, then the 'dna' argument is overridden by the DNA of the original character met by the avatar. 
+
+void worldCreateIndigenous(world,ll,dna) - Create an indigenous village on a world. Establishes the indigenous DNA using 'dna' if it is not already set.
+
+item worldCreateItem(world,ll,bool,commodity,quality,empire,text) - Create an item on a world. 
+	Arguments:
+	'll' is the location to create the item. 
+	'bool' is true to make the item permanent. Permanent story items persist in the game after the story ends. Nonpermanent story items are removed from the game when the story ends. 
+	'empire' is the empire of origin of the item. 
+	'text' is inscribed on the item if not blank.
+
+ship worldCreateShip(world,ll,real,int,quality,empire,text) - Create a spaceship at a world. 
+	Arguments:
+	'll' is the location to create the spaceship. When altitude AGL is 0, a 50m radius about ll must be clear of obstructions to succeed. 
+	'real' is the altitude in meters AGL if alt<500; alt>500 puts the ship at atmosphere radius + alt. Standard orbit is about 2000m above the atmosphere.Parking altitude is about 1500m above the atmosphere.
+	'int' is the design id of the ship. 
+	'empire' is the empire who owns the spaceship. 
+	'text' is the name of the ship, set randomly if this is blank.
+
+vehicle worldCreateVehicle(world,ll,commodity,quality,empire) - Create a vehicle on a world. 
+	Arguments:
+	'll' is the location to create the vehicle. A 5m radius about ll must be clear of obstructions to succeed. 
+	'empire' is the empire who owns the vehicle.
+
+bool worldHasCity(world) - Test if the world has any cities at all.
+
+void worldHengeCeremony(world,ll,int) - Sets the state of the henge ceremony, if there is a henge. 
+	Arguments:
+	'int' is ceremony state: 1=Active, 0=inactive.
+
+int worldHydrographics(world) - Returns the world's water percentage in the range 0 to 100.
+
+bool worldIsGasGiant(world) - Test if the world is a gas giant.
+
+bool worldIsMoon(world) - Test if the world is a moon. Moons are small globe satellites with no atmosphere.
+
+bool worldIsPlanet(world) - Test if the world is a planet. Planets are the primary worlds in a solar system, apart from gas giants.
+
+bool worldIsPlanetoid(world) - Test if the world is a planetoid. Planetoid is a tiny globe in an asteroid belt, orbiting a sun.
+
+bool worldIsRing(world) - Test if the world is a ring. A ring is a band of small rocks and ice, orbiting a planet.
+
+bool worldIsRingworld(world) - Test if the world is a ringworld arc section.
+
+bool worldIsTitan(world) - Test if the world is a titan. Titans are large satellites with an atmosphere.
+
+ll worldLandLocation(world,real,real) - Returns a location that is on land. 
+	Arguments:
+	First 'real' is minimum altitude MSL, in meters. 
+	Second 'real' is minimum radius from forbidden zones, in meters; 0 does not avoid forbidden zones.
+
+ll worldLandLocationNear(world,ll,real,real,real) - Returns a location that is on land somewhere near 'll'. 
+	Arguments:
+	First 'real' is minimum altitude MSL, in meters. 
+	Second 'real' is minimum distance from 'll', in meters. 
+	Third 'real' is maximum distance from 'll', in meters.
+
+bool worldOrbitFrigid(world) - Test if the world is in the frigid orbit zone. Also true if the world is a satellite of a world in that zone.
+
+bool worldOrbitHabitable(world) - Test if the world is in the habitable orbit zone. Also true if the world is a satellite of a world in that zone.
+
+bool worldOrbitInferno(world) - Test if the world is in the inferno orbit zone. Also true if the world is a satellite of a world in that zone.
+
+bool worldOrbitInner(world) - Test if the world is in the inner orbit zone. Also true if the world is a satellite of a world in that zone.
+
+bool worldOrbitOuter(world) - Test if the world is in the outer orbit zone. Also true if the world is a satellite of a world in that zone.
+
+ll worldRelativeLL(world,ll,real,real) - Returns a location that is offset from another location. 
+	Arguments:
+	'll' is the reference location. 
+	'real,real' is horizontal, vertical offset, in meters.
+
+bool worldSupportsAnimals(world) - Test if the world can support animal life. World could be in the inner, habitable or outer orbit zone to support animals. 
+	All worlds that support animals also support plants. 
+
+bool worldSupportsPlants(world) - Test if the world can support plant life. World could be in the inner, habitable or outer orbit zone to support plants. 
+	Worlds that support plants do not necessarily support animals. 
+

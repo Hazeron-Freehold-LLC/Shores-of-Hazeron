@@ -1,0 +1,24 @@
+#!/bin/sh
+# Script to poll the status of the TeamSpeak server using Telnet.
+# Used in webmaster's crontab on the web server to update the /sei/Common/Hazeron/Downloads/teamspeakstatus.txt file.
+	echo "<b><a href=\"http://www.teamspeak.com/\">TeamSpeak</a> Server</b><br>"
+	echo "Listening at <b>ts.Hazeron.net</b><br>"
+
+	# Use Telnet to get the number of people online from the TeamSpeak server.
+	COUNT=`( echo open ts.hazeron.net 51234
+	  sleep 1
+	  echo pl 8767
+	  sleep 1
+	  echo quit) | telnet | wc -l`
+
+	# The output has six lines of junk.
+	COUNT=$(($COUNT - 6))
+
+	# Print out the result.
+	if [ $COUNT = "0" ]; then
+		echo No Players Online
+	elif [ $COUNT = "1" ]; then
+		echo 1 Player Online
+	else
+		echo $COUNT Players Online
+	fi
