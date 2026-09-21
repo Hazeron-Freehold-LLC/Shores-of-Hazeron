@@ -209,9 +209,9 @@ Developing on Windows
 Files and Folders
 -----------------
 	GD - Game data file. Contains the a_Item table for the client program 
-		because the client cannot talk to the SQL server.
+		because the client cannot access the SQL server. Not needed by servers.
 	GS - Solo game data. Contains designs of buildings, ships, and items. Also 
-		contains initial empire data.
+		contains initial empire data. For client; not needed by servers.
 	linuxPlatform.h - Indicates Linux build platform. See notes in the file.
 	motds - Messages of the day delivered by the scene master server. Must be 
 		copied to the folder from which the scene master server is run.
@@ -404,6 +404,10 @@ Files and Folders
 	auservermon - Client GUI program for monitoring and managing online 
 		servers. Slowly replacing the utility functions of auempirereport.
 
+		auservercon.cpp
+			Network names of server computers are inelegantly hardcoded into
+			this file.
+
 	auserverstatus - Command line program that is run on the web server to 
 		query the scene master server for status.
 
@@ -448,11 +452,11 @@ Databases
 	auUniverse - Database of spacecraft/building/item designs, exchanges,
 		stories, empires, and atoms of the universe.
 
-		Before running for the first time, the initstatic.sql file is used to
-		create the items data in the universe database.
+		Before running the servers for the first time, the initstatic.sql file
+		is used to create the items data in the universe database.
 
 		When the master server is first run, absense of a universe atom causes
-		it creates the universe and 21 galaxies.
+		the server to create the universe and 21 galaxies.
 
 		When an avatar is created their initial home solar system is located.
 		It may be created at this time, including the 3x3x3 box of sectors
@@ -499,4 +503,21 @@ Databases
 				A story script expects design 2007 to be OgarShipMilitary.SoH.
 				Be sure to change the austoryres/stories/8.Beacon/script.sh
 				file if that changes. Look for worldCreateShip.
+
+Final Thoughts
+--------------
+	Patents
+		I was surprised to notice that patents are still implemented in this
+		version. My source control says they were removed one month after this
+		last multiplayer code was branched. There is no later branch of the
+		multiplayer source code.
+
+		Patents could easily be nerfed again.
+
+	Hazeron Starship
+		The single player Hazeron Starship game was derived from this source
+		code. It was released one year after this last multiplayer code was
+		branched. A lot of changes were made with no attempt to keep the
+		multiplayer capability working. It would be painfully difficult to
+		backport those changes into the multiplayer code.
 
