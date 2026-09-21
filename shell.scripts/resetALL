@@ -22,4 +22,5 @@
 	dropdb auUniverse
 	createdb -T template0 -O aumaster auUniverse
 	psql auUniverse -U aumaster -f inituniverse.sql
+	psql auUniverse -U aumaster -f initstatic.sql
 
