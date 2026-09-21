@@ -210,8 +210,7 @@ Files and Folders
 -----------------
 	GD - Game data file. Contains the a_Item table for the client program 
 		because the client cannot access the SQL server. Not needed by servers.
-	GS - Solo game data. Contains designs of buildings, ships, and items. Also 
-		contains initial empire data. For client; not needed by servers.
+
 	linuxPlatform.h - Indicates Linux build platform. See notes in the file.
 	motds - Messages of the day delivered by the scene master server. Must be 
 		copied to the folder from which the scene master server is run.
@@ -512,7 +511,10 @@ Final Thoughts
 		last multiplayer code was branched. There is no later branch of the
 		multiplayer source code.
 
-		Patents could easily be nerfed again.
+		Patents could easily be nerfed again. They were intended to tokenize
+		"technology" so that it could be shared/transported/lost/bought/sold.
+		Unfortunately it ended up creating a layer of tedium on almost every
+		manufacturing process. Perhaps there is a middle ground.
 
 	Hazeron Starship
 		The single player Hazeron Starship game was derived from this source
