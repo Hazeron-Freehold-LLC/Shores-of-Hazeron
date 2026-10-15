@@ -76,6 +76,8 @@ public:
 	~AuGameClonepokTile();
 
 public:	// Operators
+	const AuGameClonepokTile& operator=(const AuGameClonepokTile& c);
+
 	void operator>>(QDataStream& out) const;
 
 	void operator<<(QDataStream& in);

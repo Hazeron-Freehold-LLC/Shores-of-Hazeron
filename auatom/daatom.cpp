@@ -124,21 +124,19 @@ DaAtom::DaAtom(const DaAtom &rhs) : QObject()
 	m_Pos = rhs.m_Pos;
 	m_PosChange = rhs.m_PosChange;
 	m_Vector = rhs.m_Vector;
-	rhs.m_PosLock.unlock();
 
-	rhs.m_EnvTransformLock.lockForRead();
-	m_EnvTransform = rhs.m_EnvTransform;
-	m_EnvTransformValid = rhs.m_EnvTransformValid;
-	rhs.m_EnvTransformLock.unlock();
-
-	rhs.m_ControlLock.lockForRead();
 	m_Controller = rhs.m_Controller;
 	if(rhs.m_SyncController)
 		m_SyncController = new AuSyncControllerList(*rhs.m_SyncController);
 	else
 		m_SyncController = 0;
 	m_tmControlled = rhs.m_tmControlled;
-	rhs.m_ControlLock.unlock();
+	rhs.m_PosLock.unlock();
+
+	rhs.m_EnvTransformLock.lockForRead();
+	m_EnvTransform = rhs.m_EnvTransform;
+	m_EnvTransformValid = rhs.m_EnvTransformValid;
+	rhs.m_EnvTransformLock.unlock();
 
 	rhs.m_DeathLock.lockForRead();
 	m_tmDeath = rhs.m_tmDeath;
@@ -208,9 +206,21 @@ void DaAtom::TxUpdate(QDataStream& toClient, const AuTime& tmLastUpdate, const A
 	}
 	else
 	{
-		m_PosLock.lockForRead();
+		m_PosLock.lockForWrite();
 		if(m_PosChange >= lastTx)
 			hasWhat |= 0x01;
+		if(hasWhat & 0x40)
+		{
+			if(m_SyncController)
+			{
+				toClient << *m_SyncController;
+				m_SyncController->Clear();
+				delete m_SyncController;
+				m_SyncController = 0;
+			}
+			else
+				toClient << (quint8)0;			// wut? Send a list count of zero so the receiving end doesn't blow up.
+		}
 		m_PosLock.unlock();
 
 		if(IsDying())
@@ -269,20 +279,6 @@ void DaAtom::TxUpdate(QDataStream& toClient, const AuTime& tmLastUpdate, const A
 			m_EffectsLock.unlock();
 		}
 	}
-	if(hasWhat & 0x40)
-	{
-		m_ControlLock.lockForWrite();
-		if(m_SyncController)
-		{
-			toClient << *m_SyncController;
-			m_SyncController->Clear();
-			delete m_SyncController;
-			m_SyncController = 0;
-		}
-		else
-			toClient << (quint8)0;			// wut? Send a list count of zero so the receiving end doesn't blow up.
-		m_ControlLock.unlock();
-	}
 }
 
 // Receive base id and modify time for this atom from a server.
@@ -310,6 +306,21 @@ void DaAtom::RxUpdateBase(QDataStream& fromServer)
 		ChangePos(pos);
 		InvalidateEnvironment();
 	}
+	if(hasWhat & 0x40)
+	{
+		// Physics demands are only sent once. I can accumulate them.
+		m_PosLock.lockForWrite();
+		if(!m_SyncController)
+			m_SyncController = new AuSyncControllerList;
+		m_SyncController->Append(fromServer);
+		if(m_SyncController->empty())
+		{
+			// wut?
+			delete m_SyncController;
+			m_SyncController = 0;
+		}
+		m_PosLock.unlock();
+	}
 
 	m_State = Normal;	// Server does not send abnormal atoms.
 	if(hasWhat & 0x02)
@@ -333,22 +344,6 @@ void DaAtom::RxUpdateBase(QDataStream& fromServer)
 	}
 
 	m_AtRest = (hasWhat & 0x20) ? true : false;
-
-	if(hasWhat & 0x40)
-	{
-		// Physics demands are only sent once. I can accumulate them.
-		m_ControlLock.lockForWrite();
-		if(!m_SyncController)
-			m_SyncController = new AuSyncControllerList;
-		m_SyncController->Append(fromServer);
-		if(m_SyncController->empty())
-		{
-			// wut?
-			delete m_SyncController;
-			m_SyncController = 0;
-		}
-		m_ControlLock.unlock();
-	}
 }
 
 // Refresh data from valid counterpart.
@@ -398,8 +393,8 @@ bool DaAtom::Refresh(DaAtom* pAtom, AuAtomRenderInfo* ari)
 
 	/*DHH Perhaps I can deal with these in the etherium?
 	// Physics demands are only sent once. I can accumulate them.
-	pAtom->m_ControlLock.lockForWrite();
-	m_ControlLock.lockForWrite();
+	pAtom->m_PosLock.lockForWrite();
+	m_PosLock.lockForWrite();
 	if(pAtom->m_SyncController)
 	{
 		if(!m_SyncController)
@@ -411,8 +406,8 @@ bool DaAtom::Refresh(DaAtom* pAtom, AuAtomRenderInfo* ari)
 		delete pAtom->m_SyncController;
 		pAtom->m_SyncController = 0;
 	}
-	m_ControlLock.unlock();
-	pAtom->m_ControlLock.unlock();
+	m_PosLock.unlock();
+	pAtom->m_PosLock.unlock();
 	*/
 	if(transformChanged)
 		InvalidateEnvironment();
@@ -547,7 +542,7 @@ void DaAtom::TickMovement(const AuElapsedTimer& last)
 			tOrient.Translate(Location());
 			tOrient.Rotate(nuRot);
 			pos.SetTransform(tOrient);
-			ChangePos(pos);
+			ChangePosNotParent(pos);
 			//AuPoint finrot = Rotation();
 			//qDebug() << "orientRot" << (orientRot*RAD2DEG) << "rot" << (rot*RAD2DEG) << "rotVec" << (rotVec*RAD2DEG)
 				//<< "nuRot" << (nuRot*RAD2DEG) << "finrot" << (finrot*RAD2DEG);
@@ -639,7 +634,7 @@ void DaAtom::TickMovement(const AuElapsedTimer& last)
 		}
 		UnlockEnvironmentQuery();
 		if(moveMe)
-			ChangePos(pos);
+			ChangePosNotParent(pos);
 	}
 
 	// Calculate move amounts based on move rate and time span.
@@ -1382,18 +1377,18 @@ const DaPerson* DaAtom::FindPersonOnLine() const
 	return 0;
 }
 
-DaNpc* DaAtom::FindCharacterRecursive() const
+DaNpc* DaAtom::FindNpcRecursive() const
 {
-	DaAtomList subs;
-	ListNormalSubatoms(subs);
-	return subs.FindCharacterRecursive();
+    DaAtomList subs;
+    ListNormalSubatoms(subs);
+    return subs.FindNpcRecursive();
 }
 
-DaNpc* DaAtom::FindCharacterRecursive(const QString& charName, quint32 storyInstance) const
+DaNpc* DaAtom::FindNpcRecursive(const QString& charName, quint32 storyInstance) const
 {
-	DaAtomList subs;
-	ListNormalSubatoms(subs);
-	return subs.FindCharacterRecursive(charName, storyInstance);
+    DaAtomList subs;
+    ListNormalSubatoms(subs);
+    return subs.FindNpcRecursive(charName, storyInstance);
 }
 
 const DaPerson* DaAtom::FindAIPersonRecursive() const
@@ -1594,6 +1589,13 @@ void DaAtom::FindMoons(DaAtomList& moons) const
 			continue;
 		moons.append((DaWorldLL*)moon);
 	}
+}
+
+void DaAtom::FindNpcsRecursive(DaAtomList& npcs) const
+{
+    DaAtomList subs;
+    ListNormalSubatoms(subs);
+    subs.FindNpcsRecursive(npcs);
 }
 
 void DaAtom::FindPlanetsRecursive(DaAtomList& planets) const
@@ -2893,7 +2895,8 @@ bool DaAtom::MoveSubatom(DaAtom *pMove, const AuPoint &vMove, int /*elapsedMs*/)
 				AuMatrix4x4 tBody;
 				tBody.Translate(fnuloc-foldloc);
 				tBody *= pMove->Transform();
-				pMove->ChangePos(AuAtomPos(Id(), tBody));
+				if(!pMove->ChangePosNotParent(AuAtomPos(Id(), tBody)))
+					return false;
 				pMove->InvalidateEnvironmentRecursive();
 				atomMoved = true;
 			}
@@ -3100,7 +3103,7 @@ bool DaAtom::Orient(const AuPoint& atLoc, const AuPoint& terNormal)
 	tOrient.Translate(atLoc);
 	tOrient.Rotate(nuRot);
 	pos.SetTransform(tOrient);
-	ChangePos(pos);
+	ChangePosNotParent(pos);
 	return true;
 }
 
@@ -4299,13 +4302,13 @@ AuPoint DaAtom::MovementBlocked(DaAtom* hit, const AuPoint& hitLoc, const AuPoin
 {
 	if(Vector().IsFuzzyZero())
 		return AuPoint(0,0);
-	if(hitNormal.IsFuzzyZero())
+	double len = hitNormal.Length();
+    if(len < .5)
 	{
 		SetVector(AuPoint(0,0));
 		return AuPoint(0,0);
 	}
-	AuPoint hitN = hitNormal;
-	hitN.Unit();
+	AuPoint hitN = hitNormal / len;
 
 	// Calculate unit vector in my direction of movement.
 	AuPoint bounceVec(Vector());		// My undampened reflected movement vector.
@@ -4479,8 +4482,7 @@ void DaAtom::Collide(const AuPoint& myChange, const AuPoint& myHitLoc, DaAtom* h
 		// Only certain atoms can move.
 		if(!hitShield && hit->CanSetInMotion())
 		{
-			hit->SetVector(hitResultVec);
-			hit->SyncController(AuSyncVector(hitResultVec));
+			hit->SetVectorSync(hitResultVec);
 			hit->SetInMotion();
 			hit->SetModified();
 			hit->TickTock();
@@ -4755,11 +4757,11 @@ void DaAtom::operator>>(QDataStream& out) const
 	out << m_Ticked;
 	out << m_tmCreated;
 
-	m_ControlLock.lockForRead();
+	m_PosLock.lockForRead();
 	out << m_Controller;
 	AuTime tmControlled;
 	out << tmControlled;
-	m_ControlLock.unlock();
+	m_PosLock.unlock();
 
 	m_DeathLock.lockForRead();
 	out << m_tmDeath;
@@ -4799,11 +4801,11 @@ void DaAtom::operator<<(QDataStream& in)
 	in >> m_Ticked;
 	in >> m_tmCreated;
 
-	m_ControlLock.lockForWrite();
+	m_PosLock.lockForWrite();
 	in >> m_Controller;
 	AuTime tmControlled;
 	in >> tmControlled;
-	m_ControlLock.unlock();
+	m_PosLock.unlock();
 
 	m_DeathLock.lockForWrite();
 	in >> m_tmDeath;
@@ -7399,25 +7401,40 @@ void DaAtom::SetControlled(const AuId& controller)
 {
 	if(controller.IsNull())
 	{
-		m_ControlLock.lockForWrite();
+		m_PosLock.lockForWrite();
 		m_Controller = AuId();
 		m_tmControlled = AuElapsedTimer();
-		m_ControlLock.unlock();
+		m_PosLock.unlock();
 		ApplySync();					// The server applies any remaining syncs, to be sure I am where I'm supposed to be.
 	}
 	else
 	{
-		m_ControlLock.lockForWrite();
+		m_PosLock.lockForWrite();
 		m_Controller = controller;
 		m_tmControlled.restart();
-		m_ControlLock.unlock();
+		m_PosLock.unlock();
+	}
+}
+
+void DaAtom::SetControlledNoLock(const AuId& controller)
+{
+	if(controller.IsNull())
+	{
+		m_Controller = AuId();
+		m_tmControlled = AuElapsedTimer();
+		//ApplySync();					// The server applies any remaining syncs, to be sure I am where I'm supposed to be.
+	}
+	else
+	{
+		m_Controller = controller;
+		m_tmControlled.restart();
 	}
 }
 
 bool DaAtom::IsClientControlled()
 {
 	bool clearC = false;
-	m_ControlLock.lockForRead();
+	m_PosLock.lockForRead();
 	bool is = !m_Controller.IsNull() && m_tmControlled.isValid();
 	if(is && m_tmControlled.elapsed() > 1500)
 	{
@@ -7425,9 +7442,26 @@ bool DaAtom::IsClientControlled()
 		is = false;
 		clearC = true;
 	}
-	m_ControlLock.unlock();
 	if(clearC)
-		SetControlled(AuId());
+		SetControlledNoLock(AuId());
+	m_PosLock.unlock();
+	if(clearC)
+		ApplySync();				// The server applies any remaining syncs, to be sure I am where I'm supposed to be.
+	return is;
+}
+
+bool DaAtom::IsClientControlledNoLock()
+{
+	bool clearC = false;
+	bool is = !m_Controller.IsNull() && m_tmControlled.isValid();
+	if(is && m_tmControlled.elapsed() > 1500)
+	{
+		// Turn off the controlled time so we stop calling elapsed(), in case the controller got left on.
+		is = false;
+		clearC = true;
+	}
+	if(clearC)
+		SetControlledNoLock(AuId());
 	return is;
 }
 
@@ -8250,6 +8284,86 @@ void DaAtom::ChangePos(const AuAtomPos& pos)
 	}
 }
 
+bool DaAtom::ChangePosNotParent(const AuAtomPos& pos)
+{
+	//Q_ASSERT(!Is(pos.ParentId()));
+	AuEther* ether = Ether();
+	m_PosLock.lockForWrite();
+	if(pos.ParentId() == m_Pos.ParentId() || !ether)
+	{
+		// My parent is not changing. Do what SetPos does.
+		m_Pos = pos;
+		m_PosChange.Set();
+
+
+		m_PosLock.unlock();
+		InvalidateEnvTransform();
+		return true;
+	}
+	else
+	{
+		// My parent is changing.
+		m_PosLock.unlock();
+		return false;
+	}
+}
+
+void DaAtom::SetVectorSync(const AuPoint& movementVector)
+{
+	m_PosLock.lockForWrite();
+	m_Vector = movementVector;
+	SyncControllerNoLock(AuSyncVector(movementVector));
+	m_PosLock.unlock();
+}
+
+void DaAtom::ChangePosSync(const AuAtomPos& pos, const AuSyncController& sync)
+{
+	//Q_ASSERT(!Is(pos.ParentId()));
+	AuEther* ether = Ether();
+	m_PosLock.lockForWrite();
+	if(pos.ParentId() == m_Pos.ParentId() || !ether)
+	{
+		// My parent is not changing. Do what SetPos does.
+		m_Pos = pos;
+
+		m_PosChange.Set();
+		SyncControllerNoLock(sync);
+		m_PosLock.unlock();
+		InvalidateEnvTransform();
+	}
+	else
+	{
+		// My parent is changing.
+		SyncControllerNoLock(sync);
+		m_PosLock.unlock();
+		ether->ChangeParent(Id(), pos);	// The ether has to do the change. This ends up in a nnnByEther function.
+	}
+}
+
+bool DaAtom::ChangePosSyncNotParent(const AuAtomPos& pos, const AuSyncController& sync)
+{
+	//Q_ASSERT(!Is(pos.ParentId()));
+	AuEther* ether = Ether();
+	m_PosLock.lockForWrite();
+	if(pos.ParentId() == m_Pos.ParentId() || !ether)
+	{
+		// My parent is not changing. Do what SetPos does.
+		m_Pos = pos;
+		m_PosChange.Set();
+
+		SyncControllerNoLock(sync);
+		m_PosLock.unlock();
+		InvalidateEnvTransform();
+		return true;
+	}
+	else
+	{
+		// My parent is changing.
+		m_PosLock.unlock();
+		return false;
+	}
+}
+
 void DaAtom::ChangePosAndOrient(const AuAtomPos& pos)
 {
 	//Q_ASSERT(!Is(pos.ParentId()));
@@ -8272,6 +8386,78 @@ void DaAtom::ChangePosAndOrient(const AuAtomPos& pos)
 	}
 }
 
+bool DaAtom::ChangePosAndOrientNotParent(const AuAtomPos& pos)
+{
+	//Q_ASSERT(!Is(pos.ParentId()));
+	AuEther* ether = Ether();
+	m_PosLock.lockForWrite();
+	if(pos.ParentId() == m_Pos.ParentId() || !ether)
+	{
+		// My parent is not changing. Do what SetPos does.
+		m_Pos = pos;
+		m_PosChange.Set();
+		m_OrientRotation = pos.Rotation();
+
+		m_PosLock.unlock();
+		InvalidateEnvTransform();
+		return true;
+	}
+	else
+	{
+		// My parent is changing.
+		m_PosLock.unlock();
+		return false;
+	}
+}
+
+void DaAtom::ChangePosAndOrientSync(const AuAtomPos& pos)
+{
+	//Q_ASSERT(!Is(pos.ParentId()));
+	AuEther* ether = Ether();
+	m_PosLock.lockForWrite();
+	if(pos.ParentId() == m_Pos.ParentId() || !ether)
+	{
+		// My parent is not changing. Do what SetPos does.
+		m_Pos = pos;
+		m_OrientRotation = pos.Rotation();
+		m_PosChange.Set();
+		SyncControllerNoLock(AuSyncAtomPos(pos));
+		m_PosLock.unlock();
+		InvalidateEnvTransform();
+	}
+	else
+	{
+		// My parent is changing.
+		SyncControllerNoLock(AuSyncAtomPos(pos));
+		m_PosLock.unlock();
+		ether->ChangeParentAndOrient(Id(), pos);	// The ether has to do the change.
+	}
+}
+
+bool DaAtom::ChangePosAndOrientSyncNotParent(const AuAtomPos& pos)
+{
+	//Q_ASSERT(!Is(pos.ParentId()));
+	AuEther* ether = Ether();
+	m_PosLock.lockForWrite();
+	if(pos.ParentId() == m_Pos.ParentId() || !ether)
+	{
+		// My parent is not changing. Do what SetPos does.
+		m_Pos = pos;
+		m_PosChange.Set();
+		m_OrientRotation = pos.Rotation();
+		SyncControllerNoLock(AuSyncAtomPos(pos));
+		m_PosLock.unlock();
+		InvalidateEnvTransform();
+		return true;
+	}
+	else
+	{
+		// My parent is changing.
+		m_PosLock.unlock();
+		return false;
+	}
+}
+
 void DaAtom::ForceMotion()
 {
 	if(CanSetInMotion())
@@ -8279,34 +8465,31 @@ void DaAtom::ForceMotion()
 		m_PosLock.lockForWrite();
 		SetAtRestState(false);
 		m_PosChange.Set();	// So I'll stay in motion for a second.
+		SyncControllerNoLock(AuSyncMotion());
 		m_PosLock.unlock();
-		SyncController(AuSyncMotion());
 		TickTock();
 	}
 }
 
 void DaAtom::ForcePos(const AuAtomPos& pos)
 {
-	ChangePos(pos);
-	SyncController(AuSyncAtomPosVec(pos, m_AtRest, Vector()));
+	ChangePosSync(pos, AuSyncAtomPosVec(pos, m_AtRest, Vector()));
 }
 
 void DaAtom::ForcePosMove(const AuAtomPos& pos, const AuPoint& vector)
 {
 	bool atRest = !CanSetInMotion();
-	ChangePos(pos);
+	ChangePosSync(pos, AuSyncAtomPosVec(pos, atRest, vector));
 	SetVector(vector);
 	SetAtRestState(atRest);
-	SyncController(AuSyncAtomPosVec(pos, atRest, vector));
 	TickTock();
 }
 
 void DaAtom::ForcePosStop(const AuAtomPos& pos)
 {
 	bool atRest = true;
-	ChangePos(pos);
+	ChangePosSync(pos, AuSyncAtomPosVec(pos, atRest, AuPoint(0,0)));
 	SetAtRest();
-	SyncController(AuSyncAtomPosVec(pos, atRest, AuPoint(0,0)));
 	TickTock();
 }
 
@@ -8319,8 +8502,8 @@ void DaAtom::ForceVector(const AuPoint& movementVector)
 	else
 		SetAtRestState(false);
 	m_PosChange.Set();	// So I'll stay in motion for a second.
+	SyncControllerNoLock(AuSyncVector(movementVector));
 	m_PosLock.unlock();
-	SyncController(AuSyncVector(movementVector));
 }
 
 DaBd* DaAtom::FindParentBdInEnv()
@@ -10415,7 +10598,7 @@ void DaAtom::SyncController(const AuSyncController& sync)
 #endif
 		return;
 	}
-	m_ControlLock.lockForWrite();
+	m_PosLock.lockForWrite();
 	if(!m_SyncController)
 	{
 		m_SyncController = new AuSyncControllerList;
@@ -10423,16 +10606,36 @@ void DaAtom::SyncController(const AuSyncController& sync)
 	}
 	else
 		m_SyncController->AppendReplace(sync);
-	m_ControlLock.unlock();
+	m_PosLock.unlock();
+}
+
+void DaAtom::SyncControllerNoLock(const AuSyncController& sync)
+{
+	if(!IsClientControlledNoLock())
+		return;
+	if(g_Au.IsSceneClient())
+	{
+#if !defined(QT_NO_DEBUG)
+		qDebug() << "warning: DaAtom::SyncControllerNoLock" << *this << sync << "called on client";
+#endif
+		return;
+	}
+	if(!m_SyncController)
+	{
+		m_SyncController = new AuSyncControllerList;
+		m_SyncController->append(sync.Clone());
+	}
+	else
+		m_SyncController->AppendReplace(sync);
 }
 
 void DaAtom::ApplySync()
 {
 	// Take my syncs.
-	m_ControlLock.lockForWrite();
+	m_PosLock.lockForWrite();
 	AuSyncControllerList* d = m_SyncController;
 	m_SyncController = 0;
-	m_ControlLock.unlock();
+	m_PosLock.unlock();
 	if(!d)
 		return;
 
@@ -10487,10 +10690,10 @@ void DaAtom::ApplySync()
 void DaAtom::ClearSync()
 {
 	// Delete my syncs.
-	m_ControlLock.lockForWrite();
+	m_PosLock.lockForWrite();
 	AuSyncControllerList* d = m_SyncController;
 	m_SyncController = 0;
-	m_ControlLock.unlock();
+	m_PosLock.unlock();
 	if(d)
 		delete d;
 }
@@ -10499,10 +10702,10 @@ void DaAtom::ControllerSync(AuAtomPos& pos, bool& atRest, AuPoint& vec, float& h
 		quint8& seatIndex)
 {
 	// Take my syncs.
-	m_ControlLock.lockForWrite();
+	m_PosLock.lockForWrite();
 	AuSyncControllerList* d = m_SyncController;
 	m_SyncController = 0;
-	m_ControlLock.unlock();
+	m_PosLock.unlock();
 	if(!d)
 		return;
 
@@ -10729,6 +10932,12 @@ bool DaAtom::IsInVisibleWater() const
 	bool v = qe->IsInWater() && qe->m_WaterDepth > .1f;
 	UnlockEnvironmentQuery();
 	return v;
+}
+
+// Probably should only be used when reestablishing the state of this variable when loading from a database or stream.
+void DaAtom::SetAtRestState(bool atRest)
+{
+    m_AtRest = atRest;
 }
 
 void DaAtom::SetAtRest()

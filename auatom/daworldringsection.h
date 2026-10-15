@@ -974,9 +974,8 @@ public:
 	// 'longitude' is an angle in radians.
 	virtual int ResourceZone(float longitude) const
 	{
-		longitude += PIf;				// Offset to remain consistent with the old style DaWorldGlobe resource zone longitudes.
-		while(longitude < 0)
-			longitude += PIf*2;
+		// Offset to remain consistent with the old style DaWorldGlobe resource zone longitudes.
+		longitude = UnwindAnglePositiveF(longitude + PIf);
 		const int zones = ResourceZones();
 		return (int)(longitude*zones/(PIf*2)) % zones;
 	}
@@ -985,9 +984,8 @@ public:
 	// 'longitude' is an angle in radians.
 	virtual int ResourceZone(double longitude) const
 	{
-		longitude += PI;				// Offset to remain consistent with the old style DaWorldGlobe resource zone longitudes.
-		while(longitude < 0)
-			longitude += PI*2;
+		// Offset to remain consistent with the old style DaWorldGlobe resource zone longitudes.
+		longitude = UnwindAnglePositive(longitude + PI);
 		const int zones = ResourceZones();
 		return (int)(longitude*zones/(PI*2)) % zones;
 	}

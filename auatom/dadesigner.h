@@ -45,6 +45,8 @@ public:
 	~AuDesignUndoRedoItem();
 
 public:	// Operators
+	const AuDesignUndoRedoItem& operator=(const AuDesignUndoRedoItem& c);
+
 	void operator>>(QDataStream& out) const;
 
 	void operator<<(QDataStream& in);
@@ -96,8 +98,14 @@ public:
 		m_Desc = c.m_Desc;
 	}
 
-
 public:	// Operators
+	inline const AuDesignUndoRedoTransaction& operator=(const AuDesignUndoRedoTransaction& c)
+	{
+		QList<AuDesignUndoRedoItem>::operator=(c);
+		m_Desc = c.m_Desc;
+		return *this;
+	}
+
 	void operator>>(QDataStream& out) const;
 
 	void operator<<(QDataStream& in);

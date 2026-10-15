@@ -13819,7 +13819,7 @@ bool DaVessel::Orient(const AuPoint& atLoc, const AuPoint& terNormal)
 			tOrient.Translate(atLoc);
 			tOrient.Rotate(nuRot);
 			pos.SetTransform(tOrient);
-			ChangePos(pos);
+			ChangePosNotParent(pos);
 			oriented = true;
 		}
 	}
@@ -15947,7 +15947,7 @@ void DaVessel::ApplyRotation(unsigned int msElapsed, CONTROL_CONTEXT cc)
 
 		// Rotate the ship.
 		pos.TransformBy(tRotate);
-		ChangePosAndOrient(pos);
+		ChangePosAndOrientNotParent(pos);
 
 		// This atom's movement vector must be held in the direction it was going, sort of like real inertia.
 		if(rotvec)

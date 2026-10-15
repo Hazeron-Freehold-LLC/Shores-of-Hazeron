@@ -42,6 +42,13 @@ public:
 		m_WasVisible = c.m_WasVisible;
 	}
 
+	inline const AuFrameDock& operator=(const AuFrameDock& c)
+	{
+		m_DockBar = c.m_DockBar;
+		m_WasVisible = c.m_WasVisible;
+		return *this;
+	}
+
 public:
 	// Closes the dock bar.
 	inline void CloseDockBar()

@@ -2228,7 +2228,7 @@ void DpStationHelm::ProcessControlInput(const DiControlInputArray& aActiveContro
 				AuMatrix4x4 t;
 				t.Translate(sceneAtom->Location());	// Keep them in the same place relative to the vehicle.
 				t.RotateZ(PI);							// Set facing angle. 0 is straight ahead.
-				sceneAtom->ChangePosAndOrient(AuAtomPos(ship.Id(), t));
+				sceneAtom->ChangePosAndOrientNotParent(AuAtomPos(ship.Id(), t));
 				sceneAtom->TiltHeadTo(0);
 			}
 			break;
@@ -2238,7 +2238,7 @@ void DpStationHelm::ProcessControlInput(const DiControlInputArray& aActiveContro
 				AuMatrix4x4 t;
 				t.Translate(sceneAtom->Location());	// Keep them in the same place relative to the vehicle.
 				//t.RotateZ(PI);						// Set facing angle. 0 is straight ahead.
-				sceneAtom->ChangePosAndOrient(AuAtomPos(ship.Id(), t));
+				sceneAtom->ChangePosAndOrientNotParent(AuAtomPos(ship.Id(), t));
 				sceneAtom->TiltHeadTo(0);
 			}
 			break;
@@ -2248,7 +2248,7 @@ void DpStationHelm::ProcessControlInput(const DiControlInputArray& aActiveContro
 				AuMatrix4x4 t;
 				t.Translate(sceneAtom->Location());	// Keep them in the same place relative to the vehicle.
 				t.RotateZ(PI/2);						// Set facing angle. 0 is straight ahead.
-				sceneAtom->ChangePosAndOrient(AuAtomPos(ship.Id(), t));
+				sceneAtom->ChangePosAndOrientNotParent(AuAtomPos(ship.Id(), t));
 				sceneAtom->TiltHeadTo(0);
 			}
 			break;
@@ -2258,7 +2258,7 @@ void DpStationHelm::ProcessControlInput(const DiControlInputArray& aActiveContro
 				AuMatrix4x4 t;
 				t.Translate(sceneAtom->Location());	// Keep them in the same place relative to the vehicle.
 				t.RotateZ(PI*3/4);						// Set facing angle. 0 is straight ahead.
-				sceneAtom->ChangePosAndOrient(AuAtomPos(ship.Id(), t));
+				sceneAtom->ChangePosAndOrientNotParent(AuAtomPos(ship.Id(), t));
 				sceneAtom->TiltHeadTo(0);
 			}
 			break;
@@ -2268,7 +2268,7 @@ void DpStationHelm::ProcessControlInput(const DiControlInputArray& aActiveContro
 				AuMatrix4x4 t;
 				t.Translate(sceneAtom->Location());	// Keep them in the same place relative to the vehicle.
 				t.RotateZ(PI/4);						// Set facing angle. 0 is straight ahead.
-				sceneAtom->ChangePosAndOrient(AuAtomPos(ship.Id(), t));
+				sceneAtom->ChangePosAndOrientNotParent(AuAtomPos(ship.Id(), t));
 				sceneAtom->TiltHeadTo(0);
 			}
 			break;
@@ -2278,7 +2278,7 @@ void DpStationHelm::ProcessControlInput(const DiControlInputArray& aActiveContro
 				AuMatrix4x4 t;
 				t.Translate(sceneAtom->Location());	// Keep them in the same place relative to the vehicle.
 				t.RotateZ(-PI/2);						// Set facing angle. 0 is straight ahead.
-				sceneAtom->ChangePosAndOrient(AuAtomPos(ship.Id(), t));
+				sceneAtom->ChangePosAndOrientNotParent(AuAtomPos(ship.Id(), t));
 				sceneAtom->TiltHeadTo(0);
 			}
 			break;
@@ -2288,7 +2288,7 @@ void DpStationHelm::ProcessControlInput(const DiControlInputArray& aActiveContro
 				AuMatrix4x4 t;
 				t.Translate(sceneAtom->Location());	// Keep them in the same place relative to the vehicle.
 				t.RotateZ(-PI*3/4);						// Set facing angle. 0 is straight ahead.
-				sceneAtom->ChangePosAndOrient(AuAtomPos(ship.Id(), t));
+				sceneAtom->ChangePosAndOrientNotParent(AuAtomPos(ship.Id(), t));
 				sceneAtom->TiltHeadTo(0);
 			}
 			break;
@@ -2298,7 +2298,7 @@ void DpStationHelm::ProcessControlInput(const DiControlInputArray& aActiveContro
 				AuMatrix4x4 t;
 				t.Translate(sceneAtom->Location());	// Keep them in the same place relative to the vehicle.
 				t.RotateZ(-PI/4);						// Set facing angle. 0 is straight ahead.
-				sceneAtom->ChangePosAndOrient(AuAtomPos(ship.Id(), t));
+				sceneAtom->ChangePosAndOrientNotParent(AuAtomPos(ship.Id(), t));
 				sceneAtom->TiltHeadTo(0);
 			}
 			break;

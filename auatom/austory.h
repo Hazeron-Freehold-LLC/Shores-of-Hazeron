@@ -532,11 +532,11 @@ private:
 
 	// Insure the character named 'charName' exists within 'range' of 'person'.
 	// 'vars' are updated with a new atom id if the character must be restored from memory.
-	DaNpc* RestoreCharacter(DaPerson& person, quint32 storyInstance, const QString& charName, double range,
+	DaNpc* RestoreNpc(DaPerson& person, quint32 storyInstance, const QString& charName, double range,
 			QMap<QString, QVariant>& vars) const;
 
 	// When an existing character is restored, it is placed at 'charPos' unless it is already closer than 'range' to the 'person'.
-	DaNpc* RestoreCharacterFromMemory(DaPerson& person, quint32 storyInstance, DaAtom* env, const QString& charName,
+	DaNpc* RestoreNpcFromMemory(DaPerson& person, quint32 storyInstance, DaAtom* env, const QString& charName,
 			const AuAtomPos& charPos, double range) const;
 
 	QVariant SectorHengeSystem(DaPerson& person, const QMap<QString, QVariant>& vars) const;

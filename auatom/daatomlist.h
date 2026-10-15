@@ -110,9 +110,9 @@ public:
 
 	void FindCapsulesRecursive(DaAtomList& capsules) const;
 
-	DaNpc* FindCharacterRecursive() const;
+	DaNpc* FindNpcRecursive() const;
 
-	DaNpc* FindCharacterRecursive(const QString& charName, quint32 storyInstance) const;
+	DaNpc* FindNpcRecursive(const QString& charName, quint32 storyInstance) const;
 
 	// Recursively finds all Bd capitols and Bd HQs.
 	void FindCitiesBdRecursive(DaAtomList& cities) const;
@@ -179,6 +179,8 @@ public:
 
 	// Finds !IsDead people, which gets IsNormal and IsTraveling people.
 	void FindLivePeopleRecursive(DaAtomList& people) const;
+
+	void FindNpcsRecursive(DaAtomList& npcs) const;
 
 	void FindOfficersRecursive(const AuId& shipAssigned, DaAtomList& officers) const;
 

@@ -56,6 +56,20 @@ AuShipSystem::AuShipSystem(const AuShipSystem& rhs)
 	m_Which = rhs.m_Which;
 }
 
+const AuShipSystem& AuShipSystem::operator=(const AuShipSystem& c)
+{
+	m_ConnectedConsumer = c.m_ConnectedConsumer;
+	m_HealthCurrent = c.m_HealthCurrent;
+	m_HealthMax = c.m_HealthMax;
+	m_IsOverclocked = c.m_IsOverclocked;
+	m_Module = c.m_Module;
+	m_PowerConsumption = c.m_PowerConsumption;
+	m_Quality = c.m_Quality;
+	m_System = c.m_System;
+	m_Which = c.m_Which;
+	return *this;
+}
+
 void AuShipSystem::operator>>(QDataStream& out) const
 {
 	// Statistics

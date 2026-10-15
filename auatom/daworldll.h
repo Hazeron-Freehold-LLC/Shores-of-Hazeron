@@ -252,6 +252,8 @@ public:
 	~AuWorldEnclosure();
 
 public:	// Operators
+	const AuWorldEnclosure& operator=(const AuWorldEnclosure& c);
+
 	void operator>>(QDataStream& out) const;
 	void operator<<(QDataStream& in);
 
@@ -371,6 +373,17 @@ public:
 	}
 
 public:	// Operators
+	inline const AuWorldIrrigation& operator=(const AuWorldIrrigation& c)
+	{
+		m_EndAlt = c.m_EndAlt;
+		m_EndLL = c.m_EndLL;
+		m_StartAlt = c.m_StartAlt;
+		m_StartLL = c.m_StartLL;
+		m_Type = c.m_Type;
+		m_Width2 = c.m_Width2;
+		return *this;
+	}
+
 	inline void operator>>(QDataStream& out) const
 	{
 		out << m_EndAlt;
@@ -2062,8 +2075,6 @@ public:
 	// 'person' is the person triggering the encounter.
 	// 'mode': 0=normal, 1=force encounter, 2=force village to move and force encounter
 	int IndigenousEncounter(const DaPerson& person, const AuGlobeLLF& nearLL, int mode);
-
-	static QColor AtmosphereColor(unsigned char byAtmType, unsigned char byAtmDensity, quint32 genSeed);
 
 	// Determine foliage density attributed to water and atmosphere.
 	// Returns a number from 0 to 100.

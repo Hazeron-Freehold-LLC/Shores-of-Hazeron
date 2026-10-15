@@ -594,7 +594,7 @@ void DaWorldRing::AnimateDeviceObjects(AuAtomRenderInfo& ari, const DaPerson* sc
 	tBody.RotateZ(rangle);								// Rotate the model space to the planet's orbit position.
 	tBody.Translate(AuPoint(OrbitRadius(), 0.0, 0.0));	// Translate to the location of this planet relative to the parent star.
 	tBody.RotateZ(-rangle);								// Rotate the model space to the planet's orbit position.
-	ChangePosAndOrient(AuAtomPos(ParentId(), tBody));
+	ChangePosAndOrientNotParent(AuAtomPos(ParentId(), tBody));
 }
 
 bool DaWorldRing::IsTicker() const
@@ -614,7 +614,7 @@ void DaWorldRing::Tick(const AuElapsedTimer& last, const AuElapsedTimer& now)
 		m_RingLock.lockForRead();
 		AuMatrix4x4 tBody(m_ThinkTransform);
 		m_RingLock.unlock();
-		ChangePosAndOrient(AuAtomPos(ParentId(), tBody));
+		ChangePosAndOrientNotParent(AuAtomPos(ParentId(), tBody));
 	}
 	DaWorld::Tick(last, now);
 }
@@ -675,7 +675,7 @@ void DaWorldRing::InitSystemPosition()
 	tBody.RotateZ(rangle);								// Rotate the model space to the planet's orbit position.
 	tBody.Translate(AuPoint(OrbitRadius(), 0.0, 0.0));	// Translate to the location of this planet relative to the parent star.
 	tBody.RotateZ(-rangle);								// Rotate the model space to the planet's orbit position.
-	ChangePosAndOrient(AuAtomPos(ParentId(), tBody));
+	ChangePosAndOrientNotParent(AuAtomPos(ParentId(), tBody));
 
 	m_RingLock.lockForWrite();
 	m_ThinkTransform = tBody;
@@ -1872,27 +1872,28 @@ float DaWorldRing::AsteroidBeltDensityRecursive(const AuPoint& envLoc) const
 	const DaAtom* parent = Parent();
 	if(!parent)
 		return 0;
-	AuPoint loc = parent->EnvTransform().UnProject(envLoc);	// Into the space of my parent world.
 
 	double inside, outside;
 	Radii(inside, outside);
 
+	AuMatrix4x4 et(EnvTransform());
+	AuPoint rloc = et.UnProject(envLoc);		// calc loc in my space to account for axial tilt
 	double separate = ::Radius100km(10);	// 1/2 the maximum possible separation between ring layers.
 	double sepFactor = (inside + outside) / FeetPerMoonOrbit() / 5;
 	separate *= sepFactor;
 	separate += 1000*FeetPerMeter();		// Let gravel spread farther above/below than the visible ring.
-	if(fabs(loc.z) > separate)
+	if(fabs(rloc.z) > separate)
 		return 0;						// loc is above or below the maximum thickness of this ring.
 
-	AuPoint fs = Location();
-	double rad = fs.Length();
+	AuPoint cenloc = Transform().UnProject(0,0,0);	// Center of ring in my plane.
+	double lrad = cenloc.Distance_2D(rloc);			// 2D distance from center of ring to loc in the plane of the ring.
+	double rad = OrbitRadius();
 	double radi = rad - inside;
 	double rado = rad + outside;
-	double lrad = loc.Length_2D();
 	if(lrad < radi || lrad > rado)
 		return 0;						// loc is inside my inner radius or outside my outer radius.
 
 	// Calculate density.
-	return fabs(loc.z)/separate;
+	return fabs(rloc.z)/separate;
 }
 

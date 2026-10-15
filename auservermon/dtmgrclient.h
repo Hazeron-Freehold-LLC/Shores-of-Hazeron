@@ -11,12 +11,12 @@
 #include "auplayeronlinestatus.h"
 #include "daatom.h"
 #include "dgempire.h"
+#include <QElapsedTimer>
 #include <QMetaType>
 #include <QMutex>
 #include <QSemaphore>
 #include <QStringList>
 #include <QTcpSocket>
-#include <QTime>
 #include <QThread>
 
 class AuThinkerReport
@@ -52,6 +52,15 @@ public:
 		m_Name = c.m_Name;
 		m_State = c.m_State;
 		m_Triangles = c.m_Triangles;
+	}
+
+	const AuResourceDesign& operator=(const AuResourceDesign& c)
+	{
+		m_Id = c.m_Id;
+		m_Name = c.m_Name;
+		m_State = c.m_State;
+		m_Triangles = c.m_Triangles;
+		return *this;
 	}
 
 	void operator<<(QDataStream& in)
@@ -139,6 +148,26 @@ public:
 		m_Materials = c.m_Materials;
 		m_Objects = c.m_Objects;
 		m_VertexGroups = c.m_VertexGroups;
+	}
+
+	const AuResourceModel& operator=(const AuResourceModel& c)
+	{
+		m_FileName = c.m_FileName;
+		m_Users = c.m_Users;
+		m_BuildingEtc = c.m_BuildingEtc;
+		m_BuildingIns1 = c.m_BuildingIns1;
+		m_BuildingIns2 = c.m_BuildingIns2;
+		m_BuildingObs1 = c.m_BuildingObs1;
+		m_BuildingObs2 = c.m_BuildingObs2;
+		m_BuildingRamp = c.m_BuildingRamp;
+		m_BuildingWpn = c.m_BuildingWpn;
+		m_Screens = c.m_Screens;
+		m_Stations = c.m_Stations;
+		m_Weapons = c.m_Weapons;
+		m_Materials = c.m_Materials;
+		m_Objects = c.m_Objects;
+		m_VertexGroups = c.m_VertexGroups;
+		return *this;
 	}
 
 	void operator<<(QDataStream& in)
@@ -501,7 +530,7 @@ private:
 	int				m_PollInterval;			// ms between polls. 0 = no polling.
 	int				m_PollMode;				// 0=continuous, 1=poll once and signal, 2=poll once to find unit id,
 											// 3=poll once to find unit name
-	QTime			m_PollTime;				// Time of last poll.
+	QElapsedTimer	m_PollTime;				// Time of last poll.
 	quint32			m_PollUnitId;			// Unit id to find for poll mode 2.
 	QString			m_PollUnitName;			// Unit name to find for poll mode 3.
 	quint8			m_ServerMode;			// AuGlobal::MODE of the connected server.

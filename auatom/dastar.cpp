@@ -2821,7 +2821,7 @@ void DaStar::InitSystemPosition()
 		tCompanion.Translate(AuPoint(OrbitRadius(m_chOrbit)*FeetPerAu(), 0));	// Translate to location relative to parent star.
 		tCompanion.RotateZ(-rangle);											// Rotate model space to the star's orbit angle.
 		tCompanion.RotateX(AxialTilt());
-		ChangePos(AuAtomPos(ParentId(), tCompanion));
+		ChangePosNotParent(AuAtomPos(ParentId(), tCompanion));
 	}
 }
 

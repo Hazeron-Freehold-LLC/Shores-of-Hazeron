@@ -182,7 +182,7 @@ void DaAnimal::Tick(const AuElapsedTimer& last, const AuElapsedTimer& now)
 
 		AuAtomPos tMe = Pos();
 		tMe.RotateZ(turnZNow);
-		ChangePosAndOrient(tMe);
+		ChangePosAndOrientNotParent(tMe);
 		SetModified();
 	}
 
@@ -844,7 +844,7 @@ void DaAnimal::AnimateDeviceObjects(AuAtomRenderInfo& ari, const DaPerson* scene
 
 		AuAtomPos tMe = Pos();
 		tMe.RotateZ(turnZNow);
-		ChangePosAndOrient(tMe);
+		ChangePosAndOrientNotParent(tMe);
 		SetModified();
 	}
 }

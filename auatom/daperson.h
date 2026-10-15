@@ -2449,15 +2449,15 @@ public:	// AI
 	virtual quint8 Rank() const
 	{
 		quint32 xp = CommandExperiencePoints();
-		if(xp < PromotionGoal(0))
+		if(xp < PromotionGoalRank(0))
 			return 0;
-		else if(xp < PromotionGoal(1))
+		else if(xp < PromotionGoalRank(1))
 			return 1;
-		else if(xp < PromotionGoal(2))
+		else if(xp < PromotionGoalRank(2))
 			return 2;
-		else if(xp < PromotionGoal(3))
+		else if(xp < PromotionGoalRank(3))
 			return 3;
-		else if(xp < PromotionGoal(4))
+		else if(xp < PromotionGoalRank(4))
 			return 4;
 		else
 			return 5;
@@ -2513,7 +2513,7 @@ protected:	// AI
 	// Returns the total number of experience points needed to get promoted to the next rank above 'rank'.
 	// This is the total experience points needed for the rank, not the experience points remaining to get there.
 	// 0 is returned if 'rank' is the maximum rank.
-	static quint32 PromotionGoal(quint8 rank);
+	static quint32 PromotionGoalRank(quint8 rank);
 
 	virtual void ReleaseTheCon()
 	{

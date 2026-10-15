@@ -357,3 +357,8 @@ auviewer/Makefile
 auviewer/auviewer.pro
 debug/
 release/
+ausceneclient/GD
+ausceneclient/sfx.har
+ausceneclient/tex
+log
+

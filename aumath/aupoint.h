@@ -758,6 +758,13 @@ public:
 			x = 1;
 	}
 
+	inline void UnwindRotation()
+	{
+		x = UnwindAngle(x);
+		y = UnwindAngle(y);
+		z = UnwindAngle(z);
+	}
+
 	inline void Round(double rndval)
 	{
 		x = FROUND(x, rndval);

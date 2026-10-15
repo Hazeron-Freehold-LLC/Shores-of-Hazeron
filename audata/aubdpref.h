@@ -53,6 +53,13 @@ public:	// Operators
 		return !operator==(c);
 	}
 
+	inline const AuBlueprintPref& operator=(const AuBlueprintPref& c)
+	{
+		m_BlueprintId = c.m_BlueprintId;
+		m_BuildEnvBits = c.m_BuildEnvBits;
+		return *this;
+	}
+
 public:	// Methods
 	inline quint32 BlueprintId() const
 	{

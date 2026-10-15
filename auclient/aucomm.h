@@ -49,6 +49,14 @@ public:
 		m_Scope = c.m_Scope;
 	}
 
+	inline const AuChannel& operator=(const AuChannel& c)
+	{
+		m_Name = c.m_Name;
+		m_NarrDesc = c.m_NarrDesc;
+		m_Scope = c.m_Scope;
+		return *this;
+	}
+
 	virtual void operator<<(QDataStream& in)
 	{
 		quint8 ui8;

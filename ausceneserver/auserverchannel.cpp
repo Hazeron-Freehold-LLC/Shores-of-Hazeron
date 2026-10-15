@@ -773,7 +773,8 @@ void AuServerChannel::StopThreads()
 
 	// Wait up to 10 seconds for our server channels to shut down.
 	bool anyAlive;
-	QTime t;
+	QElapsedTimer t;
+	t.start();
 	do
 	{
 		anyAlive = false;

@@ -70,6 +70,13 @@ quint64 AuDesignUndoRedoItem::MemoryUsage() const
 	return mem;
 }
 
+const AuDesignUndoRedoItem& AuDesignUndoRedoItem::operator=(const AuDesignUndoRedoItem& c)
+{
+	m_Parts = new AuScParts(*c.m_Parts);
+	m_Type = c.m_Type;
+	return *this;
+}
+
 void AuDesignUndoRedoItem::operator>>(QDataStream& out) const
 {
 	out << m_Type;
@@ -1129,7 +1136,7 @@ void DaDesigner::InitDesignPlane(const AuId& idArchitect)
 	{
 		// Move design plane to origin.
 		AuMatrix4x4 t;
-		pdp->ChangePos(AuAtomPos(Id(), t));
+		pdp->ChangePosNotParent(AuAtomPos(Id(), t));
 
 		// Turn off 3D shaded mode.
 		if(pdp->IsRenderSolid())
@@ -1155,7 +1162,7 @@ void DaDesigner::SetDesignPlane(const AuId& idArchitect, const AuPoint &fOrigin,
 	AuMatrix4x4 tdp;
 	tdp.Translate(fOrigin);
 	tdp.Rotate(AuPoint::CalculateRotation(vX, vY));
-	pdp->ChangePos(AuAtomPos(Id(), tdp));
+	pdp->ChangePosNotParent(AuAtomPos(Id(), tdp));
 	pdp->SetModified();
 }
 

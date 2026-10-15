@@ -6996,7 +6996,7 @@ void DaCreature::PositionRiders()
 				AuMatrix4x4 t;
 				t.Translate(rideLoc);							// Position rider at saddle.
 				t.Rotate(rider->Rotation());					// Preserve rider's rotation.
-				rider->ChangePosAndOrient(AuAtomPos(Id(), t));
+				rider->ChangePosAndOrientNotParent(AuAtomPos(Id(), t));
 				rider->InvalidateEnvironment();
 				rider->SetModified();
 			}
@@ -7008,7 +7008,7 @@ void DaCreature::PositionRiders()
 			{
 				AuMatrix4x4 t;
 				t.Translate(rideLoc);
-				(*it)->ChangePosAndOrient(AuAtomPos(Id(), t));
+				(*it)->ChangePosAndOrientNotParent(AuAtomPos(Id(), t));
 				(*it)->InvalidateEnvironment();
 				(*it)->SetModified();
 			}
@@ -7039,8 +7039,7 @@ void DaCreature::ForcePositionRiders()
 				t.Translate(rideLoc);							// Position rider at saddle.
 				t.Rotate(rider->Rotation());					// Preserve rider's rotation.
 				AuAtomPos pos(Id(), t);
-				rider->ChangePosAndOrient(pos);
-				rider->SyncController(AuSyncAtomPos(pos));
+				rider->ChangePosAndOrientSyncNotParent(pos);
 				rider->InvalidateEnvironment();
 				rider->SetModified();
 			}
@@ -7053,8 +7052,7 @@ void DaCreature::ForcePositionRiders()
 				AuMatrix4x4 t;
 				t.Translate(rideLoc);
 				AuAtomPos pos(Id(), t);
-				(*it)->ChangePosAndOrient(pos);
-				(*it)->SyncController(AuSyncAtomPos(pos));
+				(*it)->ChangePosAndOrientSyncNotParent(pos);
 				(*it)->InvalidateEnvironment();
 				(*it)->SetModified();
 			}
@@ -7387,7 +7385,7 @@ bool DaCreature::GrabLadderOnMyBd()
 	AuPoint eyePos = myT.Project(CameraOffset());	// Eye position, before grabbing ladder.
 
 	// Calculate my transformation matrix on the ladder and tentatively set my nu pose at the ladder.
-	ChangePosAndOrient(AuAtomPos(bd->Id(), mLadder));
+	ChangePosAndOrientNotParent(AuAtomPos(bd->Id(), mLadder));
 	InvalidateEnvironment();
 	SetGeneralPose(AuPose::Ladder, false);
 
@@ -7396,7 +7394,7 @@ bool DaCreature::GrabLadderOnMyBd()
 	{
 		// Eye path was blocked so restore pose and transform.
 		SetGeneralPose(myPose, stationId, false);
-		ChangePosAndOrient(AuAtomPos(bd->Id(), myT));
+		ChangePosAndOrientNotParent(AuAtomPos(bd->Id(), myT));
 		InvalidateEnvironment();
 		return false;
 	}
@@ -7442,7 +7440,7 @@ bool DaCreature::GrabLadderOnMyShip()
 	AuPoint eyePos = myT.Project(CameraOffset());	// Eye position, before grabbing ladder.
 
 	// Calculate my transformation matrix on the ladder and tentatively set my nu pose at the ladder.
-	ChangePosAndOrient(AuAtomPos(ship->Id(), mLadder));
+	ChangePosAndOrientNotParent(AuAtomPos(ship->Id(), mLadder));
 	InvalidateEnvironment();
 	SetGeneralPose(AuPose::Ladder, false);
 
@@ -7451,7 +7449,7 @@ bool DaCreature::GrabLadderOnMyShip()
 	{
 		// Eye path was blocked so restore pose and transform.
 		SetGeneralPose(myPose, stationId, false);
-		ChangePosAndOrient(AuAtomPos(ship->Id(), myT));
+		ChangePosAndOrientNotParent(AuAtomPos(ship->Id(), myT));
 		InvalidateEnvironment();
 		return false;
 	}
@@ -7495,7 +7493,7 @@ bool DaCreature::GrabLadderOnMyShipAt(const AuPoint& ladderLoc)
 	AuPoint eyePos = myT.Project(CameraOffset());	// Eye position, before grabbing ladder.
 
 	// Calculate my transformation matrix on the ladder and tentatively set my nu pose at the ladder.
-	ChangePosAndOrient(AuAtomPos(ship->Id(), mLadder));
+	ChangePosAndOrientNotParent(AuAtomPos(ship->Id(), mLadder));
 	InvalidateEnvironment();
 	SetGeneralPose(AuPose::Ladder, false);
 
@@ -7504,7 +7502,7 @@ bool DaCreature::GrabLadderOnMyShipAt(const AuPoint& ladderLoc)
 	{
 		// Eye path was blocked so restore pose and transform.
 		SetGeneralPose(myPose, stationId, false);
-		ChangePosAndOrient(AuAtomPos(ship->Id(), myT));
+		ChangePosAndOrientNotParent(AuAtomPos(ship->Id(), myT));
 		InvalidateEnvironment();
 		return false;
 	}

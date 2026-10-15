@@ -2594,7 +2594,7 @@ bool DaSentient::AnimateTurn(unsigned int msElapsed)
 	// matrix change causes unnecessary network traffic if I am just turning on my axis.
 	AuAtomPos tMe(Pos());
 	tMe.RotateZ(turnZNow);
-	ChangePosAndOrient(tMe);
+	ChangePosAndOrientNotParent(tMe);
 	return finishedTurn;
 }
 
@@ -17611,7 +17611,7 @@ bool DaSentient::IsOkToLeaveSolarSystem(const DaVessel* ship) const
 		return true;											// Person aboard who is online is ok to leave the system.
 
 	// Some story ships flee the scene. So far, they are always pirates.
-	if(ship->IsPirate() && ship->FindCharacterRecursive())
+	if(ship->IsPirate() && ship->FindNpcRecursive())
 		return true;											// Pirates get destroyed when they leave the solar system.
 
 	// A ship that is human-commanded (vs AI-commanded) must not leave the solar system with no players aboard who are online.
@@ -23472,7 +23472,7 @@ void DaSentient::DoTeleport(const AuPoint& loc)
 	AuMatrix4x4 tmv;
 	tmv.Translate(mvec);
 	pos.TransformBy(tmv);
-	ChangePos(pos);
+	ChangePosNotParent(pos);
 	InvalidateEnvironment();
 	SetAtRest();
 	SetModified();

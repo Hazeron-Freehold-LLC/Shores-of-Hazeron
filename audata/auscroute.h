@@ -48,6 +48,17 @@ public:	// Constructors
 		m_LiftStop = c.m_LiftStop;
 	}
 
+public:	// Operators
+	inline const AuScRouteLoc& operator=(const AuScRouteLoc& c)
+	{
+		AuPoint::operator=(c);
+		m_DoorId = c.m_DoorId;
+		m_Ladder = c.m_Ladder;
+		m_LiftId = c.m_LiftId;
+		m_LiftStop = c.m_LiftStop;
+		return *this;
+	}
+
 public:	// Methods
 	inline quint16 DoorId() const
 	{

@@ -659,8 +659,6 @@ public:
 		return v;
 	}
 
-	static QColor AtmosphereColor(unsigned char byAtmType, unsigned char byAtmDensity, quint32 genSeed);
-
 	virtual bool CanBeHarvested(COMMODITYID moduleInUse) const
 	{
 		if(moduleInUse == CID_ProspectorBayModule || moduleInUse == CID_WildcatterBayModule)
@@ -712,8 +710,7 @@ public:
 	// 'latitude' is the latitude angle in radians. + goes north, - goes south. 0 = equator
 	inline AuPoint GetLocation(double longitude, double latitude) const
 	{
-		if(longitude < 0)
-			longitude += PI*2;
+		longitude = UnwindAnglePositive(longitude);
 		AuPoint longLat((longitude + PI) * LongitudeDivisions() / (PI*2), (PI/2 - latitude) * LatitudeDivisions() / PI);
 		return GetLocation(longLat);
 	}

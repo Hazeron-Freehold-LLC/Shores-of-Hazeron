@@ -12,6 +12,8 @@
 #include "audnabase.h"
 #include "auglobal.h"
 #include "auhair.h"
+#include "auitemspot.h"
+#include "auvehiclespot.h"
 #include "dbindustry.h"
 #include "dbmanufacturingcomponent.h"
 #include "dbmanufacturingprocess.h"
@@ -778,6 +780,10 @@ public:
 
 	bool ScDesignIsLoaded(quint32 designId) const;
 
+/*DHH waiting for design compatibility backport from Hazeron Starship
+	void ScDesignItemSpots(quint32 designId, QHash<COMMODITYID, QList<AuItemSpot> >& spotsByCID) const;
+	*/
+
 	// doesn't update database
 	void ScDesignRemove(quint32 designId);
 
@@ -793,6 +799,10 @@ public:
 
 	// Returns AuDesign::STATE of 'designId'.
 	quint8 ScDesignState(quint32 designId) const;
+
+/*DHH waiting for design compatibility backport from Hazeron Starship
+	void ScDesignVehicleParkingSpots(quint32 designId, QHash<COMMODITYID, QList<AuVehicleSpot> >& parkingByCID) const;
+	*/
 
 	//-------------------
 

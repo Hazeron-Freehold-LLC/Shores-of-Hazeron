@@ -261,11 +261,7 @@ public:
 	// Sets the longitude angle. Wraps it to the range of -PI to PI.
 	inline void SetLongitude(float longitude)
 	{
-		m_Longitude = longitude;
-		while(m_Longitude < -PIf)
-			m_Longitude += PIf*2;
-		while(m_Longitude > PIf)
-			m_Longitude -= PIf*2;
+		m_Longitude = UnwindAngleF(longitude);
 	}
 
 	// Returns the side of the line from 'll0' to 'll1' that this location is on.
@@ -550,11 +546,7 @@ public:
 	// Sets the longitude angle. Wraps it to the range of -PI to PI.
 	inline void SetLongitude(double longitude)
 	{
-		m_Longitude = longitude;
-		while(m_Longitude < -PI)
-			m_Longitude += PI*2;
-		while(m_Longitude > PI)
-			m_Longitude -= PI*2;
+		m_Longitude = UnwindAngle(longitude);
 	}
 
 	// Returns the side of the line from 'll0' to 'll1' that this location is on.

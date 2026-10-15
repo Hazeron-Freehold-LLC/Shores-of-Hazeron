@@ -6304,7 +6304,7 @@ void DaPerson::ProcessControlInput(const DiControlInputArray& aActiveControls, D
 					// Change to next left berth pose.
 					// This seems backward but I'm just going with it rather than go fix backward left/right body pose bugs.
 					m_tmLastMoveSControl.restart();					// turn time
-					ChangePosAndOrient(Pos());
+					ChangePosAndOrientNotParent(Pos());
 					InvalidateEnvironment();
 					switch(CurrentGeneralPose().Pose())
 					{
@@ -6363,7 +6363,7 @@ void DaPerson::ProcessControlInput(const DiControlInputArray& aActiveControls, D
 					// Change to next right berth pose.
 					// This seems backward but I'm just going with it rather than go fix backward left/right body pose bugs.
 					m_tmLastMoveSControl.restart();					// turn time
-					ChangePosAndOrient(Pos());
+					ChangePosAndOrientNotParent(Pos());
 					InvalidateEnvironment();
 					switch(CurrentGeneralPose().Pose())
 					{
@@ -6939,7 +6939,7 @@ void DaPerson::ProcessControlInput(const DiControlInputArray& aActiveControls, D
 			t.Translate(moveVec);
 			AuAtomPos pos(poseWho->Pos());
 			pos.TransformBy(t);
-			poseWho->ChangePos(pos);
+			poseWho->ChangePosNotParent(pos);
 			poseWho->InvalidateEnvironment();
 			poseWho->SetModified();
 		}
@@ -9276,7 +9276,7 @@ void DaPerson::ApplyMovement(unsigned int msElapsed)
 				TiltHeadTo(0);									// Look straight ahead.
 				AuMatrix4x4 tMe = Transform();
 				tMe.RotateX(rTurnX);							// Rotate body.
-				ChangePosAndOrient(AuAtomPos(ParentId(), tMe));
+				ChangePosAndOrientNotParent(AuAtomPos(ParentId(), tMe));
 				SetModified();
 			}
 		}
@@ -9360,7 +9360,7 @@ void DaPerson::ApplyMovement(unsigned int msElapsed)
 				//qDebug("Turning left %g degrees from Z = %g degrees", rTurnZ*RAD2DEG, Rotation().z*RAD2DEG);
 			AuAtomPos tMe(Pos());
 			tMe.RotateZ(rTurnZ);									// Rotate the matrix.
-			ChangePosAndOrient(tMe);
+			ChangePosAndOrientNotParent(tMe);
 
 			// Rotate my hit notification by the reverse of my body rotation.
 			m_PersonLock.lockForWrite();
@@ -9409,14 +9409,14 @@ void DaPerson::ApplyMovement(unsigned int msElapsed)
 				//qDebug("Turning mount left %g degrees", rTurnMountZ*RAD2DEG);
 				AuAtomPos tMe(mount->Pos());
 				tMe.RotateZ(rTurnMountZ);
-				mount->ChangePosAndOrient(tMe);
+				mount->ChangePosAndOrientNotParent(tMe);
 			}
 			else if(acti & ACT_MoveRight)
 			{
 				//qDebug("Turning mount right %g degrees", rTurnMountZ*RAD2DEG);
 				AuAtomPos tMe(mount->Pos());
 				tMe.RotateZ(-rTurnMountZ);
-				mount->ChangePosAndOrient(tMe);
+				mount->ChangePosAndOrientNotParent(tMe);
 			}
 
 			// When this atom is not touching ground, its movement vector must be
@@ -24056,7 +24056,7 @@ quint32 DaPerson::JobExperiencePoints() const
 }
 
 //static
-quint32 DaPerson::PromotionGoal(quint8 rank)
+quint32 DaPerson::PromotionGoalRank(quint8 rank)
 {
 	quint32 promotions[6] =
 	{

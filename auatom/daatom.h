@@ -224,6 +224,16 @@ public:
 		m_Attacker(c.m_Attacker), m_HitLoc(c.m_HitLoc), m_Result(c.m_Result), m_Weapon(c.m_Weapon), m_WpnLoc(c.m_WpnLoc)
 	{
 	}
+
+	inline const AuDamageToApply& operator=(const AuDamageToApply& c)
+	{
+		m_Attacker = c.m_Attacker;
+		m_HitLoc = c.m_HitLoc;
+		m_Result = c.m_Result;
+		m_Weapon = c.m_Weapon;
+		m_WpnLoc = c.m_WpnLoc;
+		return *this;
+	}
 };
 
 //-+---+---+---+---+---+---+---+---+---|---+---+---+---+---+---+-==+---+---+---|---+---+---+---+---+---+---+---+---+---+---+---+---|
@@ -736,12 +746,6 @@ private:
 	AuTime								m_tmCreated;			// Time this atom was Created. Not guarded because it never changes.
 
 private:
-	mutable QReadWriteLock				m_ControlLock;			// Guards m_tmControlled.
-	mutable AuId						m_Controller;
-	AuSyncControllerList*				m_SyncController;		// Syncs to be propagated to the controller.
-	mutable AuElapsedTimer				m_tmControlled;			// Time this atom was last controlled by a client. Not stored in db.
-
-private:
 	mutable QReadWriteLock				m_DamageToApplyLock;	// Guards m_DamageToApply during Think.
 	QList<AuDamageToApply>				m_DamageToApply;		// Damage to be applied during Tick. Not stored.
 
@@ -778,6 +782,10 @@ private:
 	AuAtomPos							m_Pos;
 	AuElapsedTimer						m_PosChange;
 	AuPoint								m_Vector;				// Movement vector relative to me. Length is speed in fps.
+
+	mutable AuId						m_Controller;
+	AuSyncControllerList*				m_SyncController;		// Syncs to be propagated to the controller.
+	mutable AuElapsedTimer				m_tmControlled;			// Time this atom was last controlled by a client. Not stored in db.
 
 private:
 	mutable QReadWriteLock				m_EtherLock;
@@ -1277,12 +1285,13 @@ public:
 	// Returns true if this atoms position is currently controlled by a client. The client determines all transformation and
 	// parent changes for smoother client-side movement.
 	bool IsClientControlled();
+	bool IsClientControlledNoLock();	// Expects m_PosLock to already be locked.
 
 	inline bool IsClientControlledNoReset() const
 	{
-		m_ControlLock.lockForRead();
+		m_PosLock.lockForRead();
 		bool is = !m_Controller.IsNull() && m_tmControlled.isValid() && m_tmControlled.elapsed() < 1500;
-		m_ControlLock.unlock();
+		m_PosLock.unlock();
 		return is;
 	}
 
@@ -1290,7 +1299,7 @@ public:
 	inline bool IsController(const AuId& c)
 	{
 		bool clearC = false;
-		m_ControlLock.lockForRead();
+		m_PosLock.lockForRead();
 		bool isc = m_Controller == c && m_tmControlled.isValid();
 		if(isc && m_tmControlled.elapsed() > 1500)
 		{
@@ -1298,17 +1307,19 @@ public:
 			isc = false;
 			clearC = true;
 		}
-		m_ControlLock.unlock();
 		if(clearC)
-			SetControlled(AuId());
+			SetControlledNoLock(AuId());
+		m_PosLock.unlock();
+		if(clearC)
+			ApplySync();				// The server applies any remaining syncs, to be sure I am where I'm supposed to be.
 		return isc;
 	}
 
 	inline bool IsControllerNoReset(const AuId& c) const
 	{
-		m_ControlLock.lockForRead();
+		m_PosLock.lockForRead();
 		bool isc = m_Controller == c && m_tmControlled.isValid() && m_tmControlled.elapsed() < 1500;
-		m_ControlLock.unlock();
+		m_PosLock.unlock();
 		return isc;
 	}
 
@@ -1629,6 +1640,7 @@ public:
 	// Called whenever this atom's position is directly updated by a client.
 	// Call with null 'controller' to turn off.
 	void SetControlled(const AuId& controller);
+	void SetControlledNoLock(const AuId& controller);	// Expects m_PosLock to already be locked.
 
 	inline void SetDormant()
 	{
@@ -2195,11 +2207,6 @@ public:
 
 	virtual void FindCapsulesRecursive(DaAtomList& capsules) const;
 
-	// Returns any character who is in a normal state and whose story instance is still active.
-	virtual DaNpc* FindCharacterRecursive() const;
-
-	virtual DaNpc* FindCharacterRecursive(const QString& charName, quint32 storyInstance) const;
-
 	// Recursively finds all Bd city capitols and Bd HQs.
 	virtual void FindCitiesBdRecursive(DaAtomList& cities) const;
 
@@ -2300,6 +2307,13 @@ public:
 		Q_UNUSED(minQ);
 		return false;
 	}
+
+	// Returns any npc who is in a normal state and whose story instance is still active.
+    virtual DaNpc* FindNpcRecursive() const;
+
+    virtual DaNpc* FindNpcRecursive(const QString& charName, quint32 storyInstance) const;
+
+	virtual void FindNpcsRecursive(DaAtomList& npcs) const;
 
 	virtual const DaNpc* FindOfficerRecursive() const;
 
@@ -2695,10 +2709,16 @@ public:
 	// Changes the position and/or the parent of this atom. The ether is notified to track parent changes.
 	// Does not change this atom's orient rotation.
 	void ChangePos(const AuAtomPos& pos);
+	bool ChangePosNotParent(const AuAtomPos& pos);	// No change if parent in pos is not my current parent. Returns true on success.
+	void ChangePosSync(const AuAtomPos& pos, const AuSyncController& sync);
+	bool ChangePosSyncNotParent(const AuAtomPos& pos, const AuSyncController& sync);	// No change if parent changes.
 
 	// Changes the position and/or the parent of this atom. The ether is notified to track parent changes.
 	// Changes this atom's orient rotation to match the new transform rotation.
 	void ChangePosAndOrient(const AuAtomPos& pos);
+	bool ChangePosAndOrientNotParent(const AuAtomPos& pos);
+	void ChangePosAndOrientSync(const AuAtomPos& pos);
+	bool ChangePosAndOrientSyncNotParent(const AuAtomPos& pos);
 
 	// SetPos should ONLY be used when this atom has not been added to the ether, unless called by the ether.
 	// ChangePos should be used after this atom has been added to the ether, to properly track parent changes.
@@ -2916,6 +2936,7 @@ public:
 	// This is the server side, called when some control must be syncronized with the client and not overridden by client-side
 	// movement smoothing algorithms.
 	void SyncController(const AuSyncController& sync);
+	void SyncControllerNoLock(const AuSyncController& sync);	// m_PosLock is expected to be locked already
 
 	void SetInMotion();
 
@@ -2966,6 +2987,8 @@ public:
 		m_Vector = movementVector;
 		m_PosLock.unlock();
 	}
+
+	void SetVectorSync(const AuPoint& movementVector);
 
 	// Atoms that return true here are an obstacle to movement of 'toWho'.
 	// 'toWho' atom is !IsEthereal.
@@ -4180,10 +4203,7 @@ protected:
 			DaAtomList& shadScRingworld, DaAtomList& shadScRingworldFog, RENDERPASS pass);
 
 	// Probably should only be used when reestablishing the state of this variable when loading from a database or stream.
-	inline void SetAtRestState(bool atRest)
-	{
-		m_AtRest = atRest;
-	}
+	void SetAtRestState(bool atRest);
 
 	void SetRenderLights(AuGLEffects& re, const QList<AuGLSun>& suns, const QList<AuGLLight>& lights, float ambientLight);
 

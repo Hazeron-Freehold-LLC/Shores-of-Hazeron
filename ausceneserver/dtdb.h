@@ -228,6 +228,17 @@ public:	// Constructors
 		m_TravelType = c.m_TravelType;
 	}
 
+	inline const AuTravelAtom& operator=(const AuTravelAtom& c)
+	{
+		m_DestGalaxyLoc = c.m_DestGalaxyLoc;
+		m_DestSector = c.m_DestSector;
+		m_DestSystem = c.m_DestSystem;
+		m_OrigSystem = c.m_OrigSystem;
+		m_Traveler = c.m_Traveler;
+		m_TravelType = c.m_TravelType;
+		return *this;
+	}
+
 public:	// Methods
 	inline bool IsGalaxyLoc() const
 	{

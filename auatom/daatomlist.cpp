@@ -116,32 +116,32 @@ void DaAtomList::ListNormalAtomsRecursive(DaAtomList &aList) const
 	}
 }
 
-DaNpc* DaAtomList::FindCharacterRecursive() const
+DaNpc* DaAtomList::FindNpcRecursive() const
 {
-	for(const_iterator it = cbegin(); it != cend(); it++)
-	{
-		DaAtom* pAtom = *it;
-		if(!pAtom->IsNormal())
-			continue;
-		DaNpc* character = pAtom->FindCharacterRecursive();
-		if(character)
-			return(character);
-	}
-	return 0;
+    for(const_iterator it = cbegin(); it != cend(); it++)
+    {
+        DaAtom* pAtom = *it;
+        if(!pAtom->IsNormal())
+            continue;
+        DaNpc* character = pAtom->FindNpcRecursive();
+        if(character)
+            return(character);
+    }
+    return 0;
 }
 
-DaNpc* DaAtomList::FindCharacterRecursive(const QString& charName, quint32 storyInstance) const
+DaNpc* DaAtomList::FindNpcRecursive(const QString& charName, quint32 storyInstance) const
 {
-	for(const_iterator it = cbegin(); it != cend(); it++)
-	{
-		DaAtom* pAtom = *it;
-		if(!pAtom->IsNormal())
-			continue;
-		DaNpc* character = pAtom->FindCharacterRecursive(charName, storyInstance);
-		if(character)
-			return(character);
-	}
-	return 0;
+    for(const_iterator it = cbegin(); it != cend(); it++)
+    {
+        DaAtom* pAtom = *it;
+        if(!pAtom->IsNormal())
+            continue;
+        DaNpc* character = pAtom->FindNpcRecursive(charName, storyInstance);
+        if(character)
+            return(character);
+    }
+    return 0;
 }
 
 const DaAsteroid* DaAtomList::FindAsteroidRecursive(const AuId& targetId) const
@@ -314,6 +314,13 @@ void DaAtomList::FindCitiesBdRecursive(DaAtomList& supplyCities, DaAtomList& rep
 	for(const_iterator it = cbegin(); it != cend(); it++)
 		if((*it)->IsNormal())
 			(*it)->FindCitiesBdRecursive(supplyCities, repairCities, troopCities, empireId);
+}
+
+void DaAtomList::FindNpcsRecursive(DaAtomList& npcs) const
+{
+    for(const_iterator it = cbegin(); it != cend(); it++)
+        if((*it)->IsNormal())
+            (*it)->FindNpcsRecursive(npcs);
 }
 
 void DaAtomList::FindPlanetsRecursive(DaAtomList& planets) const

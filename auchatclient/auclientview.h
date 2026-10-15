@@ -174,6 +174,20 @@ public:
 		m_Tip = c.m_Tip;
 	}
 
+	inline const AuViewButton& operator=(const AuViewButton& c)
+	{
+		m_Action = c.m_Action;
+		m_Button = c.m_Button;
+		m_Enabled = c.m_Enabled;
+		m_Id = c.m_Id;
+		m_Parent = c.m_Parent;
+		m_ScreenPos = c.m_ScreenPos;
+		m_Text = c.m_Text;
+		m_Texture = c.m_Texture;
+		m_Tip = c.m_Tip;
+		return *this;
+	}
+
 public:	// Methods
 	void AddToToolBar(QToolBar* tb, AuClientView* view);
 

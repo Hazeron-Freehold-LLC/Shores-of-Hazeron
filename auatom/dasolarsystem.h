@@ -149,6 +149,25 @@ public:
 	}
 
 public:
+	inline const AuHengeDest_& operator=(const AuHengeDest_& c)
+	{
+		m_FromArcSegment = c.m_FromArcSegment;
+		m_FromShadowPanels = c.m_FromShadowPanels;
+		m_FromSun = c.m_FromSun;
+		m_FromSysId = c.m_FromSysId;
+		m_HasBreathableAtm = c.m_HasBreathableAtm;
+		m_HengeLL = c.m_HengeLL;
+		m_MySectorId = c.m_MySectorId;
+		m_OrbitZone = c.m_OrbitZone;
+		m_OutsideCity = c.m_OutsideCity;
+		m_ToArcSegment = c.m_ToArcSegment;
+		m_ToSun = c.m_ToSun;
+		m_WorldAtomType = c.m_WorldAtomType;
+		m_WorldCatName = c.m_WorldCatName;
+		m_WorldName = c.m_WorldName;
+		return *this;
+	}
+
 	inline void operator>>(QDataStream& out) const
 	{
 		quint8 bitsOzone = m_OrbitZone;

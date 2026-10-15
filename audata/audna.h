@@ -52,6 +52,14 @@ public:	// Constructors
 		m_M = c.m_M;
 	}
 
+public:	// Operators
+	inline const AuAnimalBone& operator=(const AuAnimalBone& c)
+	{
+		m_Loc = c.m_Loc;
+		m_M = c.m_M;
+		return *this;
+	}
+
 public:	// Methods
 	inline const AuPoint& UnposedLoc() const
 	{
@@ -1218,7 +1226,7 @@ public:	// Operators
 	virtual void WriteSpeciesKey(QDataStream& out) const;
 	virtual void ReadSpeciesKey(QDataStream& in, quint8 fileVer);
 
-	virtual bool operator==(const AuChromosomeWithGenes& dna) const
+	virtual bool operator==(const AuChromosome& dna) const
 	{
 		try
 		{
@@ -1243,7 +1251,7 @@ public:	// Operators
 		return true;
 	}
 
-	inline bool operator!=(const AuChromosomeWithGenes& dna) const
+	inline bool operator!=(const AuChromosome& dna) const
 	{
 		return !operator==(dna);
 	}

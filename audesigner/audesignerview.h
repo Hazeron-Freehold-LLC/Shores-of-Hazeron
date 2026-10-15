@@ -262,6 +262,18 @@ public:
 		m_Tip = c.m_Tip;
 	}
 
+	const AuViewButton& operator=(const AuViewButton& c)
+	{
+		m_Enabled = c.m_Enabled;
+		m_Id = c.m_Id;
+		m_Parent = c.m_Parent;
+		m_ScreenPos = c.m_ScreenPos;
+		m_Text = c.m_Text;
+		m_Texture = c.m_Texture;
+		m_Tip = c.m_Tip;
+		return *this;
+	}
+
 	inline QString Image() const
 	{
 		return Image(m_Id);

@@ -1928,94 +1928,11 @@ QColor DaWorldGasGiant::AtmosphereColor() const
 		m_GasGiantLock.unlock();
 
 		m_GasGiantLock.lockForWrite();
-		m_AtmColor = AtmosphereColor(m_AtmType, m_byAtmDensity, Id().GetID());
+		m_AtmColor = AtmosphereColorStatic(m_AtmType, m_byAtmDensity, Id().GetID());
 	}
 	QColor c(m_AtmColor);
 	m_GasGiantLock.unlock();
 	return c;
-}
-
-// static
-QColor DaWorldGasGiant::AtmosphereColor(unsigned char byAtmType, unsigned char byAtmDensity, quint32 genSeed)
-{
-	int r,g,b;
-	if(byAtmDensity > 0)
-	{
-		// Purturb the colors a bit just for fun.
-		// Seed the random number generator for consistent values for the planet.
-		AuDice dice;
-		dice.Seed(genSeed);
-
-		switch(byAtmType)
-		{
-		default:
-		case ATMTYPE_Standard:
-			r = 255-30;
-			g = 255-30;
-			b = 255-30;
-			r += dice.Roll(1,61,-31);	// +/-30. This gets clamped at the end.
-			g += dice.Roll(1,61,-31);	// +/-30. This gets clamped at the end.
-			b += dice.Roll(1,61,-31);	// +/-30. This gets clamped at the end.
-			break;
-		case ATMTYPE_Tainted:
-			r = 255-50;
-			g = 255-50;
-			b = 255-50;
-			r += dice.Roll(1,101,-51);	// +/-50. This gets clamped at the end.
-			g += dice.Roll(1,101,-51);	// +/-50. This gets clamped at the end.
-			b += dice.Roll(1,101,-51);	// +/-50. This gets clamped at the end.
-			break;
-		case ATMTYPE_Exotic:
-			r = 255-70;
-			g = 255-70;
-			b = 255-70;
-			r += dice.Roll(1,141,-71);	// +/-70. This gets clamped at the end.
-			g += dice.Roll(1,141,-71);	// +/-70. This gets clamped at the end.
-			b += dice.Roll(1,141,-71);	// +/-70. This gets clamped at the end.
-			break;
-		case ATMTYPE_Corrosive:
-			r = 255-90;
-			g = 255-90;
-			b = 255-90;
-			r += dice.Roll(1,181,-91);	// +/-90. This gets clamped at the end.
-			g += dice.Roll(1,181,-91);	// +/-90. This gets clamped at the end.
-			b += dice.Roll(1,181,-91);	// +/-90. This gets clamped at the end.
-			break;
-		case ATMTYPE_Insidious:
-			r = 255-110;
-			g = 255-110;
-			b = 255-110;
-			r += dice.Roll(1,221,-111);	// +/-110. This gets clamped at the end.
-			g += dice.Roll(1,221,-111);	// +/-110. This gets clamped at the end.
-			b += dice.Roll(1,221,-111);	// +/-110. This gets clamped at the end.
-			break;
-		}
-	}
-	else
-	{
-		// Zero atmosphere density. What is this color used for?
-		r = 160;
-		g = 80;
-		b = 0;
-		//qDebug("DaWorldGasGiant::AtmosphereColor atmType %d atmDensity %d genSeed %d", byAtmType, byAtmDensity, genSeed);
-	}
-
-	if(r < 0)
-		r = 0;
-	else if(r > 255)
-		r = 255;
-
-	if(g < 0)
-		g = 0;
-	else if(g > 255)
-		g = 255;
-
-	if(b < 0)
-		b = 0;
-	else if(b > 255)
-		b = 255;
-
-	return QColor(r,g,b);
 }
 
 void DaWorldGasGiant::CreateDeviceObjects(AuAtomRenderInfo& ari)
@@ -2191,7 +2108,7 @@ void DaWorldGasGiant::Tick(const AuElapsedTimer& last, const AuElapsedTimer& now
 		m_RotationAngle = m_ThinkRotation;
 		AuMatrix4x4 t(m_ThinkTransform);
 		m_GasGiantLock.unlock();
-		ChangePos(AuAtomPos(ParentId(), t));
+		ChangePosNotParent(AuAtomPos(ParentId(), t));
 	}
 	DaWorldSphere::Tick(last, now);
 }
@@ -2264,7 +2181,7 @@ void DaWorldGasGiant::InitSystemPosition()
 	m_ThinkRotation = m_RotationAngle;
 	m_ThinkTransform = tBody;
 	m_GasGiantLock.unlock();
-	ChangePos(AuAtomPos(ParentId(), tBody));
+	ChangePosNotParent(AuAtomPos(ParentId(), tBody));
 }
 
 // Provides information about the planet's terrain at a given surface location.
@@ -2494,7 +2411,8 @@ bool DaWorldGasGiant::MoveSubatom(DaAtom *pMove, const AuPoint &vMove, int elaps
 				AuMatrix4x4 tBody;
 				tBody.Translate(fnuloc-foldloc);
 				tBody *= pMove->Transform();
-				pMove->ChangePos(AuAtomPos(Id(), tBody));
+				if(!pMove->ChangePosNotParent(AuAtomPos(Id(), tBody)))
+					return false;
 				pMove->InvalidateEnvironmentRecursive();
 			}
 

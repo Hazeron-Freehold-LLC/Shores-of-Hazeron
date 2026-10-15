@@ -324,12 +324,13 @@ void AuDesignerTextureWrapView::wheelEvent(QWheelEvent* e)
 	QWidget::wheelEvent(e);
 
 	// Calculate current mouse pos in the texture image.
-	float x = ((float)e->pos().x() - m_Pan.x() + m_TexSize.width()/2) / m_Scale;
-	float y = ((float)e->pos().y() - m_Pan.y() + m_TexSize.height()/2) / m_Scale;
-
 #if(QT_VERSION >= QT_VERSION_CHECK(5,14,0))
+	float x = ((float)e->position().x() - m_Pan.x() + m_TexSize.width()/2) / m_Scale;
+	float y = ((float)e->position().y() - m_Pan.y() + m_TexSize.height()/2) / m_Scale;
 	int zDelta = e->angleDelta().y();
 #else
+	float x = ((float)e->pos().x() - m_Pan.x() + m_TexSize.width()/2) / m_Scale;
+	float y = ((float)e->pos().y() - m_Pan.y() + m_TexSize.height()/2) / m_Scale;
 	int zDelta = e->delta();
 #endif
 	if(zDelta > 0)
@@ -358,8 +359,13 @@ void AuDesignerTextureWrapView::wheelEvent(QWheelEvent* e)
 	}
 
 	// Calculate change in pan so pixel under mouse doesn't move.
+#if(QT_VERSION >= QT_VERSION_CHECK(5,14,0))
+	float px = (float)e->position().x() + m_TexSize.width()/2 - x * m_Scale;
+	float py = (float)e->position().y() + m_TexSize.height()/2 - y * m_Scale;
+#else
 	float px = (float)e->pos().x() + m_TexSize.width()/2 - x * m_Scale;
 	float py = (float)e->pos().y() + m_TexSize.height()/2 - y * m_Scale;
+#endif
 	m_Pan = QPointF(px, py);;
 
 	update();

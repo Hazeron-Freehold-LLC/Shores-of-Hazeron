@@ -778,6 +778,15 @@ public:
 		m_Which = c.m_Which;
 	}
 
+	inline const AuSystemInfo& operator=(const AuSystemInfo& c)
+	{
+		m_Desc = c.m_Desc;
+		m_Quality = c.m_Quality;
+		m_System = c.m_System;
+		m_Which = c.m_Which;
+		return *this;
+	}
+
 	inline QString SystemIconName() const
 	{
 		return SystemIcon(m_System);

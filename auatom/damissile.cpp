@@ -606,8 +606,8 @@ void DaMissile::Tick(const AuElapsedTimer& last, const AuElapsedTimer& now)
 		m_TurnM.LoadIdentity();			// Until I decide to turn again.
 		m_MissileLock.unlock();
 		AuAtomPos pos(Pos());
-		pos.TransformBy(m_TurnM);
-		ChangePos(pos);
+		pos.TransformBy(turn);
+		ChangePosNotParent(pos);
 	}
 
 	// Determine the lifetime of this ordnance based on typical attack range.

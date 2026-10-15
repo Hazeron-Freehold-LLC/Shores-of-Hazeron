@@ -515,7 +515,7 @@ void PrintFunctionsWiki()
 #if !defined(QT_NO_DEBUG)
 void DoMyTest()
 {
-	QTime timer;
+	QElapsedTimer timer;
 
 	/*
 	double M[16] = {	1, 0, 0, 0,
@@ -606,7 +606,7 @@ void DoMyTest()
 
 void DoIntrinsics()
 {
-	QTime timer;
+	QElapsedTimer timer;
 
 	timer.start();
 	AuMatrix4x4 myT;

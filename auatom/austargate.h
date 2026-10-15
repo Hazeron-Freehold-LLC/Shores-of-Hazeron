@@ -43,6 +43,14 @@ public:
 		m_ToLoc = c.m_ToLoc;
 	}
 
+public:
+	const AuStargate& operator=(const AuStargate& c);
+
+	void operator>>(QDataStream& out) const;
+
+	void operator<<(QDataStream& in);
+
+public:
 	inline const AuTime& Expiry() const
 	{
 		return m_Expiry;
@@ -58,10 +66,6 @@ public:
 	{
 		return m_Origin;
 	}
-
-	void operator>>(QDataStream& out) const;
-
-	void operator<<(QDataStream& in);
 
 	inline const AuId& ToGalaxy() const
 	{

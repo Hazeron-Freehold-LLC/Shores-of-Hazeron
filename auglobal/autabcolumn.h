@@ -60,6 +60,16 @@ public:
 		m_TextColor = QColor(255,255,255);
 	}
 
+	inline const AuTabItem& operator=(const AuTabItem& c)
+	{
+		m_Icon = c.m_Icon;
+		m_Label = c.m_Label;
+		m_ShowControl = c.m_ShowControl;
+		m_TextColor = c.m_TextColor;
+		m_ToolTip = c.m_ToolTip;
+		return *this;
+	}
+
 	inline const QString& Label() const
 	{
 		return m_Label;

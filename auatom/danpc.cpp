@@ -10622,11 +10622,11 @@ quint8 DaNpc::Rank() const
 	case ROLE_Crew:
 		{
 			quint32 xp = CrewExperiencePoints();
-			if(xp < PromotionGoal(0))
+			if(xp < PromotionGoalRank(0))
 				return 0;
-			else if(xp < PromotionGoal(1))
+			else if(xp < PromotionGoalRank(1))
 				return 1;
-			else if(xp < PromotionGoal(2))
+			else if(xp < PromotionGoalRank(2))
 				return 2;
 			else
 				return 3;
@@ -10634,11 +10634,11 @@ quint8 DaNpc::Rank() const
 	case ROLE_Troop:
 		{
 			quint32 xp = TroopExperiencePoints();
-			if(xp < PromotionGoal(0))
+			if(xp < PromotionGoalRank(0))
 				return 0;
-			else if(xp < PromotionGoal(1))
+			else if(xp < PromotionGoalRank(1))
 				return 1;
-			else if(xp < PromotionGoal(2))
+			else if(xp < PromotionGoalRank(2))
 				return 2;
 			else
 				return 3;
@@ -10646,15 +10646,15 @@ quint8 DaNpc::Rank() const
 	case ROLE_Officer:
 		{
 			quint32 xp = CommandExperiencePoints();
-			if(xp < PromotionGoal(0))
+			if(xp < PromotionGoalRank(0))
 				return 0;
-			else if(xp < PromotionGoal(1))
+			else if(xp < PromotionGoalRank(1))
 				return 1;
-			else if(xp < PromotionGoal(2))
+			else if(xp < PromotionGoalRank(2))
 				return 2;
-			else if(xp < PromotionGoal(3))
+			else if(xp < PromotionGoalRank(3))
 				return 3;
-			else if(xp < PromotionGoal(4))
+			else if(xp < PromotionGoalRank(4))
 				return 4;
 			else
 				return 5;
@@ -10663,7 +10663,7 @@ quint8 DaNpc::Rank() const
 	return DaCitizen::Rank();
 }
 
-quint32 DaNpc::PromotionGoal(quint8 rank) const
+quint32 DaNpc::PromotionGoalRank(quint8 rank) const
 {
 	switch(Role())
 	{
@@ -10717,7 +10717,7 @@ quint32 DaNpc::PromotionGoal(quint8 rank) const
 
 quint32 DaNpc::PromotionGoal() const
 {
-	return PromotionGoal(Rank());
+	return PromotionGoalRank(Rank());
 }
 
 bool DaNpc::InChainOfCommand(const AuId& personId, quint32 personEmpire) const
@@ -10977,20 +10977,20 @@ COMMODITYID DaNpc::Helmet() const
 	return DaCitizen::Helmet();
 }
 
-DaNpc* DaNpc::FindCharacterRecursive() const
+DaNpc* DaNpc::FindNpcRecursive() const
 {
-	if(!IsNormal())
-		return 0;
-	if(g_Au.IsStoryActive(StoryInstance()))
-		return (DaNpc*)this;	// Cast away constness.
-	return DaCitizen::FindCharacterRecursive();
+    if(!IsNormal())
+        return 0;
+    if(g_Au.IsStoryActive(StoryInstance()))
+        return (DaNpc*)this;    // Cast away constness.
+    return DaCitizen::FindNpcRecursive();
 }
 
-DaNpc* DaNpc::FindCharacterRecursive(const QString& charName, quint32 storyInstance) const
+DaNpc* DaNpc::FindNpcRecursive(const QString& charName, quint32 storyInstance) const
 {
-	if(Name() == charName && StoryInstance() == storyInstance)
-		return (DaNpc*)this;	// Cast away constness.
-	return DaCitizen::FindCharacterRecursive(charName, storyInstance);
+    if(Name() == charName && StoryInstance() == storyInstance)
+        return (DaNpc*)this;    // Cast away constness.
+    return DaCitizen::FindNpcRecursive(charName, storyInstance);
 }
 
 void DaNpc::WantItem(COMMODITYID cid)
@@ -11077,7 +11077,7 @@ void DaNpc::InitTraining()
 	if(GrowthStage() == Juvenile)
 		return;	// Juveniles do not get training.
 
-	quint32 promotionGoal = PromotionGoal(0);
+	quint32 promotionGoal = PromotionGoalRank(0);
 	quint32 xp;
 	switch(Role())
 	{
@@ -11178,5 +11178,13 @@ void DaNpc::InitTraining()
 			IncreaseSkill(AuSkill::Command, promotionGoal - xp);	// Just enough to get promoted.
 		break;
 	}
+}
+
+void DaNpc::FindNpcsRecursive(DaAtomList& npcs) const
+{
+    //if(!IsNormal())
+        //return;
+    npcs.append((DaNpc*)this);  // Cast away constness.
+    DaAtom::FindNpcsRecursive(npcs);
 }
 

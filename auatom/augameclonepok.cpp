@@ -50,6 +50,25 @@ AuGameClonepokTile::~AuGameClonepokTile()
 		delete m_pBody;
 }
 
+const AuGameClonepokTile& AuGameClonepokTile::operator=(const AuGameClonepokTile& c)
+{
+	m_HitPoints = c.m_HitPoints;
+	m_Id = c.m_Id;
+	if(m_Item)
+		delete m_Item;
+	if(m_pBody)
+		delete m_pBody;
+	if(c.m_Item)
+		m_Item = c.m_Item->Clone();
+	else
+		m_Item = 0;
+	m_MapLoc = c.m_MapLoc;
+	m_pBody = 0;
+	m_Player = c.m_Player;
+	m_Space = c.m_Space;
+	return *this;
+}
+
 void AuGameClonepokTile::operator>>(QDataStream& out) const
 {
 	out << m_HitPoints;

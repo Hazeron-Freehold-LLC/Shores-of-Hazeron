@@ -454,6 +454,17 @@ public:	// Constructors
 	}
 
 public:	// Operators
+	inline const AuClothingTri& operator=(const AuClothingTri& c)
+	{
+		m_ClothingTexIndex = c.m_ClothingTexIndex;
+		m_N = c.m_N;
+		m_Part = c.m_Part;
+		m_V0 = c.m_V0;
+		m_V1 = c.m_V1;
+		m_V2 = c.m_V2;
+		return *this;
+	}
+
 	inline void operator<<(QDataStream& in)
 	{
 		in >> m_ClothingTexIndex;

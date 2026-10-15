@@ -36,6 +36,8 @@ public:
 	~AuShipSystem();
 
 public:
+	const AuShipSystem& operator=(const AuShipSystem& c);
+
 	void operator<<(QDataStream& in);
 	void operator>>(QDataStream& out) const;
 

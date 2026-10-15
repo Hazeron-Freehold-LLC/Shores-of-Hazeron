@@ -1746,7 +1746,7 @@ void DaVehicle::Tick(const AuElapsedTimer& last, const AuElapsedTimer& now)
 							moveVec = pos.Transform().UnProjectVector(moveVec);	// Convert movement vector to be in my own space.
 							tmove.Translate(moveVec);
 							pos.TransformBy(tmove);
-							ChangePos(pos);
+							ChangePosNotParent(pos);
 							InvalidateEnvironment();
 							anyChange = true;
 						}
@@ -1815,7 +1815,7 @@ void DaVehicle::Tick(const AuElapsedTimer& last, const AuElapsedTimer& now)
 							tme.Translate(pos.Translation());
 							tme.Rotate(nuRot);
 							pos.SetTransform(tme);
-							ChangePos(pos);
+							ChangePosNotParent(pos);
 							InvalidateEnvironment();
 							anyChange = true;
 							//qDebug() << "DaVehicle::Tick" << Id() << Name() << "aboard" << ship->Id() << ship->Name()
@@ -2703,7 +2703,7 @@ void DaVehicle::ApplyRotation(unsigned int msElapsed)
 			nupos.RotateY(rTurnY);
 
 		if(nupos != pos)
-			ChangePosAndOrient(nupos);
+			ChangePosAndOrientNotParent(nupos);
 
 		// This atom's movement vector must be held in the direction it was going, sort of like real inertia.
 		if(rotvec)
@@ -2814,7 +2814,7 @@ bool DaVehicle::Orient(const AuPoint& atLoc, const AuPoint& terNormal)
 		if(IsAtRest() && !nuRot.FuzzyEquals(pos.Rotation()))
 		{
 			pos.SetTransform(tOrient);
-			ChangePos(pos);
+			ChangePosNotParent(pos);
 			oriented = true;
 		}
 	}
@@ -2855,7 +2855,7 @@ bool DaVehicle::Orient(const AuPoint& atLoc, const AuPoint& terNormal)
 			tOrient.Translate(atLoc);
 			tOrient.Rotate(nuRot);
 			pos.SetTransform(tOrient);
-			ChangePos(pos);
+			ChangePosNotParent(pos);
 			oriented = true;
 		}
 	}
@@ -5394,7 +5394,7 @@ void DaVehicle::ProcessControlInput(const DiControlInputArray &aActiveControls, 
 				AuMatrix4x4 t;
 				t.Translate(pSceneAtom->Location());	// Keep them in the same place relative to the vehicle.
 				t.RotateZ(PI);							// Set facing angle. 0 is straight ahead.
-				pSceneAtom->ChangePosAndOrient(AuAtomPos(Id(), t));
+				pSceneAtom->ChangePosAndOrientNotParent(AuAtomPos(Id(), t));
 				pSceneAtom->TiltHeadTo(0);
 			}
 			break;
@@ -5404,7 +5404,7 @@ void DaVehicle::ProcessControlInput(const DiControlInputArray &aActiveControls, 
 				AuMatrix4x4 t;
 				t.Translate(pSceneAtom->Location());	// Keep them in the same place relative to the vehicle.
 				//t.RotateZ(PI);						// Set facing angle. 0 is straight ahead.
-				pSceneAtom->ChangePosAndOrient(AuAtomPos(Id(), t));
+				pSceneAtom->ChangePosAndOrientNotParent(AuAtomPos(Id(), t));
 				pSceneAtom->TiltHeadTo(0);
 			}
 			break;
@@ -5414,7 +5414,7 @@ void DaVehicle::ProcessControlInput(const DiControlInputArray &aActiveControls, 
 				AuMatrix4x4 t;
 				t.Translate(pSceneAtom->Location());	// Keep them in the same place relative to the vehicle.
 				t.RotateZ(PI/2);						// Set facing angle. 0 is straight ahead.
-				pSceneAtom->ChangePosAndOrient(AuAtomPos(Id(), t));
+				pSceneAtom->ChangePosAndOrientNotParent(AuAtomPos(Id(), t));
 				pSceneAtom->TiltHeadTo(0);
 			}
 			break;
@@ -5424,7 +5424,7 @@ void DaVehicle::ProcessControlInput(const DiControlInputArray &aActiveControls, 
 				AuMatrix4x4 t;
 				t.Translate(pSceneAtom->Location());	// Keep them in the same place relative to the vehicle.
 				t.RotateZ(PI*3/4);						// Set facing angle. 0 is straight ahead.
-				pSceneAtom->ChangePosAndOrient(AuAtomPos(Id(), t));
+				pSceneAtom->ChangePosAndOrientNotParent(AuAtomPos(Id(), t));
 				pSceneAtom->TiltHeadTo(0);
 			}
 			break;
@@ -5434,7 +5434,7 @@ void DaVehicle::ProcessControlInput(const DiControlInputArray &aActiveControls, 
 				AuMatrix4x4 t;
 				t.Translate(pSceneAtom->Location());	// Keep them in the same place relative to the vehicle.
 				t.RotateZ(PI/4);						// Set facing angle. 0 is straight ahead.
-				pSceneAtom->ChangePosAndOrient(AuAtomPos(Id(), t));
+				pSceneAtom->ChangePosAndOrientNotParent(AuAtomPos(Id(), t));
 				pSceneAtom->TiltHeadTo(0);
 			}
 			break;
@@ -5444,7 +5444,7 @@ void DaVehicle::ProcessControlInput(const DiControlInputArray &aActiveControls, 
 				AuMatrix4x4 t;
 				t.Translate(pSceneAtom->Location());	// Keep them in the same place relative to the vehicle.
 				t.RotateZ(-PI/2);						// Set facing angle. 0 is straight ahead.
-				pSceneAtom->ChangePosAndOrient(AuAtomPos(Id(), t));
+				pSceneAtom->ChangePosAndOrientNotParent(AuAtomPos(Id(), t));
 				pSceneAtom->TiltHeadTo(0);
 			}
 			break;
@@ -5454,7 +5454,7 @@ void DaVehicle::ProcessControlInput(const DiControlInputArray &aActiveControls, 
 				AuMatrix4x4 t;
 				t.Translate(pSceneAtom->Location());	// Keep them in the same place relative to the vehicle.
 				t.RotateZ(-PI*3/4);						// Set facing angle. 0 is straight ahead.
-				pSceneAtom->ChangePosAndOrient(AuAtomPos(Id(), t));
+				pSceneAtom->ChangePosAndOrientNotParent(AuAtomPos(Id(), t));
 				pSceneAtom->TiltHeadTo(0);
 			}
 			break;
@@ -5464,7 +5464,7 @@ void DaVehicle::ProcessControlInput(const DiControlInputArray &aActiveControls, 
 				AuMatrix4x4 t;
 				t.Translate(pSceneAtom->Location());	// Keep them in the same place relative to the vehicle.
 				t.RotateZ(-PI/4);						// Set facing angle. 0 is straight ahead.
-				pSceneAtom->ChangePosAndOrient(AuAtomPos(Id(), t));
+				pSceneAtom->ChangePosAndOrientNotParent(AuAtomPos(Id(), t));
 				pSceneAtom->TiltHeadTo(0);
 			}
 			break;
@@ -5502,7 +5502,7 @@ void DaVehicle::ChangeSeats(DaPerson* occupant, int fromSeat, int toSeat)
 	t.Translate(moveVec);
 	t *= occupant->Transform();
 	occupant->SetVehicleSeatIndex(toSeat);
-	occupant->ChangePosAndOrient(AuAtomPos(Id(), t));
+	occupant->ChangePosAndOrientNotParent(AuAtomPos(Id(), t));
 	occupant->InvalidateEnvironment();
 	occupant->SetModified();
 

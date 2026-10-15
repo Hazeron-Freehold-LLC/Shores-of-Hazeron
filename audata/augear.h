@@ -54,6 +54,8 @@ public:	// Operators
 
 	bool operator==(const AuGearSlot& gi) const;
 
+	const AuGearSlot& operator=(const AuGearSlot& c);
+
 public:	// Methods
 	inline bool CanHoldItem(const AuItem& item) const
 	{

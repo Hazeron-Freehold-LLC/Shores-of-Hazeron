@@ -163,6 +163,12 @@ public:
 	}
 
 public:	// Operators
+	const AuRoadNetwork& operator=(const AuRoadNetwork& c)
+	{
+		m_Roads = c.m_Roads;
+		return *this;
+	}
+
 	inline void operator>>(QDataStream& out) const
 	{
 		out << m_Roads;

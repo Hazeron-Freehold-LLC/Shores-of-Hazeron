@@ -115,15 +115,17 @@ public:
 
 	virtual QString DescribeActivity() const;
 
-	virtual DaNpc* FindCharacterRecursive() const;
-
-	virtual DaNpc* FindCharacterRecursive(const QString& charName, quint32 storyInstance) const;
-
 	virtual void FindClosestShipTurretTargetRecursive(const AuId& shipId, int gunnerDomain, const AuId& gunnerWorldId,
 			quint32 gunnerEmpire, CITIZEN_POSTURE gunnerPosture, const AuPoint& gunSysLoc, float gunRange, const AuPoint& gunSysVec,
 			const DaAtom*& targetAtom, double& targetRange, AuPoint& targetSysLoc) const;
 
 	virtual void FindCrewRecursive(const AuId& shipAssigned, DaAtomList& crewMembers) const;
+
+	virtual DaNpc* FindNpcRecursive() const;
+
+    virtual DaNpc* FindNpcRecursive(const QString& charName, quint32 storyInstance) const;
+
+    virtual void FindNpcsRecursive(DaAtomList& npcs) const;
 
 	virtual const DaNpc* FindOfficerRecursive() const;
 
@@ -321,7 +323,7 @@ public:
 	// Returns the total number of experience points needed to get promoted to the next rank above 'rank'.
 	// This is the total experience points needed for the rank, not the experience points remaining to get there.
 	// 0 is returned if 'rank' is the maximum rank.
-	quint32 PromotionGoal(quint8 rank) const;
+	quint32 PromotionGoalRank(quint8 rank) const;
 
 	// This is only called on the scene client.
 	void QueueSound(const QByteArray& soundData, AuSound& al);

@@ -561,7 +561,7 @@ bool DaItem::Orient(const AuPoint& atLoc, const AuPoint& terNormal)
 	AuPoint ogn = pos.Transform().ProjectVector(GravityNormal());
 
 	// Orient item to the terrain.
-	ChangePos(AuAtomPos(pos.ParentId(), tOrient));
+	ChangePosNotParent(AuAtomPos(pos.ParentId(), tOrient));
 
 	// Restore movement as a vector relative to me.
 	SetVector(tOrient.UnProjectVector(omv));
@@ -2533,16 +2533,18 @@ bool DaItem::IsInScene(const DaPerson* sceneAtom, const AuPoint& cameraEnvLoc) c
 	Q_UNUSED(cameraEnvLoc);
 	switch(CommodityId())
 	{
-	case CID_BurningBarrel:
-	case CID_Drum:
 	case CID_PressureTent:
-	case CID_StoneFirePit:
 	case CID_Tepee:
-		return DistanceToAtom2(sceneAtom, 0) < (200*FeetPerMeter() * 200*FeetPerMeter());
+		return DistanceToAtom2(sceneAtom, 0) < (400*FeetPerMeter() * 400*FeetPerMeter());
+	case CID_BurningBarrel:
+		return DistanceToAtom2(sceneAtom, 0) < (500*FeetPerMeter() * 500*FeetPerMeter());
+	case CID_Drum:          // So I can hear it a long way away.
+	case CID_StoneFirePit:
+		return DistanceToAtom2(sceneAtom, 0) < (750*FeetPerMeter() * 750*FeetPerMeter());
 	case CID_Beacon:
 		if(ItemState() == 1)
-			return DistanceToAtom2(sceneAtom, 0) < (200*FeetPerMeter() * 200*FeetPerMeter());
-		// Not on so use default.
+			return DistanceToAtom2(sceneAtom, 0) < (750*FeetPerMeter() * 750*FeetPerMeter());
+		// Not blinking so use default range.
 		break;
 	default:
 		break;

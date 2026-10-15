@@ -2823,7 +2823,7 @@ void DtSceneServer::ClientPositionUpdate(bool atRest, float headTilt, AuAtomPos&
 						nloc = pos.Translation();
 
 						// Position the person.
-						person->ChangePosAndOrient(pos);
+						person->ChangePosAndOrientNotParent(pos);
 						person->InvalidateEnvironment();
 
 						// Update turret position.
@@ -3024,7 +3024,7 @@ void DtSceneServer::ClientPositionUpdate(bool atRest, float headTilt, AuAtomPos&
 								pnloc = parentPos.Translation();
 
 								// Position the parent atom.
-								parentControl->ChangePosAndOrient(parentPos);
+								parentControl->ChangePosAndOrientNotParent(parentPos);
 								parentControl->InvalidateEnvironment();
 							}
 						}

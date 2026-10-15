@@ -69,6 +69,20 @@ AuGearSlot::~AuGearSlot()
 		delete m_Item;
 }
 
+const AuGearSlot& AuGearSlot::operator=(const AuGearSlot& c)
+{
+	if(m_Item)
+		delete m_Item;
+	if(c.m_Item)
+		m_Item = c.m_Item->Clone();
+	else
+		m_Item = 0;
+	m_Slot = c.m_Slot;
+	m_Which = c.m_Which;
+
+	return *this;
+}
+
 void AuGearSlot::operator>>(QDataStream& out) const
 {
 	quint8 whichSlot = (m_Which << 4) | m_Slot;	// Top 4 bits is which id, bottom 4 bits is slot type.

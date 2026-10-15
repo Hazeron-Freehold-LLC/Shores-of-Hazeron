@@ -322,7 +322,7 @@ public:
 		return QColor(255,255,255);
 	}
 
-	static QColor AtmosphereColor(unsigned char byAtmType, unsigned char byAtmDensity, quint32 genSeed);
+	static QColor AtmosphereColorStatic(unsigned char byAtmType, unsigned char byAtmDensity, quint32 genSeed);
 
 	// Returns density of atmosphere at a specific altitude above sea level.
 	float AtmosphereDensity(float altitudeMSL) const

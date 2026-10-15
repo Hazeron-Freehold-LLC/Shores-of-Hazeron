@@ -951,7 +951,7 @@ void DaWorld::ListMoons(QMap<double, double>& moons) const
 }
 
 //static
-QColor DaWorld::AtmosphereColor(unsigned char byAtmType, unsigned char byAtmDensity, quint32 genSeed)
+QColor DaWorld::AtmosphereColorStatic(unsigned char byAtmType, unsigned char byAtmDensity, quint32 genSeed)
 {
 	int r,g,b;
 	if(byAtmDensity > 0)
@@ -1012,7 +1012,7 @@ QColor DaWorld::AtmosphereColor(unsigned char byAtmType, unsigned char byAtmDens
 		r = 160;
 		g = 80;
 		b = 0;
-		//qDebug("DaWorld::AtmosphereColor atmType %d atmDensity %d id %d", byAtmType, byAtmDensity, id);
+		//qDebug("DaWorld::AtmosphereColorStatic atmType %d atmDensity %d id %d", byAtmType, byAtmDensity, id);
 	}
 
 	if(r < 0)

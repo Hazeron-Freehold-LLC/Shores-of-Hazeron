@@ -883,7 +883,7 @@ void DaSolarSystem::PrepareForResourceScan(const QString& catalogName, const QSt
 	m_CatalogNameValid = true;
 	m_CatalogNameLock.unlock();
 
-	ChangePosAndOrient(AuAtomPos(ParentId(), systemT));
+	ChangePosAndOrientNotParent(AuAtomPos(ParentId(), systemT));
 
 	CreateContentsForScan(galaxy, genHab, genSeed, isCoreBlackHole);
 
@@ -1996,7 +1996,8 @@ bool DaSolarSystem::MoveSubatom(DaAtom *pMove, const AuPoint &vMove, int /*elaps
 				AuMatrix4x4 t;
 				t.Translate(fmove);
 				pos.TransformBy(t);
-				pMove->ChangePos(pos);
+				if(!pMove->ChangePosNotParent(pos))
+					return false;
 				pMove->InvalidateEnvironmentRecursive();
 			}
 
@@ -4101,7 +4102,7 @@ bool DaSolarSystem::DepartedOnDeadHeading(DaAtom* departAtom, const DaGalaxy* ga
 
 	//qDebug("DaSolarSystem::MoveSubatom - Handoff set transform");
 	AuMatrix4x4 t = ts.Inverse() * tm;
-	departAtom->ChangePosAndOrient(AuAtomPos(Id(), t));
+	departAtom->ChangePosAndOrientNotParent(AuAtomPos(Id(), t));
 	departAtom->InvalidateEnvironmentRecursive();
 	departAtom->SetModified();
 

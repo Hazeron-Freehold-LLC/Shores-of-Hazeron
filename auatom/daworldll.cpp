@@ -96,6 +96,14 @@ bool AuWorldEnclosure::Contains(const AuPoint& worldLoc) const
 	return m_EnvVoids->VoidContainingLoc(worldLoc, AuDoorStateHash(), AuLandingGearStateHash(), AuLiftHash(), 0);
 }
 
+const AuWorldEnclosure& AuWorldEnclosure::operator=(const AuWorldEnclosure& c)
+{
+	m_BdId = c.m_BdId;
+	m_EnvVoids = new AuScParts(*c.m_EnvVoids);
+	m_UnderSea = c.m_UnderSea;
+	return *this;
+}
+
 void AuWorldEnclosure::operator>>(QDataStream& out) const
 {
 	out << m_BdId;
@@ -4366,89 +4374,6 @@ unsigned char DaWorldLL::AverageFoliage() const
 		lPlantPercent = 100;
 
 	return lPlantPercent;
-}
-
-// static
-QColor DaWorldLL::AtmosphereColor(unsigned char byAtmType, unsigned char byAtmDensity, quint32 genSeed)
-{
-	int r,g,b;
-	if(byAtmDensity > 0)
-	{
-		// Purturb the colors a bit just for fun.
-		// Seed the random number generator for consistent values for the planet.
-		AuDice dice;
-		dice.Seed(genSeed);
-
-		switch(byAtmType)
-		{
-		default:
-		case ATMTYPE_Standard:
-			r = 255-30;
-			g = 255-30;
-			b = 255-30;
-			r += dice.Roll(1,61,-31);	// +/-30. This gets clamped at the end.
-			g += dice.Roll(1,61,-31);	// +/-30. This gets clamped at the end.
-			b += dice.Roll(1,61,-31);	// +/-30. This gets clamped at the end.
-			break;
-		case ATMTYPE_Tainted:
-			r = 255-50;
-			g = 255-50;
-			b = 255-50;
-			r += dice.Roll(1,101,-51);	// +/-50. This gets clamped at the end.
-			g += dice.Roll(1,101,-51);	// +/-50. This gets clamped at the end.
-			b += dice.Roll(1,101,-51);	// +/-50. This gets clamped at the end.
-			break;
-		case ATMTYPE_Exotic:
-			r = 255-70;
-			g = 255-70;
-			b = 255-70;
-			r += dice.Roll(1,141,-71);	// +/-70. This gets clamped at the end.
-			g += dice.Roll(1,141,-71);	// +/-70. This gets clamped at the end.
-			b += dice.Roll(1,141,-71);	// +/-70. This gets clamped at the end.
-			break;
-		case ATMTYPE_Corrosive:
-			r = 255-90;
-			g = 255-90;
-			b = 255-90;
-			r += dice.Roll(1,181,-91);	// +/-90. This gets clamped at the end.
-			g += dice.Roll(1,181,-91);	// +/-90. This gets clamped at the end.
-			b += dice.Roll(1,181,-91);	// +/-90. This gets clamped at the end.
-			break;
-		case ATMTYPE_Insidious:
-			r = 255-110;
-			g = 255-110;
-			b = 255-110;
-			r += dice.Roll(1,221,-111);	// +/-110. This gets clamped at the end.
-			g += dice.Roll(1,221,-111);	// +/-110. This gets clamped at the end.
-			b += dice.Roll(1,221,-111);	// +/-110. This gets clamped at the end.
-			break;
-		}
-	}
-	else
-	{
-		// Zero atmosphere density. What is this color used for?
-		r = 160;
-		g = 80;
-		b = 0;
-		//qDebug("DaWorldLL::AtmosphereColor atmType %d atmDensity %d id %d", byAtmType, byAtmDensity, id);
-	}
-
-	if(r < 0)
-		r = 0;
-	else if(r > 255)
-		r = 255;
-
-	if(g < 0)
-		g = 0;
-	else if(g > 255)
-		g = 255;
-
-	if(b < 0)
-		b = 0;
-	else if(b > 255)
-		b = 255;
-
-	return QColor(r,g,b);
 }
 
 // This was cobbled from a shader.
@@ -13647,7 +13572,7 @@ void DaWorldLL::SceneRenderParameters(const DaAtom* sceneAtom, float& ambientR, 
 	if(atmDensity > 0 && sceneAtom->IsInAtmosphere())
 	{
 		// Setup atmospheric fog based on atmosphere density.
-		QColor colAtm = DaWorld::AtmosphereColor();
+		QColor colAtm = AtmosphereColor();
 		if(IsGasGiant() && sceneAtom->IsEyeUnderWater())
 			fogDensity = SeaFogDensity();
 		else

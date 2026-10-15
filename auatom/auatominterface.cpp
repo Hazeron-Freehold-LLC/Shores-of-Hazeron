@@ -5633,7 +5633,7 @@ void AuAtomInterface::MoveItemRight(const AuId& itemId, double amount, bool rela
                 t.Translate(vec);
                 pos.TransformBy(t);
             }
-            item->ChangePosAndOrient(pos);
+            item->ChangePosAndOrientNotParent(pos);
             item->SetStaticRoom(person->CapsuleRoomName());
             item->InvalidateEnvironment();
             item->SetModified();
@@ -5661,7 +5661,7 @@ void AuAtomInterface::MoveItemLeft(const AuId& itemId, double amount, bool relat
                 t.Translate(vec);
                 pos.TransformBy(t);
             }
-            item->ChangePosAndOrient(pos);
+            item->ChangePosAndOrientNotParent(pos);
             item->SetStaticRoom(person->CapsuleRoomName());
             item->InvalidateEnvironment();
             item->SetModified();
@@ -5689,7 +5689,7 @@ void AuAtomInterface::MoveItemForward(const AuId& itemId, double amount, bool re
                 t.Translate(vec);
                 pos.TransformBy(t);
             }
-            item->ChangePosAndOrient(pos);
+            item->ChangePosAndOrientNotParent(pos);
             item->SetStaticRoom(person->CapsuleRoomName());
             item->InvalidateEnvironment();
             item->SetModified();
@@ -5717,7 +5717,7 @@ void AuAtomInterface::MoveItemBackward(const AuId& itemId, double amount, bool r
                 t.Translate(vec);
                 pos.TransformBy(t);
             }
-            item->ChangePosAndOrient(pos);
+            item->ChangePosAndOrientNotParent(pos);
             item->SetStaticRoom(person->CapsuleRoomName());
             item->InvalidateEnvironment();
             item->SetModified();
@@ -5745,7 +5745,7 @@ void AuAtomInterface::MoveItemUp(const AuId& itemId, double amount, bool relativ
                 t.Translate(vec);
                 pos.TransformBy(t);
             }
-            item->ChangePosAndOrient(pos);
+            item->ChangePosAndOrientNotParent(pos);
             item->SetStaticRoom(person->CapsuleRoomName());
             item->InvalidateEnvironment();
             item->SetModified();
@@ -5773,7 +5773,7 @@ void AuAtomInterface::MoveItemDown(const AuId& itemId, double amount, bool relat
                 t.Translate(vec);
                 pos.TransformBy(t);
             }
-            item->ChangePosAndOrient(pos);
+            item->ChangePosAndOrientNotParent(pos);
             item->SetStaticRoom(person->CapsuleRoomName());
             item->InvalidateEnvironment();
             item->SetModified();
@@ -5799,7 +5799,7 @@ void AuAtomInterface::RotateItemXPos(const AuId& itemId, double amount, bool rel
                 AuPoint vec = pos.UnProjectVector(AuPoint(1, 0, 0));    // Parent's axis in my space.
                 pos.RotateAxis(amount, vec);
             }
-            item->ChangePosAndOrient(pos);
+            item->ChangePosAndOrientNotParent(pos);
             item->SetStaticRoom(person->CapsuleRoomName());
             item->InvalidateEnvironment();
             item->SetModified();
@@ -5825,7 +5825,7 @@ void AuAtomInterface::RotateItemXNeg(const AuId& itemId, double amount, bool rel
                 AuPoint vec = pos.UnProjectVector(AuPoint(1, 0, 0));    // Parent's axis in my space.
                 pos.RotateAxis(-amount, vec);
             }
-            item->ChangePosAndOrient(pos);
+            item->ChangePosAndOrientNotParent(pos);
             item->SetStaticRoom(person->CapsuleRoomName());
             item->InvalidateEnvironment();
             item->SetModified();
@@ -5851,7 +5851,7 @@ void AuAtomInterface::RotateItemYPos(const AuId& itemId, double amount, bool rel
                 AuPoint vec = pos.UnProjectVector(AuPoint(0, 1, 0));    // Parent's axis in my space.
                 pos.RotateAxis(amount, vec);
             }
-            item->ChangePosAndOrient(pos);
+            item->ChangePosAndOrientNotParent(pos);
             item->SetStaticRoom(person->CapsuleRoomName());
             item->InvalidateEnvironment();
             item->SetModified();
@@ -5877,7 +5877,7 @@ void AuAtomInterface::RotateItemYNeg(const AuId& itemId, double amount, bool rel
                 AuPoint vec = pos.UnProjectVector(AuPoint(0, 1, 0));    // Parent's axis in my space.
                 pos.RotateAxis(-amount, vec);
             }
-            item->ChangePosAndOrient(pos);
+            item->ChangePosAndOrientNotParent(pos);
             item->SetStaticRoom(person->CapsuleRoomName());
             item->InvalidateEnvironment();
             item->SetModified();
@@ -5903,7 +5903,7 @@ void AuAtomInterface::RotateItemZPos(const AuId& itemId, double amount, bool rel
                 AuPoint vec = pos.UnProjectVector(AuPoint(0, 0, 1));    // Parent's axis in my space.
                 pos.RotateAxis(amount, vec);
             }
-            item->ChangePosAndOrient(pos);
+            item->ChangePosAndOrientNotParent(pos);
             item->SetStaticRoom(person->CapsuleRoomName());
             item->InvalidateEnvironment();
             item->SetModified();
@@ -5929,7 +5929,7 @@ void AuAtomInterface::RotateItemZNeg(const AuId& itemId, double amount, bool rel
                 AuPoint vec = pos.UnProjectVector(AuPoint(0, 0, 1));    // Parent's axis in my space.
                 pos.RotateAxis(-amount, vec);
             }
-            item->ChangePosAndOrient(pos);
+            item->ChangePosAndOrientNotParent(pos);
             item->SetStaticRoom(person->CapsuleRoomName());
             item->InvalidateEnvironment();
             item->SetModified();
@@ -5947,7 +5947,7 @@ void AuAtomInterface::ResetItemTransform(const AuId& itemId, const AuMatrix4x4& 
         DaItem* item = (DaItem*)system->FindIdRecursive(itemId);
         if(item && (item->IsStaticDisplayControllableBy(person->Id(), person->EmpireId()) || person->HasAgentPower()))
         {
-			item->ChangePosAndOrient(AuAtomPos(item->ParentId(), t));
+			item->ChangePosAndOrientNotParent(AuAtomPos(item->ParentId(), t));
             item->SetStaticRoom(room);
             item->InvalidateEnvironment();
             item->SetModified();

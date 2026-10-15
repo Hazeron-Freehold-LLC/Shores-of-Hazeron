@@ -2576,6 +2576,22 @@ quint8 DgData::ScDesignState(quint32 designId) const
 	return (*it).second.State();
 }
 
+/*DHH waiting for design compatibility backport from Hazeron Starship
+void DgData::ScDesignItemSpots(quint32 designId, QHash<COMMODITYID, QList<AuItemSpot> >& spotsByCID) const
+{
+	AuScDesignHash::const_iterator it = m_ScDesigns->find(designId);
+	if(it != m_ScDesigns->cend())
+		(*it).second.ItemSpots(spotsByCID);
+}
+
+void DgData::ScDesignVehicleParkingSpots(quint32 designId, QHash<COMMODITYID, QList<AuVehicleSpot> >& parkingByCID) const
+{
+	AuScDesignHash::const_iterator it = m_ScDesigns->find(designId);
+	if(it != m_ScDesigns->cend())
+		(*it).second.VehicleParkingSpots(parkingByCID);
+}
+*/
+
 AuId DgData::ScDesignArchitect(quint32 designId) const
 {
 	AuScDesignHash::const_iterator it = m_ScDesigns->find(designId);

@@ -130,12 +130,7 @@ public:	// Methods
 
 	inline void SetRotation(double rotZ)
 	{
-		m_RotZ = rotZ;
-		// Normalize rotation to the range of -PI to PI.
-		while(m_RotZ > PI)
-			m_RotZ -= PI*2;
-		while(m_RotZ < -PI)
-			m_RotZ += PI*2;
+		m_RotZ = UnwindAngle(rotZ);	// Normalize rotation to the range of -Pi to Pi.
 	}
 };
 

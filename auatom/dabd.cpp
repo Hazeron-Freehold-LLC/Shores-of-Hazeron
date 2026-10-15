@@ -8296,7 +8296,8 @@ bool DaBd::MoveSubatom(DaAtom* pMove, const AuPoint& vMove, int elapsedMs)
 				AuMatrix4x4 tBody;
 				tBody.Translate(fnuloc-foldloc);
 				tBody *= pMove->Transform();
-				pMove->ForcePos(AuAtomPos(Id(), tBody));
+				if(!pMove->ChangePosNotParent(AuAtomPos(Id(), tBody)))
+					return false;
 				pMove->InvalidateEnvironmentRecursive();
 			}
 
@@ -17771,33 +17772,62 @@ void DaBd::Demolish()
 {
 	if(FindPersonRecursive())
 		return;
+	DaWorldLL* llworld = FindParentWorldInEnv();
+	if(!llworld)
+		return;
 
 	if(IsPlatform())
 	{
 		// Do not demolish a platform while it hosts buildings.
-		DaWorldLL* llworld = FindParentWorldInEnv();
-		if(llworld)
-		{
-			DaAtomList bds;
-			llworld->FindBdsOnPlatform(Id(), bds);
-			if(!bds.empty())
-				return;
-		}
+		DaAtomList bds;
+		llworld->FindBdsOnPlatform(Id(), bds);
+		if(!bds.empty())
+			return;
 	}
 	else if(IsHarshEnvironmentEnclosure())
 	{
 		// Do not demolish a harsh environment enclosure while it contains buildings.
-		DaWorldLL* llworld = FindParentWorldInEnv();
-		if(llworld)
-		{
-			DaAtomList bds;
-			llworld->FindBdsInsideEnclosure(Id(), bds);
-			if(!bds.empty())
-				return;
-		}
+		DaAtomList bds;
+		llworld->FindBdsInsideEnclosure(Id(), bds);
+		if(!bds.empty())
+			return;
+	}
+
+	// Must remove story characters from the building so they don't get killed wthen the Bd atom is Kill'd.
+	DaAtomList npcs;
+	DaAtomList charsMoved;
+	FindNpcsRecursive(npcs);
+	for(DaAtomList::const_iterator ni = npcs.cbegin(); ni != npcs.cend(); ni++)
+	{
+		DaNpc* npc = dynamic_cast<DaNpc*>(*ni);
+		if(!npc)
+			continue;
+		if(!npc->IsNormal())
+			continue;
+		if(!npc->IsStoryCharacter())
+			continue;	// Simple npc is not part of a story.
+
+		AuMatrix4x4 t;
+		if(!npc->GetTransformRelativeToParent(t, llworld))
+			continue;	// Npc is no longer subordinate to this bd?
+
+		npc->SetTraveling();	// So it won't immediately move back into this building.
+
+		AuAtomPos pos(llworld->Id(), t);
+		npc->ChangePos(pos);
+		charsMoved.append(npc);
 	}
 
 	KillBuilding();
+
+	// Restore normal state of story characters that we removed from the building.
+	for(DaAtomList::const_iterator ci = charsMoved.cbegin(); ci != charsMoved.cend(); ci++)
+	{
+		DaAtom* ch = *ci;
+		ch->SetNormal();
+		ch->TickTock();
+		ch->SetModified();
+	}
 }
 
 void DaBd::KillBuilding()

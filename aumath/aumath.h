@@ -44,6 +44,49 @@ public:
 #define	ACOS(x)		(double)((x) > 1.0 ? 0.0 : (x) < -1.0 ? PI : acos((double)(x)))
 #define FROUND(val,rndval) ((int)((val + (val > 0.0 ? 0.5*rndval : -0.5*rndval))/rndval))*rndval
 
+// Returns 'angle' converted to the range of -PI <= a <= PI.
+inline double UnwindAngle(double angle)
+{
+	if(angle >= -PI && angle <= PI)
+		return angle;
+
+	double uang;
+	if(angle >= -PI*2 && angle <= PI*2)
+		uang = angle;
+	else
+	{
+		double integ;
+		uang = modf(angle/(PI*2), &integ) * (PI*2);
+	}
+
+	if(uang > PI)
+		return uang - PI*2;
+	else if(uang < -PI)
+		return uang + PI*2;
+	return uang;
+}
+
+// Returns 'angle' converted to the range of 0 <= a <= PI*2.
+inline double UnwindAnglePositive(double angle)
+{
+	if(angle >= 0)
+	{
+		if(angle <= PI*2)
+			return angle;
+	}
+	else
+	{
+		if(angle >= -PI*2)
+			return angle + PI*2;
+	}
+
+	double integ;
+	double uang = modf(angle/(PI*2), &integ) * PI*2;
+	if(uang < 0)
+		return uang + PI*2;
+	return uang;
+}
+
 // float versions
 #ifdef PIf
 #	undef PIf
@@ -55,6 +98,49 @@ public:
 #define RAD2GRADf	(50.f/PIf)
 #define	ACOSf(x)	(float)((x) > 1.f ? 0.f : (x) < -1.f ? PIf : acosf((float)(x)))
 #define FROUNDf(val,rndval) ((int)((val + (val > 0.f ? 0.5f*rndval : -0.5f*rndval))/rndval))*rndval
+
+// Returns 'angle' converted to the range of -PIf <= a <= PIf.
+inline float UnwindAngleF(float angle)
+{
+	if(angle >= -PIf && angle <= PIf)
+		return angle;
+
+	float uang;
+	if(angle >= -PIf*2 && angle <= PIf*2)
+		uang = angle;
+	else
+	{
+		float integ;
+		uang = modff(angle/(PIf*2), &integ) * PIf*2;
+	}
+
+	if(uang > PIf)
+		return uang - PIf*2;
+	else if(uang < -PIf)
+		return uang + PIf*2;
+	return uang;
+}
+
+// Returns 'angle' converted to the range of 0 <= a <= PIf*2.
+inline float UnwindAnglePositiveF(float angle)
+{
+	if(angle >= 0)
+	{
+		if(angle <= PIf*2)
+			return angle;
+	}
+	else
+	{
+		if(angle >= -PIf*2)
+			return angle + PIf*2;
+	}
+
+	float integ;
+	float uang = modff(angle/(PIf*2), &integ) * PIf*2;
+	if(uang < 0)
+		return uang + PIf*2;
+	return uang;
+}
 
 #define RANDOM(imin,imax)	(imin+rand()%(imax-imin+1))	// calculate a random number between imin and imax, inclusively
 #define RANDOM_INTERVAL		(RANDOM(50,150))	// return random range for status update

@@ -820,6 +820,7 @@ namespace AuDef
 		SPOT_Rocket,
 		SPOT_SpaceVehicle,
 		SPOT_WaterVehicle,
+		SPOT_SpecificVehicle,
 		SPOT_Count
 	};
 
@@ -2722,10 +2723,11 @@ namespace AuDef
 		QString spotTypes[SPOT_Count] =
 		{
 			QString(""),
-			QObject::tr("ground vehicle"),
-			QObject::tr("space rocket"),
-			QObject::tr("space vehicle"),
-			QObject::tr("water vehicle"),
+			QObject::tr("ground vehicle", "Vehicle parking spot type name"),
+			QObject::tr("space rocket", "Vehicle parking spot type name"),
+			QObject::tr("space vehicle", "Vehicle parking spot type name"),
+			QObject::tr("water vehicle", "Vehicle parking spot type name"),
+			QObject::tr("specific vehicle", "Vehicle parking spot type name"),
 		};
 		return spotTypes[spotType];
 	}

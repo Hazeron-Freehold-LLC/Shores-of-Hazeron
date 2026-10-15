@@ -322,6 +322,7 @@ void AuSystemScan::TimerUpdate()
 				blipStance = PoliticalStance(person->EmpireId(), veh->EmpireId());
 				switch(veh->ParkingSpotType())
 				{
+					//DHH SPOT_SpecificVehicle generates a warning here, until design changes are backported.
 				case SPOT_Invalid:
 				case SPOT_GroundVehicle:
 				case SPOT_Count:
