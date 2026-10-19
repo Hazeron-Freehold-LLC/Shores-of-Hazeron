@@ -977,6 +977,7 @@ void AuApp::InitDesignerMode()
 	// Release build plays in normal player mode.
 	acctType = ACCT_Active;
 #endif
+	person->SetAccountTypeOnLine(acctType);
 	ether.TickTock();
 	g_Au.UnlockEtheriumDelete();
 
@@ -1160,6 +1161,7 @@ AuId AuApp::CreateSoloAvatar(int avatarIndex, unsigned char proximity, GALAXY ga
 		// Release build plays in normal player mode.
 		ACCOUNT acctType = ACCT_Active;
 #endif
+		person->SetAccountTypeOnLine(acctType);
 
 		gd.SetClientInfo(1, 1, idUnits, names, (const AuDNABase**)dnas, chromas, hands, clothes, armor, hat, visor,
 				hair, shave, acctType, AuTime());
