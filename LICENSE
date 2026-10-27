@@ -11,12 +11,39 @@ A royalty must be paid to Hazeron Freehold LLC if a fee is charged to use this
 software or any derivative work that uses any portion of this software. The
 royalty will equal 5% of the price. If this software is distributed as part of
 a bundle, the royalty will be 5% of the price of the bundle. Royalty payments
-must be remitted monthly if the outstanding royalty debt exceeds $100.
+must be remitted monthly if the outstanding royalty debt exceeds $100. The
+first $100000 of fees collected, that would be subject to this royalty, is
+exempt from this royalty.
 
-	Hazeron Freehold LLC
-	3900 N. 37th St.
-	Norfolk, NE 68701
-	402-860-9757
+    Hazeron Freehold LLC
+    3900 N. 37th St.
+    Norfolk, NE 68701
+    402-860-9757
+
+    Wire transfers for international payments must begin with this information.
+
+        Receiving Financial Institution:
+            FIRST NATIONAL BANK OMAHA
+            1620 DODGE STREET
+            OMAHA, NE 68197-1089
+
+            ABA # 104000016
+            SWIFT CODE: FNBOUS44
+
+    Wire transfers for all payments, domestic and international, will need this
+    information.
+
+        Beneficiary Bank
+            ELKHORN VALLEY BANK & TRUST
+            404 S 25TH STREET
+            NORFOLK, NE 68701
+            Routing Number: 104902172
+
+        Beneficiary
+            HAZERON FREEHOLD, LLC
+            3900 N 37TH STREET
+            NORFOLK, NE 68701
+            Account Number: 1006972
 
 THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
 REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
@@ -25,4 +52,3 @@ INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
 LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
 OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 PERFORMANCE OF THIS SOFTWARE.
-
