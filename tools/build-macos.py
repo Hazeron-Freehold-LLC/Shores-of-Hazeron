@@ -68,4 +68,4 @@ if args.target not in projects:
 build(args.target)
 
 if args.target == 'ausceneclient':
-    run([sys.executable, str(root / 'tools/prepare-macos-app.py')], root)
+    run([sys.executable, str(root / 'tools/package-macos.py')], root)

@@ -4,10 +4,13 @@
 all: client servers cgi report auviewer
 
 # Native macOS scene-client build; existing platform targets are unchanged.
-.PHONY: mac-client
+.PHONY: mac-client mac-package
 MAC_JOBS ?= 4
 mac-client:
 	python3 tools/build-macos.py --jobs $(MAC_JOBS)
+
+mac-package:
+	python3 tools/package-macos.py
 
 client: ausceneclient aulauncher aumailclient auservermon auscript auchatclient
 

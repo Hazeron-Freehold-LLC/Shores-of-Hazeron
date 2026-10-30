@@ -1,42 +1,54 @@
-# macOS development build
+# macOS client
 
-Requires Python 3, Apple command-line developer tools, Qt 5.15 and SDL2.
-From the repository root:
+Build prerequisites: Python 3, Apple command-line developer tools, Qt 5.15,
+SDL2 and (when using SDL2-compat) SDL3. These are needed only on the build Mac.
 
 ```sh
 make mac-client
 ```
 
-Use `make mac-client MAC_JOBS=8` to change the number of compiler jobs.
+Use `MAC_JOBS=8` to change compiler parallelism. Override `QMAKE` and
+`HOMEBREW_PREFIX` for installations outside Apple Silicon Homebrew defaults.
+For a narrower development build: `python3 tools/build-macos.py --target auutil`.
 
-The script defaults to Apple Silicon Homebrew paths. Override `QMAKE` and
-`HOMEBREW_PREFIX` for another installation. It generates ignored in-source
-qmake projects/Makefiles, selects OpenGL 4.1, and builds the scene client's
-library dependencies before the application. Output libraries go in `debug/`.
-Use `--target auutil` (or another project directory) for a narrower build.
+The build produces the development executable under `ausceneclient/` and
+libraries under `debug/`, then packages these distribution outputs at the
+repository root, following the existing `Makefile.rel` distribution layout:
 
-This is an incremental development build, not a distribution packaging tool.
-The full arm64 debug build completed on 2026-10-30 with Qt 5.15.19.
-The executable reports `AuSceneClient Version 7b2, Oct 30 2026` and launches
-to the Shores of Hazeron age-confirmation screen. Login, gameplay graphics,
-audio and server compatibility have not been verified.
+- `soh-macos-arm64/SoH.app`
+- `soh-macos-arm64.zip`
 
-Launch with:
+To package existing compiled outputs without recompiling:
 
 ```sh
-open ausceneclient/AuSceneClient_debug.app
+make mac-package
 ```
 
-The final preparation step fixes resource dylib install names to `@rpath`,
-clears Finder metadata from generated binaries and ad-hoc signs the outputs.
-For existing compiled outputs, run `python3 tools/prepare-macos-app.py`.
-The app still depends on this checkout's `debug/` directory and local Homebrew
-libraries. This is not a portable distribution. The installed SDL2 compatibility
-library was built for macOS 26; older OS support needs separately built dependencies.
-Startup logs a missing `ShroudOfGlory.wav` music asset, which is absent from the
-checkout. It does not prevent the initial window from opening.
+Share the ZIP. Recipients can extract `SoH.app` and move it to Applications;
+Homebrew, Qt, Python and this source checkout are not required at runtime.
+The package includes Qt frameworks/plugins, transitive third-party libraries,
+SDL2 and SDL3, Hazeron resource libraries, textures, blueprints, game data,
+a generated sound archive, and available dependency license notices.
+The icon is generated from `ausceneclient/data/SoHIcon.ico`, the exact asset
+referenced by the Windows EXE. Its sole 32x32 source image is scaled for larger
+Mac icon sizes.
 
-The root Makefile's `mac-client` target delegates to the Mac-only build script.
-Existing Makefile targets, `Makefile.rel`, `reqt.opt`, Windows scripts and C++
-sources remain unchanged. The generated qmake files are ignored build outputs. Use separate
-checkouts when building different platforms concurrently.
+The current artifact is an arm64 debug build requiring macOS 26 or newer
+because of the installed SDL dependencies. Packaging sets that minimum in
+Info.plist, audits all linked dependencies, removes external runtime search
+paths, and ad-hoc signs the bundle. Developer ID signing and Apple notarization
+are not configured; this is not yet a notarized public release.
+The source checkout lacks `ShroudOfGlory.wav`; packaging includes all available
+sound files but cannot supply that missing music asset.
+
+Existing Linux/Windows targets, `Makefile.rel`, `reqt.opt` files and C++ sources
+remain unchanged. Mac overrides live in separate tooling. Generated qmake
+projects/Makefiles are ignored outputs; use separate checkouts for concurrent
+builds on different platforms.
+
+Verification on 2026-10-30: the extracted ZIP passed deep/strict signature
+verification, printed the client version, and opened the main menu from a
+separate temporary directory under a sandbox denying reads of both
+`/opt/homebrew` and the entire source workspace. This verifies local dependency
+isolation; login, online gameplay and testing on another physical Mac remain
+outstanding.

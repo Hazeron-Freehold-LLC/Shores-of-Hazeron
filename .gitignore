@@ -361,3 +361,6 @@ release/
 # Native macOS build output
 *.app/
 __pycache__/
+
+# Mac distribution archives
+/soh-macos-*.zip
