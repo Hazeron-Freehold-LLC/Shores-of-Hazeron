@@ -357,3 +357,7 @@ auviewer/Makefile
 auviewer/auviewer.pro
 debug/
 release/
+
+# Native macOS build output
+*.app/
+__pycache__/
