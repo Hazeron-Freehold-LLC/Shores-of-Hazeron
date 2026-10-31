@@ -462,7 +462,14 @@ public:
 
 	inline void ResetViewport() const
 	{
+#if defined(Q_OS_MACOS)
+		// Qt's widget framebuffer uses physical pixels on Retina displays. Restore
+		// that size after offscreen texture rendering, rather than logical points.
+		const QSize pixels = glw->size() * glw->devicePixelRatioF();
+		re->glViewport(0, 0, pixels.width(), pixels.height());
+#else
 		re->glViewport(0, 0, glw->width(), glw->height());
+#endif
 	}
 
 	inline const AuId& SelectedBd() const

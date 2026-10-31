@@ -41,14 +41,21 @@ are not configured; this is not yet a notarized public release.
 The source checkout lacks `ShroudOfGlory.wav`; packaging includes all available
 sound files but cannot supply that missing music asset.
 
-Existing Linux/Windows targets, `Makefile.rel`, `reqt.opt` files and C++ sources
-remain unchanged. Mac overrides live in separate tooling. Generated qmake
-projects/Makefiles are ignored outputs; use separate checkouts for concurrent
+Existing Linux/Windows targets, `Makefile.rel`, and `reqt.opt` files remain
+unchanged. Mac build overrides live in separate tooling. The macOS viewport
+restore path accounts for Retina device pixel ratios after offscreen rendering,
+keeping HUD text and icons at a consistent size. Other platforms retain their
+existing viewport behavior. Mac mouse-look sampling also runs on the GUI thread
+and recenters through Core Graphics without generating synthetic mouse events.
+The existing sensitivity setting and other platforms' input paths are preserved.
+Generated qmake projects/Makefiles are ignored outputs; use separate checkouts for concurrent
 builds on different platforms.
 
 Verification on 2026-10-30: the extracted ZIP passed deep/strict signature
 verification, printed the client version, and opened the main menu from a
 separate temporary directory under a sandbox denying reads of both
 `/opt/homebrew` and the entire source workspace. This verifies local dependency
-isolation; login, online gameplay and testing on another physical Mac remain
+isolation. A local original-server session has also reached a rendered world;
+manual testing confirmed stable Retina HUD sizing and normal mouse-look control.
+Public-server compatibility and testing on another physical Mac remain
 outstanding.

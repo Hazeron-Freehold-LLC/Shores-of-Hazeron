@@ -60,6 +60,8 @@ LIBS += -L{prefix}/lib
 QMAKE_SONAME_PREFIX = @rpath
 QMAKE_RPATHDIR += $$absolute_path(../debug)
 ''')
+        if '-lAuDesigner' in text:
+            output.write('LIBS += -framework CoreGraphics\n')
     run([qmake, pro.name, 'MOC_DIR=.d/', 'OBJECTS_DIR=.d/', 'RCC_DIR=.d/'], folder)
     run(['make', '-j' + str(args.jobs)], folder)
 

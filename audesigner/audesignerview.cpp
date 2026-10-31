@@ -201,6 +201,19 @@
 #include <QToolTip>
 #include <QWheelEvent>
 
+#if defined(Q_OS_MACOS)
+#include <CoreGraphics/CoreGraphics.h>
+
+// Qt 5's Cocoa QCursor::setPos posts an asynchronous mouse event. Mouse look
+// needs a warp that completes without feeding synthetic motion back into input.
+static QPoint RecenterMacMouse(const QPoint& position)
+{
+	if(CGWarpMouseCursorPosition(CGPointMake(position.x(), position.y())) == kCGErrorSuccess)
+		CGAssociateMouseAndMouseCursorPosition(true); // Avoid suppressing physical motion after the warp.
+	return QCursor::pos();
+}
+#endif
+
 // Switches useful for testing.
 //static int s_Test = 0;
 static bool s_Animate = true;			// Ctrl+1 - AnimateDeviceObjects
@@ -2438,16 +2451,50 @@ void AuDesignerView::AnimateScene()
 			pmid.setY((rc.top() + rc.bottom())/2);
 			QPoint pgmid = mapToGlobal(pmid);
 			m_ControlLock.lock();
+#if defined(Q_OS_MACOS)
+			m_MousePosLast = RecenterMacMouse(pgmid);
+#else
 			QCursor::setPos(pgmid);
+			m_MousePosLast = pgmid;
+#endif
 			m_MouseVecAtom = QPoint(0,0);	// Init movement vector for control input.
 			//m_MousePos = pgmid;
-			m_MousePosLast = pgmid;
 			m_ControlLock.unlock();
 			//qDebug() << "AuDesignerView::AnimateScene zero vec" << m_MouseVecAtom;
 		}
 		m_InputMode = inputMode;
 		m_InputModeChanged.restart();
 	}
+
+#if defined(Q_OS_MACOS)
+	// AppKit cursor access and widget geometry belong on the GUI thread. The
+	// control worker only consumes these accumulated logical-coordinate deltas.
+	m_ControlLock.lock();
+	if(m_SceneRendered && IsCharacterInputMode() && !m_bFreeMouse && hasFocus() && !m_bWaitingForScene)
+	{
+		const QPoint mousePos = QCursor::pos();
+		const QPoint globalMid = mapToGlobal(rect().center());
+		if(m_MouseGrabbed || underMouse())
+		{
+			m_MouseVecAtom += mousePos - m_MousePosLast;
+			// Both the dead zone and cursor position must be in global coordinates.
+			const QRect centerZone(globalMid - QPoint(5,5), QSize(11,11));
+			m_MousePosLast = centerZone.contains(mousePos) ? mousePos : RecenterMacMouse(globalMid);
+		}
+		else
+		{
+			m_bFreeMouse = true;
+			m_MouseVecAtom = QPoint(0,0);
+			m_MousePosLast = mousePos;
+		}
+	}
+	else
+	{
+		m_MouseVecAtom = QPoint(0,0);
+		m_MousePosLast = QCursor::pos();
+	}
+	m_ControlLock.unlock();
+#endif
 
 	if(m_Fade < 1 && !fadeToDeath)
 	{
@@ -5041,6 +5088,7 @@ void AuDesignerView::ProcessControls()
 		return;
 	}
 
+#if !defined(Q_OS_MACOS)
 	if(IsCharacterInputMode() && !m_bFreeMouse)
 	{
 		// Calculate mouse movement since last time through here.
@@ -5097,6 +5145,7 @@ void AuDesignerView::ProcessControls()
 		m_MouseVecAtom = QPoint(0,0);
 		m_ControlLock.unlock();
 	}
+#endif
 
 	// Process control inputs to user interface.
 	ProcessUIControls();
@@ -8844,6 +8893,14 @@ void AuDesignerView::GrabMouse()
 	{
 		grabMouse();
 		m_MouseGrabbed = true;
+#if defined(Q_OS_MACOS)
+		// Regaining focus must not turn the distance from the old cursor position
+		// into a camera rotation.
+		m_ControlLock.lock();
+		m_MousePosLast = RecenterMacMouse(mapToGlobal(rect().center()));
+		m_MouseVecAtom = QPoint(0,0);
+		m_ControlLock.unlock();
+#endif
 		//qDebug() << "AuDesignerView::GrabMouse";
 	}
 }
